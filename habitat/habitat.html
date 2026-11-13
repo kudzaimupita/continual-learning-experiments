@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning Habitat</title>
+<style>
+:root{--bg:#fafaf9;--panel:#fff;--ink:#1c1c1a;--muted:#6b6b66;--line:#e4e4e0;--grid:#f0f0ec;--accent:#2f5bd3;--simple:#c97a1e;--life:#6b4fd0;--good:#2f8a43;--bad:#c2413b}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--panel:#1c1c1b;--ink:#ecebe7;--muted:#9a9993;--line:#2e2e2c;--grid:#232322;--accent:#7c9cf0;--simple:#e39a45;--life:#9b84f0;--good:#58b86c;--bad:#e06a62}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:2}
+h1{font-size:15px;margin:0;font-weight:600}
+#season{font-size:13px;padding:2px 8px;border:1px solid var(--line);border-radius:4px}
+.sp{flex:1}
+.btn{font:inherit;font-size:13px;color:inherit;background:none;border:1px solid var(--line);border-radius:4px;padding:4px 10px;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+label{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+main{max-width:1180px;margin:0 auto;padding:16px}
+.intro{color:var(--muted);margin:0 0 14px;max-width:820px}
+.worlds{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:820px){.worlds{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px}
+.card h2{font-size:14px;margin:0 0 2px;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+canvas.world{width:100%;aspect-ratio:1;display:block;border:1px solid var(--line);border-radius:4px;background:var(--grid)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
+.stat{border-top:1px solid var(--line);padding-top:4px}
+.stat b{display:block;font-size:16px;font-variant-numeric:tabular-nums}
+.stat span{font-size:11px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+th{font-weight:500;color:var(--muted);text-align:left;padding:3px 4px;border-bottom:1px solid var(--line)}
+td{padding:3px 4px;border-bottom:1px solid var(--line)}
+td.num{text-align:right}
+.sw{display:inline-block;width:11px;height:11px;margin-right:6px;vertical-align:-1px}
+.bar{height:5px;background:var(--line);border-radius:2px;overflow:hidden;width:60px;display:inline-block;vertical-align:middle}
+.bar i{display:block;height:100%;background:var(--muted)}
+.mem{font-size:12px;color:var(--muted);margin-top:8px;min-height:18px}
+.mem span{border:1px solid var(--line);border-radius:3px;padding:0 5px;margin-right:4px}
+.mem span.on{border-color:var(--life);color:var(--life)}
+.below{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-top:16px}
+@media (max-width:820px){.below{grid-template-columns:1fr}}
+#chart{width:100%;height:220px;display:block}
+.legend{font-size:12px;color:var(--muted);display:flex;gap:14px;margin-top:4px;flex-wrap:wrap}
+#log{font-size:12.5px;max-height:270px;overflow-y:auto}
+#log div{padding:3px 0;border-bottom:1px solid var(--line)}
+#log .t{color:var(--muted);font-variant-numeric:tabular-nums;margin-right:6px}
+#summary{margin-top:16px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Learning Habitat</h1>
+  <span id="season"></span>
+  <span class="sp"></span>
+  <button class="btn primary" id="play">Pause</button>
+  <label>Speed <input type="range" id="speed" min="1" max="60" value="6"></label>
+  <label><input type="checkbox" id="auto" checked> Seasons change on their own</label>
+  <button class="btn" id="change">Change the rules now</button>
+  <button class="btn" id="reset">Restart</button>
+</header>
+<main>
+<p class="intro"><a href="habitat-pixels.html" style="color:var(--accent)">Pixel version</a> · Two creatures live in identical worlds. Each must eat to keep its energy up. Food has a colour and a shape, and the season decides which foods nourish and which poison. Before every meal a creature predicts the result, then learns from its surprise. The simple creature keeps one set of beliefs. The lifelike creature also remembers past seasons, recognises when one returns, learns faster when surprised, and sleeps to replay its experiences.</p>
+<div class="worlds" id="worlds"></div>
+<div class="below">
+  <div class="card">
+    <h2>Surprise over time</h2>
+    <div class="sub">How wrong each creature's predictions are, averaged over its last 10 meals. Vertical lines mark season changes.</div>
+    <canvas id="chart"></canvas>
+    <div class="legend"><span><i class="dot" style="background:var(--simple)"></i> Simple</span><span><i class="dot" style="background:var(--life)"></i> Lifelike</span></div>
+  </div>
+  <div class="card">
+    <h2>What happened</h2>
+    <div class="sub">Big surprises, season recognition, sleep and deaths.</div>
+    <div id="log"></div>
+  </div>
+</div>
+<div class="card" id="summary"></div>
+</main>
+<script>
+const N = 24, SIGHT = 7, FOOD = 22, ROT = 0.08, SEASON_LEN = 1200, SLEEP_EVERY = 400, SLEEP_LEN = 25;
+const COLOURS = [{n: "red", h: "#d9534f"}, {n: "blue", h: "#3b7dd8"}, {n: "green", h: "#3fa34d"}];
+const SHAPES = ["circle", "square"];
+const SEASONS = [
+  {name: "Season 1: red is food", col: [6, -6, 0], shp: [2, -2]},
+  {name: "Season 2: blue is food", col: [-6, 6, 0], shp: [2, -2]},
+  {name: "Season 3: green is food, squares better", col: [-3, -3, 6], shp: [-2, 2]},
+];
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const typeName = (c, s) => COLOURS[c].n + " " + SHAPES[s];
+const fmt = v => (v > 0 ? "+" : "") + v.toFixed(1);
+
+function makeRng(seed) {
+  return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+
+// The creature's world model: value of a food = weight of its colour + weight of its shape.
+class Mind {
+  constructor(lifelike) { this.lifelike = lifelike; this.contexts = [this.newContext()]; this.active = 0; this.pending = []; this.meals = 0; this.lastSwitch = -99; }
+  newContext() { return {wc: [0, 0, 0], ws: [0, 0], nc: [0, 0, 0], ns: [0, 0], memory: [], uses: 0}; }
+  get ctx() { return this.contexts[this.active]; }
+  predict(c, s, ctx = this.ctx) { return ctx.wc[c] + ctx.ws[s]; }
+  uncertainty(c, s, ctx = this.ctx) { return 1 / Math.sqrt(1 + Math.min(ctx.nc[c], ctx.ns[s])); }
+  learn(ctx, c, s, actual, rate, count = true) {
+    const err = actual - this.predict(c, s, ctx);
+    ctx.wc[c] += rate * err * 0.5; ctx.ws[s] += rate * err * 0.5;
+    if (count) { ctx.nc[c]++; ctx.ns[s]++; }
+  }
+  remember(ctx, c, s, actual, rate) {
+    this.learn(ctx, c, s, actual, rate);
+    ctx.memory.push([c, s, actual]); if (ctx.memory.length > 40) ctx.memory.shift();
+  }
+  observe(c, s, actual) {
+    const pred = this.predict(c, s), surprise = Math.abs(actual - pred), events = [];
+    this.meals++;
+    if (!this.lifelike) { this.remember(this.ctx, c, s, actual, 0.15); return {pred, surprise, events}; }
+    // Lifelike: hold big surprises aside instead of writing them into the current memory straight away.
+    if (surprise > 5 && this.meals - this.lastSwitch >= 3) {
+      this.pending.push({c, s, actual});
+      if (this.pending.length >= 2) { events.push(this.reconsider(this.pending)); this.pending = []; }
+      return {pred, surprise, events};
+    }
+    // A lone surprise followed by an expected meal: it was a fluke or a small change, so learn from it now.
+    for (const x of this.pending) this.remember(this.ctx, x.c, x.s, x.actual, 0.3);
+    this.pending = [];
+    // A big surprise means a big update.
+    this.remember(this.ctx, c, s, actual, 0.15 + 0.45 * Math.min(1, surprise / 8));
+    return {pred, surprise, events};
+  }
+  // Several big surprises in a row: has the world changed? Check memories of past seasons.
+  reconsider(evidence) {
+    const fit = ctx => evidence.reduce((a, x) => a + Math.abs(x.actual - this.predict(x.c, x.s, ctx)), 0) / evidence.length;
+    let best = -1, bestErr = Infinity;
+    this.contexts.forEach((ctx, i) => { if (i !== this.active && ctx.memory.length >= 3) { const e = fit(ctx); if (e < bestErr) { bestErr = e; best = i; } } });
+    this.lastSwitch = this.meals;
+    if (best >= 0 && bestErr < 2.5) {
+      this.active = best; this.ctx.uses++;
+      for (const x of evidence) this.remember(this.ctx, x.c, x.s, x.actual, 0.2);
+      return {kind: "recall", text: `Recognised a season it has seen before (memory ${best + 1})`};
+    }
+    this.contexts.push(this.newContext()); this.active = this.contexts.length - 1; this.ctx.uses++;
+    for (const x of evidence) this.remember(this.ctx, x.c, x.s, x.actual, 0.5);
+    for (const x of evidence) this.learn(this.ctx, x.c, x.s, x.actual, 0.5, false);
+    return {kind: "new", text: `The world changed in a new way. Started memory ${this.active + 1}`};
+  }
+  // Sleep: replay recent meals gently to firm up beliefs.
+  // Sleep: replay recent meals gently, then merge memories that turned out to describe the same season.
+  sleep() {
+    const ctx = this.ctx; let merged = 0;
+    for (let p = 0; p < 3; p++) for (const [c, s, a] of ctx.memory.slice(-25)) this.learn(ctx, c, s, a, 0.05, false);
+    for (let i = this.contexts.length - 1; i >= 0; i--) {
+      const other = this.contexts[i]; if (other === ctx || other.memory.length < 5 || ctx.memory.length < 5) continue;
+      let diff = 0; for (let c = 0; c < 3; c++) for (let s = 0; s < 2; s++) diff = Math.max(diff, Math.abs(this.predict(c, s, ctx) - this.predict(c, s, other)));
+      if (diff < 2) { ctx.memory = ctx.memory.concat(other.memory).slice(-40); ctx.uses += other.uses;
+        for (let c = 0; c < 3; c++) ctx.nc[c] += other.nc[c]; for (let s = 0; s < 2; s++) ctx.ns[s] += other.ns[s];
+        this.contexts.splice(i, 1); if (i < this.active) this.active--; merged++; }
+    }
+    return merged;
+  }
+}
+
+class World {
+  constructor(seed, lifelike, label, colourVar) {
+    this.rng = makeRng(seed); this.label = label; this.colourVar = colourVar; this.mind = new Mind(lifelike);
+    this.food = []; for (let i = 0; i < FOOD; i++) this.spawn();
+    this.agent = {x: 12, y: 12, energy: 80, dx: 1, dy: 0, sleeping: 0, target: null};
+    this.stats = {deaths: 0, good: 0, bad: 0, energySum: 0, ticks: 0};
+    this.history = []; // {t, surprise}
+  }
+  occupied(x, y) { return this.food.some(f => f.x === x && f.y === y); }
+  spawn() { let x, y; do { x = Math.floor(this.rng() * N); y = Math.floor(this.rng() * N); } while (this.occupied(x, y));
+    this.food.push({x, y, c: Math.floor(this.rng() * 3), s: Math.floor(this.rng() * 2)}); }
+  tick(t, season, log) {
+    const a = this.agent, m = this.mind;
+    this.stats.ticks++; this.stats.energySum += a.energy;
+    if (this.rng() < ROT) { this.food.splice(Math.floor(this.rng() * this.food.length), 1); this.spawn(); }
+    if (a.sleeping > 0) { a.sleeping--; a.energy -= 0.06; return this.checkDeath(t, log); }
+    if (m.lifelike && t > 0 && t % SLEEP_EVERY === 0) { a.sleeping = SLEEP_LEN; const merged = m.sleep(); log(this, t, "Sleeping: replaying recent meals" + (merged ? `, merged ${merged} duplicate memor${merged > 1 ? "ies" : "y"}` : ""), "sleep"); return; }
+    a.energy -= 0.12;
+    // Choose: predicted value + curiosity about uncertain foods - distance.
+    let best = null, bestScore = 0.5;
+    for (const f of this.food) {
+      const d = Math.max(Math.abs(f.x - a.x), Math.abs(f.y - a.y)); if (d > SIGHT) continue;
+      const score = m.predict(f.c, f.s) + 4 * m.uncertainty(f.c, f.s) - 0.35 * d;
+      if (score > bestScore) { bestScore = score; best = f; }
+    }
+    a.target = best;
+    if (best) {
+      const dx = best.x - a.x, dy = best.y - a.y;
+      if (Math.abs(dx) >= Math.abs(dy) && dx !== 0) a.x += Math.sign(dx); else if (dy !== 0) a.y += Math.sign(dy);
+    } else {
+      if (this.rng() < 0.2) { const d = [[1,0],[-1,0],[0,1],[0,-1]][Math.floor(this.rng() * 4)]; a.dx = d[0]; a.dy = d[1]; }
+      a.x = Math.min(N - 1, Math.max(0, a.x + a.dx)); a.y = Math.min(N - 1, Math.max(0, a.y + a.dy));
+      if (a.x === 0 || a.x === N - 1) a.dx = -a.dx; if (a.y === 0 || a.y === N - 1) a.dy = -a.dy;
+    }
+    const i = this.food.findIndex(f => f.x === a.x && f.y === a.y);
+    if (i >= 0) {
+      const f = this.food[i];
+      const actual = season.col[f.c] + season.shp[f.s] + (this.rng() * 2 - 1);
+      const r = m.observe(f.c, f.s, actual);
+      a.energy = Math.min(100, a.energy + actual);
+      actual > 0 ? this.stats.good++ : this.stats.bad++;
+      this.history.push({t, surprise: r.surprise});
+      if (r.surprise > 5) log(this, t, `Expected ${fmt(r.pred)} from ${typeName(f.c, f.s)}, got ${fmt(actual)}. Surprised.`, "surprise");
+      for (const e of r.events) log(this, t, e.text, e.kind);
+      this.food.splice(i, 1); this.spawn();
+    }
+    this.checkDeath(t, log);
+  }
+  checkDeath(t, log) {
+    const a = this.agent;
+    if (a.energy <= 0) { this.stats.deaths++; a.energy = 60; a.x = Math.floor(this.rng() * N); a.y = Math.floor(this.rng() * N); log(this, t, "Ran out of energy and died. Respawned, keeping its memories.", "death"); }
+  }
+}
+
+let worlds, t, seasonIdx, boundaries, logLines, running = true, frame = 0;
+function reset(seed = 12345) {
+  worlds = [new World(seed, false, "Simple creature", "--simple"), new World(seed, true, "Lifelike creature", "--life")];
+  t = 0; seasonIdx = 0; boundaries = [{t: 0, s: 0}]; logLines = [];
+  buildCards(); renderAll();
+}
+function log(w, tt, text, kind) {
+  logLines.push({t: tt, who: w.label, text, kind, colour: w.colourVar});
+  if (logLines.length > 200) logLines.shift();
+}
+function nextSeason() {
+  seasonIdx = (seasonIdx + 1) % SEASONS.length; boundaries.push({t, s: seasonIdx});
+  logLines.push({t, who: "World", text: "The rules changed: " + SEASONS[seasonIdx].name, kind: "season"});
+}
+function step() {
+  if (document.getElementById("auto").checked && t > 0 && t % SEASON_LEN === 0) nextSeason();
+  for (const w of worlds) w.tick(t, SEASONS[seasonIdx], log);
+  t++;
+}
+
+function buildCards() {
+  document.getElementById("worlds").innerHTML = worlds.map((w, i) => `
+    <div class="card">
+      <h2><i class="dot" style="background:var(${w.colourVar})"></i>${w.label}</h2>
+      <div class="sub">${w.mind.lifelike ? "Learns faster when surprised, remembers past seasons, sleeps to replay experiences." : "One set of beliefs, learns at a fixed pace, no memory of past seasons."}</div>
+      <canvas class="world" id="w${i}"></canvas>
+      <div class="stats" id="s${i}"></div>
+      <table><thead><tr><th>Food</th><th class="num">It predicts</th><th class="num">True now</th><th>Confidence</th></tr></thead><tbody id="b${i}"></tbody></table>
+      <div class="mem" id="m${i}"></div>
+    </div>`).join("");
+}
+
+function drawWorld(w, i) {
+  const cv = document.getElementById("w" + i), px = cv.clientWidth, dpr = devicePixelRatio || 1;
+  if (cv.width !== px * dpr) { cv.width = px * dpr; cv.height = px * dpr; }
+  const g = cv.getContext("2d"), cell = cv.width / N; g.clearRect(0, 0, cv.width, cv.height);
+  const a = w.agent;
+  g.fillStyle = css("--line"); g.globalAlpha = 0.35;
+  g.fillRect((a.x - SIGHT) * cell, (a.y - SIGHT) * cell, (2 * SIGHT + 1) * cell, (2 * SIGHT + 1) * cell); g.globalAlpha = 1;
+  for (const f of w.food) {
+    g.fillStyle = COLOURS[f.c].h; const cx = (f.x + 0.5) * cell, cy = (f.y + 0.5) * cell, r = cell * 0.32;
+    if (f.s === 0) { g.beginPath(); g.arc(cx, cy, r, 0, 7); g.fill(); } else g.fillRect(cx - r, cy - r, 2 * r, 2 * r);
+  }
+  if (a.target) { g.strokeStyle = css(w.colourVar); g.lineWidth = dpr; g.setLineDash([3 * dpr, 3 * dpr]); g.beginPath();
+    g.moveTo((a.x + .5) * cell, (a.y + .5) * cell); g.lineTo((a.target.x + .5) * cell, (a.target.y + .5) * cell); g.stroke(); g.setLineDash([]); }
+  const cx = (a.x + 0.5) * cell, cy = (a.y + 0.5) * cell;
+  g.globalAlpha = a.sleeping ? 0.4 : 1; g.fillStyle = css(w.colourVar);
+  g.beginPath(); g.arc(cx, cy, cell * 0.45, 0, 7); g.fill(); g.globalAlpha = 1;
+  g.strokeStyle = a.energy > 30 ? css("--good") : css("--bad"); g.lineWidth = 2.5 * dpr;
+  g.beginPath(); g.arc(cx, cy, cell * 0.62, -Math.PI / 2, -Math.PI / 2 + 2 * Math.PI * Math.max(0, a.energy) / 100); g.stroke();
+  if (a.sleeping) { g.fillStyle = css("--ink"); g.font = `${10 * dpr}px sans-serif`; g.fillText("z z", cx + cell * 0.5, cy - cell * 0.5); }
+}
+
+function renderPanels(w, i) {
+  const s = w.stats, meals = s.good + s.bad;
+  document.getElementById("s" + i).innerHTML =
+    `<div class="stat"><b>${w.agent.energy.toFixed(0)}</b><span>Energy now</span></div>` +
+    `<div class="stat"><b>${(s.energySum / Math.max(1, s.ticks)).toFixed(0)}</b><span>Average energy</span></div>` +
+    `<div class="stat"><b>${meals ? Math.round(100 * s.good / meals) : 0}%</b><span>Good meals</span></div>` +
+    `<div class="stat"><b>${s.deaths}</b><span>Deaths</span></div>`;
+  const season = SEASONS[seasonIdx]; let rows = "";
+  for (let c = 0; c < 3; c++) for (let sh = 0; sh < 2; sh++) {
+    const p = w.mind.predict(c, sh), tv = season.col[c] + season.shp[sh], conf = 1 - w.mind.uncertainty(c, sh);
+    const sw = `<i class="sw" style="background:${COLOURS[c].h};border-radius:${sh ? "1px" : "50%"}"></i>`;
+    rows += `<tr><td>${sw}${typeName(c, sh)}</td><td class="num" style="color:${Math.sign(p) === Math.sign(tv) || Math.abs(p - tv) < 2 ? "inherit" : "var(--bad)"}">${fmt(p)}</td><td class="num">${fmt(tv)}</td><td><span class="bar"><i style="width:${Math.round(conf * 100)}%"></i></span></td></tr>`;
+  }
+  document.getElementById("b" + i).innerHTML = rows;
+  document.getElementById("m" + i).innerHTML = w.mind.lifelike
+    ? "Season memories: " + w.mind.contexts.map((c, k) => `<span class="${k === w.mind.active ? "on" : ""}">${k + 1}</span>`).join("")
+    : "No season memories. Predictions shown in red are wrong for this season.";
+}
+
+function drawChart() {
+  const cv = document.getElementById("chart"), dpr = devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
+  if (cv.width !== W * dpr) { cv.width = W * dpr; cv.height = H * dpr; }
+  const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const L = 28, B = 18, span = Math.max(t, SEASON_LEN * 3), X = v => L + (W - L - 6) * v / span, Y = v => (H - B) - (H - B - 8) * Math.min(v, 12) / 12;
+  g.strokeStyle = css("--line"); g.fillStyle = css("--muted"); g.font = "11px sans-serif"; g.lineWidth = 1;
+  for (const v of [0, 4, 8, 12]) { g.beginPath(); g.moveTo(L, Y(v)); g.lineTo(W - 6, Y(v)); g.stroke(); g.fillText(v, 4, Y(v) + 4); }
+  for (const b of boundaries) { g.strokeStyle = css("--muted"); g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(b.t), 4); g.lineTo(X(b.t), H - B); g.stroke(); g.setLineDash([]); g.fillText("S" + (b.s + 1), X(b.t) + 3, H - 4); }
+  for (const w of worlds) {
+    g.strokeStyle = css(w.colourVar); g.lineWidth = 1.6; g.beginPath(); let started = false;
+    w.history.forEach((h, k) => { const win = w.history.slice(Math.max(0, k - 9), k + 1); const m = win.reduce((a, x) => a + x.surprise, 0) / win.length;
+      if (!started) { g.moveTo(X(h.t), Y(m)); started = true; } else g.lineTo(X(h.t), Y(m)); });
+    g.stroke();
+  }
+}
+
+function renderLog() {
+  document.getElementById("log").innerHTML = logLines.slice(-40).reverse().map(l =>
+    `<div><span class="t">t${l.t}</span><b style="color:${l.colour ? `var(${l.colour})` : "inherit"}">${l.who}:</b> ${l.text}</div>`).join("");
+}
+
+// After each season change, how surprised was each creature over its next 15 meals?
+// Split into seasons seen for the first time and seasons coming back.
+function summary() {
+  const seen = new Set(), out = worlds.map(w => ({label: w.label, first: [], back: [], deaths: w.stats.deaths,
+    avgE: w.stats.energySum / Math.max(1, w.stats.ticks), good: w.stats.good / Math.max(1, w.stats.good + w.stats.bad)}));
+  boundaries.forEach((b, k) => {
+    if (k === 0) { seen.add(b.s); return; }
+    const end = boundaries[k + 1] ? boundaries[k + 1].t : Infinity, returning = seen.has(b.s); seen.add(b.s);
+    worlds.forEach((w, i) => { const h = w.history.filter(x => x.t >= b.t && x.t < end).slice(0, 15); if (h.length < 15) return;
+      (returning ? out[i].back : out[i].first).push(h.reduce((a, x) => a + x.surprise, 0) / h.length); });
+  });
+  const mean = a => a.length ? (a.reduce((x, y) => x + y, 0) / a.length).toFixed(1) : "–";
+  return out.map(o => ({...o, firstMean: mean(o.first), backMean: mean(o.back), nFirst: o.first.length, nBack: o.back.length}));
+}
+function renderSummary() {
+  const s = summary();
+  document.getElementById("summary").innerHTML = `<h2>Scorecard</h2><div class="sub">Lower surprise after a change means faster adaptation. A returning season is one the creature has met before.</div>
+  <table><thead><tr><th></th><th class="num">Deaths</th><th class="num">Average energy</th><th class="num">Good meals</th><th class="num">Surprise after a new season</th><th class="num">Surprise when a season returns</th></tr></thead><tbody>
+  ${s.map(o => `<tr><td>${o.label}</td><td class="num">${o.deaths}</td><td class="num">${o.avgE.toFixed(0)}</td><td class="num">${Math.round(o.good * 100)}%</td><td class="num">${o.firstMean} <span style="color:var(--muted)">(${o.nFirst})</span></td><td class="num">${o.backMean} <span style="color:var(--muted)">(${o.nBack})</span></td></tr>`).join("")}
+  </tbody></table><div class="sub" style="margin-top:6px">Surprise is the average prediction error over the first 15 meals after each change. Brackets show how many changes were measured.</div>`;
+}
+
+function renderAll() {
+  document.getElementById("season").textContent = SEASONS[seasonIdx].name + (document.getElementById("auto").checked ? ` · next change in ${SEASON_LEN - (t % SEASON_LEN)}` : "");
+  worlds.forEach(drawWorld);
+  if (frame % 6 === 0) { worlds.forEach(renderPanels); drawChart(); renderLog(); renderSummary(); }
+}
+function loop() {
+  if (running) { const n = +document.getElementById("speed").value; for (let k = 0; k < n; k++) step(); }
+  frame++; renderAll(); requestAnimationFrame(loop);
+}
+document.getElementById("play").onclick = e => { running = !running; e.target.textContent = running ? "Pause" : "Play"; };
+document.getElementById("change").onclick = () => { nextSeason(); frame = 0; renderAll(); };
+document.getElementById("reset").onclick = () => { reset(Math.floor(Math.random() * 1e6)); };
+addEventListener("resize", () => { frame = 0; });
+// For testing: run many steps without drawing.
+window.habitat = { run(n) { for (let k = 0; k < n; k++) step(); frame = 0; renderAll(); return summary(); }, reset, get t() { return t; } };
+reset(); loop();
+</script>
+</body>
+</html>

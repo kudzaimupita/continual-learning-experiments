@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Movement Habitat</title>
+<style>
+:root{--bg:#fafaf9;--panel:#fff;--ink:#1c1c1a;--muted:#6b6b66;--line:#e4e4e0;--grid:#f0f0ec;--accent:#2f5bd3;--simple:#c97a1e;--life:#6b4fd0;--plan:#1a8f80;--learn:#c2185b;--wall:#8f8f88;--ice:#cfe3f2;--good:#2f8a43;--bad:#c2413b}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--panel:#1c1c1b;--ink:#ecebe7;--muted:#9a9993;--line:#2e2e2c;--grid:#232322;--accent:#7c9cf0;--simple:#e39a45;--life:#9b84f0;--plan:#4cc4b4;--learn:#f06292;--wall:#55554f;--ice:#1f3646;--good:#58b86c;--bad:#e06a62}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:2}
+h1{font-size:15px;margin:0;font-weight:600}
+#season{font-size:13px;padding:2px 8px;border:1px solid var(--line);border-radius:4px}
+.sp{flex:1}
+.btn{font:inherit;font-size:13px;color:inherit;background:none;border:1px solid var(--line);border-radius:4px;padding:4px 10px;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+label{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+main{max-width:1180px;margin:0 auto;padding:16px}
+.intro{color:var(--muted);margin:0 0 14px;max-width:860px}
+.intro a{color:var(--accent)}
+.worlds{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+@media (max-width:820px){.worlds{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px}
+.card h2{font-size:14px;margin:0 0 2px;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+canvas.world{width:100%;aspect-ratio:1;display:block;border:1px solid var(--line);border-radius:4px;background:var(--grid);image-rendering:pixelated}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
+.stat{border-top:1px solid var(--line);padding-top:4px}
+.stat b{display:block;font-size:16px;font-variant-numeric:tabular-nums}
+.stat span{font-size:11px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+th{font-weight:500;color:var(--muted);text-align:left;padding:3px 4px;border-bottom:1px solid var(--line)}
+td{padding:3px 4px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.num{text-align:right}
+td img{width:21px;height:21px;image-rendering:pixelated;vertical-align:middle;margin-right:6px;border-radius:2px}
+.note{color:var(--muted);font-size:11px}
+.mem{font-size:12px;color:var(--muted);margin-top:8px;min-height:18px}
+.mem span{border:1px solid var(--line);border-radius:3px;padding:0 5px;margin-right:4px}
+.mem span.on{border-color:var(--life);color:var(--life)}
+.below{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-top:16px}
+@media (max-width:820px){.below{grid-template-columns:1fr}}
+#chart{width:100%;height:220px;display:block}
+.legend{font-size:12px;color:var(--muted);display:flex;gap:14px;margin-top:4px;flex-wrap:wrap}
+#log{font-size:12.5px;max-height:270px;overflow-y:auto}
+#log div{padding:3px 0;border-bottom:1px solid var(--line)}
+#log .t{color:var(--muted);font-variant-numeric:tabular-nums;margin-right:6px}
+#summary{margin-top:16px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Movement Habitat</h1>
+  <span id="season"></span>
+  <span class="sp"></span>
+  <button class="btn primary" id="play">Pause</button>
+  <label>Speed <input type="range" id="speed" min="1" max="60" value="6"></label>
+  <label><input type="checkbox" id="auto" checked> Seasons change on their own</label>
+  <button class="btn" id="change">Change the rules now</button>
+  <button class="btn" id="reset">Restart</button>
+</header>
+<main>
+<p class="intro">Now movement has to be learned too. Walls block, ice slides you one extra square, and each creature has four buttons wired to directions in a scrambled order. Three creatures are born knowing the wiring. The fourth starts knowing nothing and babbles, pressing buttons to find out what they do. At step 7,800 every creature's buttons get rewired, and built-in knowledge goes stale. Food values are learned from pixels as before. <a href="habitat-pixels.html">Pixel version</a> · <a href="habitat.html">Label version</a></p>
+<div class="worlds" id="worlds"></div>
+<div class="below">
+  <div class="card">
+    <h2>Surprise over time</h2>
+    <div class="sub">How wrong each creature's predictions are, averaged over its last 10 meals. Vertical lines mark season changes. P marks the first purple food.</div>
+    <canvas id="chart"></canvas>
+    <div class="legend"><span><i class="dot" style="background:var(--simple)"></i> Simple</span><span><i class="dot" style="background:var(--life)"></i> Lifelike</span><span><i class="dot" style="background:var(--plan)"></i> Planner, born knowing movement</span><span><i class="dot" style="background:var(--learn)"></i> Planner, learns movement</span></div>
+  </div>
+  <div class="card">
+    <h2>What happened</h2>
+    <div class="sub">Big surprises, season recognition, sleep, deaths and first purple meals.</div>
+    <div id="log"></div>
+  </div>
+</div>
+<div class="card" id="summary"></div>
+</main>
+<script>
+const WALLS = 0.10, ICE = 0.12, REWIRE = 7800, DIRS = [[1, 0], [0, 1], [-1, 0], [0, -1]], ARROWS = ["→", "↓", "←", "↑"];
+const N = 24, SIGHT = 7, FOOD = 22, ROT = 0.08, SEASON_LEN = 1200, SLEEP_EVERY = 400, SLEEP_LEN = 25, PURPLE_FROM = 6600;
+const S = 7, D = S * S * 3, H = 16;           // sprite size, network input size, hidden units
+const COLOURS = [
+  {n: "red", rgb: [0.85, 0.30, 0.30]}, {n: "blue", rgb: [0.25, 0.45, 0.85]},
+  {n: "green", rgb: [0.30, 0.65, 0.30]}, {n: "purple", rgb: [0.60, 0.32, 0.78]},
+];
+const SHAPES = ["circle", "square"];
+// Purple's value always sits between red's and blue's, so a creature that learned "how red" and "how blue" can guess it.
+const SEASONS = [
+  {name: "Season 1: red is food", col: [6, -6, 0, 0], shp: [2, -2]},
+  {name: "Season 2: blue is food", col: [-6, 6, 0, 0], shp: [2, -2]},
+  {name: "Season 3: green is food, squares better", col: [-3, -3, 6, -3], shp: [-2, 2]},
+];
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const typeName = (c, s) => COLOURS[c].n + " " + SHAPES[s];
+const fmt = v => (v > 0 ? "+" : "") + v.toFixed(1);
+function makeRng(seed) {
+  return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+const gauss = rng => Math.sqrt(-2 * Math.log(rng() + 1e-9)) * Math.cos(2 * Math.PI * rng());
+
+// A 7x7 RGB image of a food: shape mask, colour with brightness and tint jitter, a random one-pixel shift, and pixel noise.
+function sprite(c, s, rng, clean = false) {
+  const px = new Float32Array(D), base = COLOURS[c].rgb;
+  const bright = clean ? 1 : 0.85 + 0.3 * rng(), tint = [0, 1, 2].map(() => clean ? 0 : (rng() - 0.5) * 0.12);
+  const ox = clean ? 0 : Math.floor(rng() * 3) - 1, oy = clean ? 0 : Math.floor(rng() * 3) - 1;
+  for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+    const u = x - 3 - ox, v = y - 3 - oy;
+    const inside = s === 0 ? u * u + v * v <= 6.5 : Math.abs(u) <= 2 && Math.abs(v) <= 2;
+    for (let k = 0; k < 3; k++) {
+      let val = inside ? Math.min(1, Math.max(0, base[k] * bright + tint[k])) : 0.12;
+      if (!clean) val += 0.05 * gauss(rng);
+      px[(y * S + x) * 3 + k] = val;
+    }
+  }
+  return px;
+}
+function spriteURL(px) {
+  const cv = document.createElement("canvas"); cv.width = cv.height = S; const g = cv.getContext("2d"), im = g.createImageData(S, S);
+  for (let i = 0; i < S * S; i++) { for (let k = 0; k < 3; k++) im.data[i * 4 + k] = Math.max(0, Math.min(255, px[i * 3 + k] * 255)); im.data[i * 4 + 3] = 255; }
+  g.putImageData(im, 0, 0); return cv.toDataURL();
+}
+const PROTOS = []; for (let c = 0; c < 4; c++) for (let s = 0; s < 2; s++) PROTOS.push({c, s, px: sprite(c, s, null, true)});
+
+// Tiny neural network: 147 pixels -> 16 hidden units -> 1 predicted energy value.
+class Net {
+  constructor(rng) {
+    this.W1 = new Float32Array(H * D).map(() => gauss(rng) * 0.08); this.b1 = new Float32Array(H);
+    this.W2 = new Float32Array(H).map(() => gauss(rng) * 0.3); this.b2 = 0; this.h = new Float32Array(H);
+  }
+  predict(x) {
+    let y = this.b2;
+    for (let j = 0; j < H; j++) { let a = this.b1[j]; const o = j * D; for (let i = 0; i < D; i++) a += this.W1[o + i] * (x[i] - 0.4); this.h[j] = Math.tanh(a); y += this.W2[j] * this.h[j]; }
+    return y * 4;
+  }
+  train(x, target, lr) {
+    const y = this.predict(x), dy = Math.max(-3, Math.min(3, (y - target) / 4));
+    for (let j = 0; j < H; j++) {
+      const dh = dy * this.W2[j] * (1 - this.h[j] * this.h[j]); this.W2[j] -= lr * dy * this.h[j];
+      this.b1[j] -= lr * dh; const o = j * D; for (let i = 0; i < D; i++) this.W1[o + i] -= lr * dh * (x[i] - 0.4);
+    }
+    this.b2 -= lr * dy;
+  }
+}
+
+class Mind {
+  constructor(lifelike, rng) { this.lifelike = lifelike; this.rng = rng; this.contexts = [this.newContext()]; this.active = 0; this.pending = []; this.meals = 0; this.lastSwitch = -99; }
+  newContext() { return {net: new Net(this.rng), memory: [], uses: 0}; }
+  get ctx() { return this.contexts[this.active]; }
+  predict(px, ctx = this.ctx) { return ctx.net.predict(px); }
+  // Novelty: how unlike anything in memory this image is. Drives curiosity.
+  uncertainty(px, ctx = this.ctx) {
+    let best = Infinity;
+    for (const m of ctx.memory) { let d = 0; for (let i = 0; i < D; i += 3) { const e = px[i] - m.px[i], f = px[i + 1] - m.px[i + 1], g = px[i + 2] - m.px[i + 2]; d += e * e + f * f + g * g; } if (d < best) best = d; }
+    return Math.max(0, Math.min(1, (best / D - 0.015) / 0.05));
+  }
+  remember(ctx, item, lr) {
+    ctx.memory.push(item); if (ctx.memory.length > 60) ctx.memory.shift();
+    ctx.net.train(item.px, item.actual, lr);
+    for (let k = 0; k < 6; k++) { const m = ctx.memory[Math.floor(this.rng() * ctx.memory.length)]; ctx.net.train(m.px, m.actual, lr); }
+  }
+  observe(item) {
+    const pred = this.predict(item.px), surprise = Math.abs(item.actual - pred), events = [];
+    this.meals++;
+    if (!this.lifelike) { this.remember(this.ctx, item, 0.02); return {pred, surprise, events}; }
+    if (surprise > 5 && this.meals - this.lastSwitch >= 4) {
+      this.pending.push(item);
+      if (this.pending.length >= 2) { events.push(this.reconsider(this.pending)); this.pending = []; }
+      return {pred, surprise, events};
+    }
+    for (const x of this.pending) this.remember(this.ctx, x, 0.03);
+    this.pending = [];
+    this.remember(this.ctx, item, 0.02 + 0.03 * Math.min(1, surprise / 8));
+    return {pred, surprise, events};
+  }
+  reconsider(evidence) {
+    const fit = ctx => evidence.reduce((a, x) => a + Math.abs(x.actual - this.predict(x.px, ctx)), 0) / evidence.length;
+    let best = -1, bestErr = Infinity;
+    this.contexts.forEach((ctx, i) => { if (i !== this.active && ctx.memory.length >= 5) { const e = fit(ctx); if (e < bestErr) { bestErr = e; best = i; } } });
+    this.lastSwitch = this.meals;
+    if (best >= 0 && bestErr < 3) {
+      this.active = best; this.ctx.uses++; for (const x of evidence) this.remember(this.ctx, x, 0.02);
+      return {kind: "recall", text: `Recognised a season it has seen before (memory ${best + 1})`};
+    }
+    // New situation: start from a copy of current knowledge of what things look like, then retrain on the surprises.
+    const fresh = this.newContext(), src = this.ctx.net;
+    fresh.net.W1.set(src.W1); fresh.net.b1.set(src.b1);
+    this.contexts.push(fresh); this.active = this.contexts.length - 1; this.ctx.uses++;
+    for (let p = 0; p < 15; p++) for (const x of evidence) this.ctx.net.train(x.px, x.actual, 0.05);
+    for (const x of evidence) this.ctx.memory.push(x);
+    return {kind: "new", text: `The world changed in a new way. Started memory ${this.active + 1}`};
+  }
+  sleep() {
+    const ctx = this.ctx; let merged = 0;
+    for (let p = 0; p < 3; p++) for (const m of ctx.memory) ctx.net.train(m.px, m.actual, 0.01);
+    for (let i = this.contexts.length - 1; i >= 0; i--) {
+      const other = this.contexts[i]; if (other === ctx || other.memory.length < 8 || ctx.memory.length < 8) continue;
+      let diff = 0; for (const p of PROTOS.slice(0, 6)) diff = Math.max(diff, Math.abs(this.predict(p.px, ctx) - this.predict(p.px, other)));
+      if (diff < 2.5) { ctx.memory = ctx.memory.concat(other.memory).slice(-60); ctx.uses += other.uses; this.contexts.splice(i, 1); if (i < this.active) this.active--; merged++; }
+    }
+    return merged;
+  }
+}
+
+// Learned movement model. It must discover which way each button moves it, and what walls and ice do.
+// Counts fade, so recent experience outweighs old: this is what lets it relearn after the rewiring.
+class MoveModel {
+  constructor() { this.map = [0, 1, 2, 3].map(() => [0, 0, 0, 0]); this.ter = [0, 1, 2].map(() => [0, 0, 0]); }
+  dir(a) { const c = this.map[a]; if (c[0] + c[1] + c[2] + c[3] < 0.5) return -1; return c.indexOf(Math.max(...c)); }
+  outcome(T) { const c = this.ter[T]; if (c[0] + c[1] + c[2] < 0.5) return -1; return c.indexOf(Math.max(...c)); } // 0 blocked, 1 one step, 2 slide
+  landing(w, x, y, a) {
+    const k = this.dir(a); if (k < 0) return -1;
+    const d = DIRS[k], nx = x + d[0], ny = y + d[1], inside = (u, v) => u >= 0 && v >= 0 && u < N && v < N;
+    if (!inside(nx, ny)) return y * N + x;   // the edge of the world is visible and always blocks
+    const o = this.outcome(w.terrainAt(nx, ny));
+    if (o === 0) return y * N + x;
+    if (o === 2) { const mx = nx + d[0], my = ny + d[1]; if (inside(mx, my) && this.outcome(w.terrainAt(mx, my)) !== 0) return my * N + mx; }
+    return ny * N + nx;   // one step, or unknown ground: assume walkable
+  }
+  learn(w, x, y, a, lx, ly) {
+    const dx = lx - x, dy = ly - y;
+    if (dx || dy) {
+      const k = DIRS.findIndex(d => d[0] === Math.sign(dx) && d[1] === Math.sign(dy)), row = this.map[a];
+      for (let i = 0; i < 4; i++) row[i] *= 0.85; row[k] += 1;
+      this.bump(w.terrainAt(x + DIRS[k][0], y + DIRS[k][1]), Math.abs(dx) + Math.abs(dy));
+    } else { const k = this.dir(a); if (k >= 0) this.bump(w.terrainAt(x + DIRS[k][0], y + DIRS[k][1]), 0); }
+  }
+  bump(T, o) { const r = this.ter[T]; for (let i = 0; i < 3; i++) r[i] *= 0.95; r[o] += 1; }
+}
+
+class World {
+  constructor(seed, opts, label, colourVar) {
+    this.rng = makeRng(seed); this.label = label; this.colourVar = colourVar; this.t = 0;
+    this.mind = new Mind(opts.lifelike, makeRng(seed + 99)); this.planner = !!opts.planner; this.model = opts.learnsMovement ? new MoveModel() : null;
+    // Terrain and button wiring come first from the world's random stream, so every creature gets the same map.
+    this.terrain = new Uint8Array(N * N);
+    for (let i = 0; i < N * N; i++) { const r = this.rng(); this.terrain[i] = r < WALLS ? 2 : r < WALLS + ICE ? 1 : 0; }
+    for (let y = 11; y <= 13; y++) for (let x = 11; x <= 13; x++) this.terrain[y * N + x] = 0;
+    const p = [0, 1, 2, 3]; for (let i = 3; i > 0; i--) { const j = Math.floor(this.rng() * (i + 1)); [p[i], p[j]] = [p[j], p[i]]; }
+    this.perm = p; this.perm0 = p.slice();
+    this.food = []; for (let i = 0; i < FOOD; i++) this.spawn();
+    this.agent = {x: 12, y: 12, energy: 80, sleeping: 0, target: null, plan: null, wanderA: 0};
+    this.stats = {deaths: 0, deathsAfter: 0, good: 0, bad: 0, accidents: 0, moveSurprises: 0, moveSurprisesAfter: 0, energySum: 0, ticks: 0, energySumAfter: 0, ticksAfter: 0, moves: 0};
+    this.history = []; this.purple = []; this.purpleZero = []; this.controlsOk = false; this.rewiredAt = -1;
+  }
+  terrainAt(x, y) { return x < 0 || y < 0 || x >= N || y >= N ? 2 : this.terrain[y * N + x]; }
+  passable(x, y) { return this.terrainAt(x, y) !== 2; }
+  occupied(x, y) { return this.food.some(f => f.x === x && f.y === y); }
+  spawn() {
+    let x, y; do { x = Math.floor(this.rng() * N); y = Math.floor(this.rng() * N); } while (this.occupied(x, y) || !this.passable(x, y));
+    const colours = this.t >= PURPLE_FROM ? 4 : 3, c = Math.floor(this.rng() * colours), s = Math.floor(this.rng() * 2);
+    this.food.push({x, y, c, s, px: sprite(c, s, this.rng)});
+  }
+  // Built-in knowledge: the controls as wired at birth, plus the true terrain rules. Never updated.
+  bornLanding(x, y, a) {
+    const d = DIRS[this.perm0[a]], nx = x + d[0], ny = y + d[1];
+    if (!this.passable(nx, ny)) return y * N + x;
+    if (this.terrainAt(nx, ny) === 1 && this.passable(nx + d[0], ny + d[1])) return (ny + d[1]) * N + nx + d[0];
+    return ny * N + nx;
+  }
+  landing(x, y, a) { return this.model ? this.model.landing(this, x, y, a) : this.bornLanding(x, y, a); }
+  // Real physics: press a button, the true wiring picks a direction, walls block, ice slides you one more square.
+  act(a, t, log) {
+    const ag = this.agent, x0 = ag.x, y0 = ag.y, expected = this.landing(x0, y0, a), d = DIRS[this.perm[a]];
+    let x = x0 + d[0], y = y0 + d[1];
+    if (this.passable(x, y)) { ag.x = x; ag.y = y; if (this.terrainAt(x, y) === 1 && this.passable(x + d[0], y + d[1])) { ag.x += d[0]; ag.y += d[1]; } }
+    this.stats.moves++;
+    const actual = ag.y * N + ag.x;
+    if (expected >= 0 && expected !== actual) { this.stats.moveSurprises++; if (t >= REWIRE) this.stats.moveSurprisesAfter++; }
+    if (this.model) {
+      this.model.learn(this, x0, y0, a, ag.x, ag.y);
+      const ok = [0, 1, 2, 3].every(b => this.model.dir(b) === this.perm[b]);
+      if (ok && !this.controlsOk) log(this, t, t >= REWIRE ? `Relearned its controls, ${t - REWIRE} steps after the rewiring.` : `Worked out all four buttons after ${this.stats.moves} moves.`, "recall");
+      this.controlsOk = ok;
+    }
+    return actual;
+  }
+  tick(t, season, log) {
+    const a = this.agent, m = this.mind; this.t = t;
+    this.stats.ticks++; this.stats.energySum += a.energy;
+    if (t >= REWIRE) { this.stats.ticksAfter++; this.stats.energySumAfter += a.energy; }
+    if (this.rng() < ROT) { this.food.splice(Math.floor(this.rng() * this.food.length), 1); this.spawn(); }
+    if (a.sleeping > 0) { a.sleeping--; a.energy -= 0.06; return this.checkDeath(t, log); }
+    if (m.lifelike && t > 0 && t % SLEEP_EVERY === 0) { a.sleeping = SLEEP_LEN; const merged = m.sleep();
+      log(this, t, "Sleeping: replaying recent meals" + (merged ? `, merged ${merged} duplicate memor${merged > 1 ? "ies" : "y"}` : ""), "sleep"); return; }
+    a.energy -= 0.12;
+    const unknown = this.model ? [0, 1, 2, 3].find(b => this.model.dir(b) < 0) : undefined;
+    if (unknown !== undefined) { a.plan = null; a.target = null; this.act(unknown, t, log); }       // babbling: try a button it has never pressed
+    else if (this.planner) {
+      if (!a.plan || !a.plan.actions.length || !this.food.includes(a.plan.targets[0]) || t % 4 === 0) a.plan = this.makePlan();
+      if (a.plan) {
+        const act = a.plan.actions.shift(), want = a.plan.cells.shift(); a.target = a.plan.targets[0];
+        if (this.act(act, t, log) !== want) a.plan = null;   // the move did not go as imagined: replan next step
+      } else { a.target = null; this.wander(t, log); }
+    } else {
+      if (!a.target || !this.food.includes(a.target) || t % 4 === 0) {
+        let best = null, bestScore = 0.5;
+        for (const f of this.food) {
+          const d = Math.max(Math.abs(f.x - a.x), Math.abs(f.y - a.y)); if (d > SIGHT) continue;
+          const score = m.predict(f.px) + 4 * m.uncertainty(f.px) - 0.35 * d;
+          if (score > bestScore) { bestScore = score; best = f; }
+        }
+        a.target = best;
+      }
+      if (a.target) {   // step greedily: the button it believes brings it closest
+        let bestA = -1, bestD = Math.abs(a.target.x - a.x) + Math.abs(a.target.y - a.y);
+        for (let b = 0; b < 4; b++) { const c = this.landing(a.x, a.y, b), d = Math.abs(a.target.x - c % N) + Math.abs(a.target.y - ((c / N) | 0)); if (d < bestD) { bestD = d; bestA = b; } }
+        bestA >= 0 ? this.act(bestA, t, log) : this.wander(t, log);
+      } else this.wander(t, log);
+    }
+    const i = this.food.findIndex(f => f.x === a.x && f.y === a.y);
+    if (i >= 0) {
+      const f = this.food[i], actual = season.col[f.c] + season.shp[f.s] + (this.rng() * 2 - 1);
+      const r = m.observe({px: f.px, actual});
+      a.energy = Math.min(100, a.energy + actual); actual > 0 ? this.stats.good++ : this.stats.bad++;
+      if (f !== a.target && actual < 0) this.stats.accidents++;
+      this.history.push({t, surprise: r.surprise});
+      if (f.c === 3 && this.purple.length < 5) { this.purple.push(r.surprise); this.purpleZero.push(Math.abs(actual)); }
+      else if (r.surprise > 5) log(this, t, `Expected ${fmt(r.pred)} from a ${typeName(f.c, f.s)}, got ${fmt(actual)}. Surprised.`, "surprise");
+      for (const e of r.events) log(this, t, e.text, e.kind);
+      this.food.splice(i, 1); if (a.target === f) a.target = null; if (a.plan && a.plan.targets.includes(f)) a.plan = null; this.spawn();
+    }
+    this.checkDeath(t, log);
+  }
+  wander(t, log) { if (this.rng() < 0.2) this.agent.wanderA = Math.floor(this.rng() * 4); this.act(this.agent.wanderA, t, log); }
+  // Planning: imagine button presses with the movement model (born or learned), through up to three visible meals.
+  // Landing on food it predicts is bad is not allowed. Later meals count for less (discount 0.95 per step).
+  makePlan() {
+    const a = this.agent, m = this.mind, vis = [];
+    for (const f of this.food) { if (Math.max(Math.abs(f.x - a.x), Math.abs(f.y - a.y)) > SIGHT) continue; f.v = m.predict(f.px) + 4 * m.uncertainty(f.px); vis.push(f); }
+    const blocked = new Uint8Array(N * N); for (const f of vis) if (f.v < 0) blocked[f.y * N + f.x] = 1;
+    const cheb = f => Math.max(Math.abs(f.x - a.x), Math.abs(f.y - a.y));
+    const cands = vis.filter(f => f.v > 0.5).sort((p, q) => (q.v - 0.35 * cheb(q)) - (p.v - 0.35 * cheb(p))).slice(0, 6);
+    if (!cands.length) return null;
+    const bfs = start => {
+      const dist = new Int16Array(N * N).fill(-1), prev = new Int16Array(N * N).fill(-1), pact = new Int8Array(N * N), q = [start]; dist[start] = 0;
+      for (let h = 0; h < q.length; h++) { const c = q[h], x = c % N, y = (c / N) | 0;
+        for (let b = 0; b < 4; b++) { const n = this.landing(x, y, b); if (n < 0 || n === c || dist[n] >= 0 || blocked[n]) continue;
+          dist[n] = dist[c] + 1; prev[n] = c; pact[n] = b; q.push(n); } }
+      return {dist, prev, pact};
+    };
+    const at = f => f.y * N + f.x, start = a.y * N + a.x, from = [bfs(start), ...cands.map(c => bfs(at(c)))];
+    let best = null, bestScore = 0;
+    const search = (seq, last, steps, score) => {
+      if (seq.length && score > bestScore) { bestScore = score; best = seq.slice(); }
+      if (seq.length === 3) return;
+      for (let k = 0; k < cands.length; k++) { if (seq.includes(k)) continue; const d = from[last].dist[at(cands[k])]; if (d <= 0) continue;
+        search([...seq, k], k + 1, steps + d, score + Math.pow(0.95, steps + d) * cands[k].v); }
+    };
+    search([], 0, 0, 0);
+    if (!best) return null;
+    const cells = [], actions = []; let cur = at(cands[best[0]]);
+    while (cur !== start && cur >= 0) { cells.unshift(cur); actions.unshift(from[0].pact[cur]); cur = from[0].prev[cur]; }
+    return {cells, actions, path: cells, targets: best.map(k => cands[k])};
+  }
+  checkDeath(t, log) {
+    const a = this.agent;
+    if (a.energy <= 0) {
+      this.stats.deaths++; if (t >= REWIRE) this.stats.deathsAfter++; a.energy = 60; a.plan = null;
+      do { a.x = Math.floor(this.rng() * N); a.y = Math.floor(this.rng() * N); } while (!this.passable(a.x, a.y));
+      log(this, t, "Ran out of energy and died. Respawned, keeping its memories.", "death");
+    }
+  }
+}
+
+let worlds, t, seasonIdx, boundaries, logLines, running = true, frame = 0;
+function reset(seed = 12345) {
+  worlds = [new World(seed, {}, "Simple creature", "--simple"), new World(seed, {lifelike: true}, "Lifelike creature", "--life"),
+            new World(seed, {lifelike: true, planner: true}, "Planner, born knowing movement", "--plan"),
+            new World(seed, {lifelike: true, planner: true, learnsMovement: true}, "Planner, learns movement", "--learn")];
+  t = 0; seasonIdx = 0; boundaries = [{t: 0, s: 0}]; logLines = []; buildCards(); renderAll();
+}
+function log(w, tt, text, kind) { logLines.push({t: tt, who: w.label, text, kind, colour: w.colourVar}); if (logLines.length > 300) logLines.shift(); }
+function nextSeason() { seasonIdx = (seasonIdx + 1) % SEASONS.length; boundaries.push({t, s: seasonIdx}); logLines.push({t, who: "World", text: "The rules changed: " + SEASONS[seasonIdx].name, kind: "season"}); }
+function step() {
+  if (document.getElementById("auto").checked && t > 0 && t % SEASON_LEN === 0) nextSeason();
+  if (t === PURPLE_FROM) logLines.push({t, who: "World", text: "A new purple food starts to appear.", kind: "season"});
+  if (t === REWIRE) { for (const w of worlds) w.perm = w.perm.map(k => (k + 1) % 4);
+    logLines.push({t, who: "World", text: "Every creature's buttons were rewired. Each button now turns a quarter turn from where it used to go.", kind: "season"}); }
+  for (const w of worlds) w.tick(t, SEASONS[seasonIdx], log);
+  t++;
+}
+
+const PROTO_URLS = PROTOS.map(p => spriteURL(p.px));
+function buildCards() {
+  document.getElementById("worlds").innerHTML = worlds.map((w, i) => `
+    <div class="card">
+      <h2><i class="dot" style="background:var(${w.colourVar})"></i>${w.label}</h2>
+      <div class="sub">${w.model ? "Lifelike memory and planning, but starts with no idea what its buttons do. Learns movement from experience." : w.planner ? "Lifelike memory, plans routes through up to three meals using the movement rules it was born with." : w.mind.lifelike ? "Season memories, holds surprises aside, sleeps. Steps greedily using the movement rules it was born with." : "One network, no season memory. Steps greedily using the movement rules it was born with."}</div>
+      <canvas class="world" id="w${i}"></canvas>
+      <div class="stats" id="s${i}"></div>
+      <table><thead><tr><th>Clean example</th><th class="num">It predicts</th><th class="num">True now</th></tr></thead><tbody id="b${i}"></tbody></table>
+      <div class="mem" id="m${i}"></div>
+    </div>`).join("");
+}
+function drawWorld(w, i) {
+  const cv = document.getElementById("w" + i), px = cv.clientWidth, dpr = devicePixelRatio || 1;
+  if (cv.width !== Math.round(px * dpr)) { cv.width = Math.round(px * dpr); cv.height = Math.round(px * dpr); }
+  const g = cv.getContext("2d"), cell = cv.width / N; g.clearRect(0, 0, cv.width, cv.height);
+  const a = w.agent;
+  for (let k = 0; k < N * N; k++) if (w.terrain[k]) { g.fillStyle = css(w.terrain[k] === 2 ? "--wall" : "--ice"); g.fillRect((k % N) * cell, ((k / N) | 0) * cell, cell + 0.5, cell + 0.5); }
+  g.fillStyle = css("--line"); g.globalAlpha = 0.35; g.fillRect((a.x - SIGHT) * cell, (a.y - SIGHT) * cell, (2 * SIGHT + 1) * cell, (2 * SIGHT + 1) * cell); g.globalAlpha = 1;
+  const p = cell / S;
+  for (const f of w.food) for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+    const k = (y * S + x) * 3; g.fillStyle = `rgb(${f.px[k] * 255 | 0},${f.px[k + 1] * 255 | 0},${f.px[k + 2] * 255 | 0})`;
+    g.fillRect(f.x * cell + x * p, f.y * cell + y * p, p + 0.5, p + 0.5);
+  }
+  if (w.planner && a.plan && a.plan.targets.length) {
+    g.strokeStyle = css(w.colourVar); g.lineWidth = 1.5 * dpr; g.beginPath(); g.moveTo((a.x + .5) * cell, (a.y + .5) * cell);
+    for (const c of a.plan.cells) g.lineTo((c % N + .5) * cell, (((c / N) | 0) + .5) * cell); g.stroke();
+    g.setLineDash([3 * dpr, 3 * dpr]); g.beginPath(); g.moveTo((a.plan.targets[0].x + .5) * cell, (a.plan.targets[0].y + .5) * cell);
+    for (const f of a.plan.targets.slice(1)) g.lineTo((f.x + .5) * cell, (f.y + .5) * cell); g.stroke(); g.setLineDash([]);
+  } else if (a.target) { g.strokeStyle = css(w.colourVar); g.lineWidth = dpr; g.setLineDash([3 * dpr, 3 * dpr]); g.beginPath();
+    g.moveTo((a.x + .5) * cell, (a.y + .5) * cell); g.lineTo((a.target.x + .5) * cell, (a.target.y + .5) * cell); g.stroke(); g.setLineDash([]); }
+  const cx = (a.x + 0.5) * cell, cy = (a.y + 0.5) * cell;
+  g.globalAlpha = a.sleeping ? 0.4 : 1; g.fillStyle = css(w.colourVar); g.beginPath(); g.arc(cx, cy, cell * 0.45, 0, 7); g.fill(); g.globalAlpha = 1;
+  g.strokeStyle = a.energy > 30 ? css("--good") : css("--bad"); g.lineWidth = 2.5 * dpr;
+  g.beginPath(); g.arc(cx, cy, cell * 0.62, -Math.PI / 2, -Math.PI / 2 + 2 * Math.PI * Math.max(0, a.energy) / 100); g.stroke();
+  if (a.sleeping) { g.fillStyle = css("--ink"); g.font = `${10 * dpr}px sans-serif`; g.fillText("z z", cx + cell * 0.5, cy - cell * 0.5); }
+}
+function renderPanels(w, i) {
+  const s = w.stats, meals = s.good + s.bad;
+  document.getElementById("s" + i).innerHTML =
+    `<div class="stat"><b>${w.agent.energy.toFixed(0)}</b><span>Energy now</span></div>` +
+    `<div class="stat"><b>${(s.energySum / Math.max(1, s.ticks)).toFixed(0)}</b><span>Average energy</span></div>` +
+    `<div class="stat"><b>${meals ? Math.round(100 * s.good / meals) : 0}%</b><span>Good meals</span></div>` +
+    `<div class="stat"><b>${s.deaths}</b><span>Deaths</span></div>`;
+  const season = SEASONS[seasonIdx];
+  document.getElementById("b" + i).innerHTML = PROTOS.map((p, k) => {
+    const pred = w.mind.predict(p.px), tv = season.col[p.c] + season.shp[p.s], wrong = Math.sign(pred) !== Math.sign(tv) && Math.abs(pred - tv) >= 2;
+    const later = p.c === 3 && t < PURPLE_FROM ? ' <span class="note">not seen yet</span>' : "";
+    return `<tr><td><img src="${PROTO_URLS[k]}" alt="">${typeName(p.c, p.s)}${later}</td><td class="num" style="color:${wrong ? "var(--bad)" : "inherit"}">${fmt(pred)}</td><td class="num">${fmt(tv)}</td></tr>`;
+  }).join("");
+  const believed = b => w.model ? w.model.dir(b) : w.perm0[b];
+  const controls = "Buttons it believes: " + [0, 1, 2, 3].map(b => { const k = believed(b), ok = k === w.perm[b];
+    return `<span style="${ok ? "" : "border-color:var(--bad);color:var(--bad)"}">${b + 1} ${k < 0 ? "?" : ARROWS[k]}</span>`; }).join("") + "<br>";
+  document.getElementById("m" + i).innerHTML = controls + (w.mind.lifelike
+    ? "Season memories: " + w.mind.contexts.map((c, k) => `<span class="${k === w.mind.active ? "on" : ""}">${k + 1}</span>`).join("")
+    : "No season memories. Predictions in red are wrong for this season.");
+}
+function drawChart() {
+  const cv = document.getElementById("chart"), dpr = devicePixelRatio || 1, W = cv.clientWidth, Hh = cv.clientHeight;
+  if (cv.width !== W * dpr) { cv.width = W * dpr; cv.height = Hh * dpr; }
+  const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, Hh);
+  const L = 28, B = 18, span = Math.max(t, SEASON_LEN * 3), X = v => L + (W - L - 6) * v / span, Y = v => (Hh - B) - (Hh - B - 8) * Math.min(v, 12) / 12;
+  g.strokeStyle = css("--line"); g.fillStyle = css("--muted"); g.font = "11px sans-serif"; g.lineWidth = 1;
+  for (const v of [0, 4, 8, 12]) { g.beginPath(); g.moveTo(L, Y(v)); g.lineTo(W - 6, Y(v)); g.stroke(); g.fillText(v, 4, Y(v) + 4); }
+  for (const b of boundaries) { g.strokeStyle = css("--muted"); g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(b.t), 4); g.lineTo(X(b.t), Hh - B); g.stroke(); g.setLineDash([]); g.fillText("S" + (b.s + 1), X(b.t) + 3, Hh - 4); }
+  if (t >= PURPLE_FROM) { g.fillStyle = "#9a52c7"; g.fillText("P", X(PURPLE_FROM) + 3, 14); }
+  if (t >= REWIRE) { g.fillStyle = css("--bad"); g.fillText("Rewired", X(REWIRE) + 3, 26); }
+  for (const w of worlds) {
+    g.strokeStyle = css(w.colourVar); g.lineWidth = 1.6; g.beginPath(); let started = false;
+    w.history.forEach((h, k) => { const win = w.history.slice(Math.max(0, k - 9), k + 1), m = win.reduce((a, x) => a + x.surprise, 0) / win.length;
+      if (!started) { g.moveTo(X(h.t), Y(m)); started = true; } else g.lineTo(X(h.t), Y(m)); });
+    g.stroke();
+  }
+}
+function renderLog() {
+  document.getElementById("log").innerHTML = logLines.slice(-40).reverse().map(l =>
+    `<div><span class="t">t${l.t}</span><b style="color:${l.colour ? `var(${l.colour})` : "inherit"}">${l.who}:</b> ${l.text}</div>`).join("");
+}
+function summary() {
+  const seen = new Set(), out = worlds.map(w => ({label: w.label, first: [], back: [], deaths: w.stats.deaths,
+    avgE: w.stats.energySum / Math.max(1, w.stats.ticks), accidents: w.stats.accidents, good: w.stats.good / Math.max(1, w.stats.good + w.stats.bad), purple: w.purple.slice(), purpleZero: w.purpleZero.slice(),
+    memories: w.mind.contexts.length}));
+  boundaries.forEach((b, k) => {
+    if (k === 0) { seen.add(b.s); return; }
+    const end = boundaries[k + 1] ? boundaries[k + 1].t : Infinity, returning = seen.has(b.s); seen.add(b.s);
+    worlds.forEach((w, i) => { const h = w.history.filter(x => x.t >= b.t && x.t < end).slice(0, 15); if (h.length < 15) return;
+      (returning ? out[i].back : out[i].first).push(h.reduce((a, x) => a + x.surprise, 0) / h.length); });
+  });
+  const mean = a => a.length ? (a.reduce((x, y) => x + y, 0) / a.length).toFixed(1) : "–";
+  return out.map(o => ({...o, firstMean: mean(o.first), backMean: mean(o.back), purpleMean: mean(o.purple), purpleZeroMean: mean(o.purpleZero), nFirst: o.first.length, nBack: o.back.length}));
+}
+function renderSummary() {
+  const rows = worlds.map(w => { const st = w.stats, before = st.ticks - st.ticksAfter;
+    return {label: w.label, dB: st.deaths - st.deathsAfter, dA: st.deathsAfter, eB: (st.energySum - st.energySumAfter) / Math.max(1, before),
+      eA: st.ticksAfter ? (st.energySumAfter / st.ticksAfter).toFixed(0) : "–", good: st.good / Math.max(1, st.good + st.bad), acc: st.accidents,
+      ms: st.moveSurprises - st.moveSurprisesAfter, msA: st.moveSurprisesAfter}; });
+  document.getElementById("summary").innerHTML = `<h2>Scorecard</h2><div class="sub">Before and after the rewiring at step ${REWIRE.toLocaleString()}. A movement surprise is a button press that did not land where the creature expected.</div>
+  <table><thead><tr><th></th><th class="num">Deaths before / after</th><th class="num">Average energy before / after</th><th class="num">Good meals</th><th class="num">Poison by accident</th><th class="num">Movement surprises before / after</th></tr></thead><tbody>
+  ${rows.map(o => `<tr><td>${o.label}</td><td class="num">${o.dB} / ${o.dA}</td><td class="num">${o.eB.toFixed(0)} / ${o.eA}</td><td class="num">${Math.round(o.good * 100)}%</td><td class="num">${o.acc}</td><td class="num">${o.ms} / ${o.msA}</td></tr>`).join("")}
+  </tbody></table>`;
+}
+function renderAll() {
+  document.getElementById("season").textContent = SEASONS[seasonIdx].name + (document.getElementById("auto").checked ? ` · next change in ${SEASON_LEN - (t % SEASON_LEN)}` : "");
+  worlds.forEach(drawWorld);
+  if (frame % 6 === 0) { worlds.forEach(renderPanels); drawChart(); renderLog(); renderSummary(); }
+}
+function loop() { if (running) { const n = +document.getElementById("speed").value; for (let k = 0; k < n; k++) step(); } frame++; renderAll(); requestAnimationFrame(loop); }
+document.getElementById("play").onclick = e => { running = !running; e.target.textContent = running ? "Pause" : "Play"; };
+document.getElementById("change").onclick = () => { nextSeason(); frame = 0; renderAll(); };
+document.getElementById("reset").onclick = () => { reset(Math.floor(Math.random() * 1e6)); };
+addEventListener("resize", () => { frame = 0; });
+window.scoreRows = () => worlds.map(w => ({label: w.label, ...w.stats}));
+window.habitat = { run(n) { for (let k = 0; k < n; k++) step(); frame = 0; renderAll(); return summary(); }, reset, get t() { return t; }, get worlds() { return worlds; } };
+reset(); loop();
+</script>
+</body>
+</html>

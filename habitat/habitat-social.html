@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social Habitat</title>
+<style>
+:root{--bg:#fafaf9;--panel:#fff;--ink:#1c1c1a;--muted:#6b6b66;--line:#e4e4e0;--grid:#f0f0ec;--accent:#2f5bd3;--a:#1a8f80;--b:#c97a1e;--good:#2f8a43;--bad:#c2413b;--wall:#8f8f88;--ice:#cfe3f2;--winter:#dfe8f0}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--panel:#1c1c1b;--ink:#ecebe7;--muted:#9a9993;--line:#2e2e2c;--grid:#232322;--accent:#7c9cf0;--a:#4cc4b4;--b:#e39a45;--good:#58b86c;--bad:#e06a62;--wall:#55554f;--ice:#1f3646;--winter:#1c2733}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:2}
+h1{font-size:15px;margin:0;font-weight:600}
+.pill{font-size:13px;padding:2px 8px;border:1px solid var(--line);border-radius:4px}
+.pill.winter{border-color:var(--accent);color:var(--accent)}
+.sp{flex:1}
+.btn{font:inherit;font-size:13px;color:inherit;background:none;border:1px solid var(--line);border-radius:4px;padding:4px 10px;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+label{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+main{max-width:1180px;margin:0 auto;padding:16px}
+.intro{color:var(--muted);margin:0 0 14px;max-width:880px}
+.intro a{color:var(--accent)}
+.worlds{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:820px){.worlds{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px}
+.card h2{font-size:14px;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+.toggles{display:flex;flex-wrap:wrap;gap:4px 14px;margin-bottom:8px}
+canvas.world{width:100%;aspect-ratio:1;display:block;border:1px solid var(--line);border-radius:4px;background:var(--grid)}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0}
+.stat{border-top:1px solid var(--line);padding-top:4px}
+.stat b{display:block;font-size:16px;font-variant-numeric:tabular-nums}
+.stat span{font-size:11px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+th{font-weight:500;color:var(--muted);text-align:left;padding:3px 4px;border-bottom:1px solid var(--line)}
+td{padding:3px 4px;border-bottom:1px solid var(--line)}
+td.num,th.num{text-align:right}
+.below{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-top:16px}
+@media (max-width:820px){.below{grid-template-columns:1fr}}
+#chart{width:100%;height:220px;display:block}
+.legend{font-size:12px;color:var(--muted);display:flex;gap:14px;margin-top:4px;flex-wrap:wrap}
+#log{font-size:12.5px;max-height:270px;overflow-y:auto}
+#log div{padding:3px 0;border-bottom:1px solid var(--line)}
+#log .t{color:var(--muted);font-variant-numeric:tabular-nums;margin-right:6px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Social Habitat</h1>
+  <span class="pill" id="season"></span>
+  <span class="pill" id="weather"></span>
+  <span class="sp"></span>
+  <button class="btn primary" id="play">Pause</button>
+  <label>Speed <input type="range" id="speed" min="1" max="60" value="6"></label>
+  <label><input type="checkbox" id="deadly"> Deadly poison</label>
+  <button class="btn" id="reset">Restart</button>
+</header>
+<main>
+<p class="intro">Two groups of four creatures, each group in its own copy of the same world. Every creature learns food values from pixels, plans routes, and learns its own movement. Switch each group's abilities on or off to see what they add. <b>Learning from others:</b> watching another creature eat teaches the watcher that food's value without tasting it. <b>Neural movement:</b> a small network predicts where a button press lands from the surrounding terrain, instead of simple counts. <b>Winter planning:</b> for 500 steps of every 2,400 no food grows; creatures sense temperature, learn which temperatures bring famine and forecast it 200 steps ahead, and hibernate to save energy. Buttons are rewired at step 7,800. <a href="habitat-move.html">Movement version</a> · <a href="habitat-pixels.html">Pixel version</a></p>
+<div class="worlds" id="worlds"></div>
+<div class="below">
+  <div class="card">
+    <h2>Group energy over time</h2>
+    <div class="sub">Average energy of each group's creatures. Shaded bands are winters. R marks the rewiring.</div>
+    <canvas id="chart"></canvas>
+    <div class="legend"><span><i class="dot" style="background:var(--a)"></i> Group A</span><span><i class="dot" style="background:var(--b)"></i> Group B</span></div>
+  </div>
+  <div class="card">
+    <h2>What happened</h2>
+    <div class="sub">Lessons from others, hibernation, deaths and relearning.</div>
+    <div id="log"></div>
+  </div>
+</div>
+<div class="card" id="summary" style="margin-top:16px"></div>
+</main>
+<script>
+const WALLS = 0.10, ICE = 0.12, REWIRE = 7800, DIRS = [[1, 0], [0, 1], [-1, 0], [0, -1]], ARROWS = ["→", "↓", "←", "↑"];
+const N = 24, SIGHT = 7, FOOD = 22, ROT = 0.08, SEASON_LEN = 1200, SLEEP_EVERY = 400, SLEEP_LEN = 25, PURPLE_FROM = Infinity;
+const YEAR = 2400, WINTER_START = 1900, GROUP = 4, LOOKAHEAD = 200, DEADLY = -80;
+const DEADLY_FOOD = [[1, 1], [0, 1], [1, 0]];   // per season: blue square, red square, blue circle
+const S = 7, D = S * S * 3, H = 16;           // sprite size, network input size, hidden units
+const COLOURS = [
+  {n: "red", rgb: [0.85, 0.30, 0.30]}, {n: "blue", rgb: [0.25, 0.45, 0.85]},
+  {n: "green", rgb: [0.30, 0.65, 0.30]}, {n: "purple", rgb: [0.60, 0.32, 0.78]},
+];
+const SHAPES = ["circle", "square"];
+// Purple's value always sits between red's and blue's, so a creature that learned "how red" and "how blue" can guess it.
+const SEASONS = [
+  {name: "Season 1: red is food", col: [6, -6, 0, 0], shp: [2, -2]},
+  {name: "Season 2: blue is food", col: [-6, 6, 0, 0], shp: [2, -2]},
+  {name: "Season 3: green is food, squares better", col: [-3, -3, 6, -3], shp: [-2, 2]},
+];
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const typeName = (c, s) => COLOURS[c].n + " " + SHAPES[s];
+const fmt = v => (v > 0 ? "+" : "") + v.toFixed(1);
+function makeRng(seed) {
+  return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+const gauss = rng => Math.sqrt(-2 * Math.log(rng() + 1e-9)) * Math.cos(2 * Math.PI * rng());
+
+// A 7x7 RGB image of a food: shape mask, colour with brightness and tint jitter, a random one-pixel shift, and pixel noise.
+function sprite(c, s, rng, clean = false) {
+  const px = new Float32Array(D), base = COLOURS[c].rgb;
+  const bright = clean ? 1 : 0.85 + 0.3 * rng(), tint = [0, 1, 2].map(() => clean ? 0 : (rng() - 0.5) * 0.12);
+  const ox = clean ? 0 : Math.floor(rng() * 3) - 1, oy = clean ? 0 : Math.floor(rng() * 3) - 1;
+  for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+    const u = x - 3 - ox, v = y - 3 - oy;
+    const inside = s === 0 ? u * u + v * v <= 6.5 : Math.abs(u) <= 2 && Math.abs(v) <= 2;
+    for (let k = 0; k < 3; k++) {
+      let val = inside ? Math.min(1, Math.max(0, base[k] * bright + tint[k])) : 0.12;
+      if (!clean) val += 0.05 * gauss(rng);
+      px[(y * S + x) * 3 + k] = val;
+    }
+  }
+  return px;
+}
+function spriteURL(px) {
+  const cv = document.createElement("canvas"); cv.width = cv.height = S; const g = cv.getContext("2d"), im = g.createImageData(S, S);
+  for (let i = 0; i < S * S; i++) { for (let k = 0; k < 3; k++) im.data[i * 4 + k] = Math.max(0, Math.min(255, px[i * 3 + k] * 255)); im.data[i * 4 + 3] = 255; }
+  g.putImageData(im, 0, 0); return cv.toDataURL();
+}
+const PROTOS = []; for (let c = 0; c < 4; c++) for (let s = 0; s < 2; s++) PROTOS.push({c, s, px: sprite(c, s, null, true)});
+
+// Tiny neural network: 147 pixels -> 16 hidden units -> 1 predicted energy value.
+class Net {
+  constructor(rng) {
+    this.W1 = new Float32Array(H * D).map(() => gauss(rng) * 0.08); this.b1 = new Float32Array(H);
+    this.W2 = new Float32Array(H).map(() => gauss(rng) * 0.3); this.b2 = 0; this.h = new Float32Array(H);
+  }
+  predict(x) {
+    let y = this.b2;
+    for (let j = 0; j < H; j++) { let a = this.b1[j]; const o = j * D; for (let i = 0; i < D; i++) a += this.W1[o + i] * (x[i] - 0.4); this.h[j] = Math.tanh(a); y += this.W2[j] * this.h[j]; }
+    return y * 4;
+  }
+  train(x, target, lr) {
+    const y = this.predict(x), dy = Math.max(-3, Math.min(3, (y - target) / 4));
+    for (let j = 0; j < H; j++) {
+      const dh = dy * this.W2[j] * (1 - this.h[j] * this.h[j]); this.W2[j] -= lr * dy * this.h[j];
+      this.b1[j] -= lr * dh; const o = j * D; for (let i = 0; i < D; i++) this.W1[o + i] -= lr * dh * (x[i] - 0.4);
+    }
+    this.b2 -= lr * dy;
+  }
+}
+
+// Colour constancy: rescale an image so its bright parts have the same average brightness.
+const normCache = new WeakMap();
+function normalised(px) {
+  let o = normCache.get(px); if (o) return o;
+  let sum = 0, n = 0; for (let i = 0; i < D; i += 3) { const v = (px[i] + px[i + 1] + px[i + 2]) / 3; if (v > 0.25) { sum += v; n++; } }
+  const k = 0.45 / Math.max(0.05, (n ? sum / n : 0.5) - 0.12); o = new Float32Array(D); for (let i = 0; i < D; i++) o[i] = 0.12 + (px[i] - 0.12) * k;
+  normCache.set(px, o); return o;
+}
+// Distance between brightness-normalised images at their best alignment of up to two pixels.
+function alignedDist(a0, b0) {
+  const a = normalised(a0), b = normalised(b0);
+  let best = Infinity;
+  for (let sy = -2; sy <= 2; sy++) for (let sx = -2; sx <= 2; sx++) {
+    let e = 0;
+    for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) { const u = x + sx, v = y + sy, ia = (y * S + x) * 3, out = u < 0 || v < 0 || u >= S || v >= S, ib = (v * S + u) * 3;
+      for (let k = 0; k < 3; k++) { const q = a[ia + k] - (out ? 0.12 : b[ib + k]); e += q * q; } }
+    if (e < best) best = e;
+  }
+  return best / D;
+}
+class Mind {
+  constructor(lifelike, rng) { this.lifelike = lifelike; this.rng = rng; this.danger = []; this.contexts = [this.newContext()]; this.active = 0; this.pending = []; this.meals = 0; this.lastSwitch = -99; }
+  newContext() { return {net: new Net(this.rng), memory: [], uses: 0}; }
+  get ctx() { return this.contexts[this.active]; }
+  // One-trial danger memory: anything that looks like a food that nearly killed it (or a neighbour) is predicted deadly.
+  predict(px, ctx = this.ctx) {
+    const base = ctx.net.predict(px);
+    if (this.isDangerous(px)) return Math.min(base, -40);
+    return base;
+  }
+  // One shared danger memory across seasons. An entry is dropped once that food is seen eaten safely.
+  isDangerous(px) { return this.danger.some(d => alignedDist(px, d) < 0.020); }
+  noteDanger(px) { this.danger.push(px); if (this.danger.length > 8) this.danger.shift(); }
+  noteSafe(px) { if (this.danger.length) this.danger = this.danger.filter(d => alignedDist(px, d) >= 0.020); }
+  // Novelty: how unlike anything in memory this image is. Drives curiosity.
+  uncertainty(px, ctx = this.ctx) {
+    let best = Infinity;
+    for (const m of ctx.memory) { let d = 0; for (let i = 0; i < D; i += 3) { const e = px[i] - m.px[i], f = px[i + 1] - m.px[i + 1], g = px[i + 2] - m.px[i + 2]; d += e * e + f * f + g * g; } if (d < best) best = d; }
+    return Math.max(0, Math.min(1, (best / D - 0.015) / 0.05));
+  }
+  remember(ctx, item, lr) {
+    if (item.actual > 0) this.noteSafe(item.px);
+    ctx.memory.push(item); if (ctx.memory.length > 60) ctx.memory.shift();
+    ctx.net.train(item.px, item.actual, lr);
+    for (let k = 0; k < 6; k++) { const m = ctx.memory[Math.floor(this.rng() * ctx.memory.length)]; ctx.net.train(m.px, m.actual, lr); }
+  }
+  observe(item) {
+    const pred = this.predict(item.px), surprise = Math.abs(item.actual - pred), events = [];
+    if (item.actual < -30) { this.meals++; this.noteDanger(item.px); this.remember(this.ctx, item, 0.03); return {pred, surprise, events}; }
+    this.meals++;
+    if (!this.lifelike) { this.remember(this.ctx, item, 0.02); return {pred, surprise, events}; }
+    if (surprise > 5 && this.meals - this.lastSwitch >= 4) {
+      this.pending.push(item);
+      if (this.pending.length >= 2) { events.push(this.reconsider(this.pending)); this.pending = []; }
+      return {pred, surprise, events};
+    }
+    for (const x of this.pending) this.remember(this.ctx, x, 0.03);
+    this.pending = [];
+    this.remember(this.ctx, item, 0.02 + 0.03 * Math.min(1, surprise / 8));
+    return {pred, surprise, events};
+  }
+  reconsider(evidence) {
+    const fit = ctx => evidence.reduce((a, x) => a + Math.abs(x.actual - this.predict(x.px, ctx)), 0) / evidence.length;
+    let best = -1, bestErr = Infinity;
+    this.contexts.forEach((ctx, i) => { if (i !== this.active && ctx.memory.length >= 5) { const e = fit(ctx); if (e < bestErr) { bestErr = e; best = i; } } });
+    this.lastSwitch = this.meals;
+    if (best >= 0 && bestErr < 3) {
+      this.active = best; this.ctx.uses++; for (const x of evidence) this.remember(this.ctx, x, 0.02);
+      return {kind: "recall", text: `Recognised a season it has seen before (memory ${best + 1})`};
+    }
+    // New situation: start from a copy of current knowledge of what things look like, then retrain on the surprises.
+    const fresh = this.newContext(), src = this.ctx.net;
+    fresh.net.W1.set(src.W1); fresh.net.b1.set(src.b1);
+    this.contexts.push(fresh); this.active = this.contexts.length - 1; this.ctx.uses++;
+    for (let p = 0; p < 15; p++) for (const x of evidence) this.ctx.net.train(x.px, x.actual, 0.05);
+    for (const x of evidence) this.ctx.memory.push(x);
+    return {kind: "new", text: `The world changed in a new way. Started memory ${this.active + 1}`};
+  }
+  sleep() {
+    const ctx = this.ctx; let merged = 0;
+    for (let p = 0; p < 3; p++) for (const m of ctx.memory) ctx.net.train(m.px, m.actual, 0.01);
+    for (let i = this.contexts.length - 1; i >= 0; i--) {
+      const other = this.contexts[i]; if (other === ctx || other.memory.length < 8 || ctx.memory.length < 8) continue;
+      let diff = 0; for (const p of PROTOS.slice(0, 6)) diff = Math.max(diff, Math.abs(this.predict(p.px, ctx) - this.predict(p.px, other)));
+      if (diff < 2.5) { ctx.memory = ctx.memory.concat(other.memory).slice(-60); ctx.uses += other.uses; this.contexts.splice(i, 1); if (i < this.active) this.active--; merged++; }
+    }
+    return merged;
+  }
+}
+
+// Learned movement model. It must discover which way each button moves it, and what walls and ice do.
+// Counts fade, so recent experience outweighs old: this is what lets it relearn after the rewiring.
+class MoveModel {
+  constructor() { this.map = [0, 1, 2, 3].map(() => [0, 0, 0, 0]); this.ter = [0, 1, 2].map(() => [0, 0, 0]); }
+  dir(a) { const c = this.map[a]; if (c[0] + c[1] + c[2] + c[3] < 0.5) return -1; return c.indexOf(Math.max(...c)); }
+  outcome(T) { const c = this.ter[T]; if (c[0] + c[1] + c[2] < 0.5) return -1; return c.indexOf(Math.max(...c)); } // 0 blocked, 1 one step, 2 slide
+  landing(w, x, y, a) {
+    const k = this.dir(a); if (k < 0) return -1;
+    const d = DIRS[k], nx = x + d[0], ny = y + d[1], inside = (u, v) => u >= 0 && v >= 0 && u < N && v < N;
+    if (!inside(nx, ny)) return y * N + x;   // the edge of the world is visible and always blocks
+    const o = this.outcome(w.terrainAt(nx, ny));
+    if (o === 0) return y * N + x;
+    if (o === 2) { const mx = nx + d[0], my = ny + d[1]; if (inside(mx, my) && this.outcome(w.terrainAt(mx, my)) !== 0) return my * N + mx; }
+    return ny * N + nx;   // one step, or unknown ground: assume walkable
+  }
+  learn(w, x, y, a, lx, ly) {
+    const dx = lx - x, dy = ly - y;
+    if (dx || dy) {
+      const k = DIRS.findIndex(d => d[0] === Math.sign(dx) && d[1] === Math.sign(dy)), row = this.map[a];
+      for (let i = 0; i < 4; i++) row[i] *= 0.85; row[k] += 1;
+      this.bump(w.terrainAt(x + DIRS[k][0], y + DIRS[k][1]), Math.abs(dx) + Math.abs(dy));
+    } else { const k = this.dir(a); if (k >= 0) this.bump(w.terrainAt(x + DIRS[k][0], y + DIRS[k][1]), 0); }
+  }
+  bump(T, o) { const r = this.ter[T]; for (let i = 0; i < 3; i++) r[i] *= 0.95; r[o] += 1; }
+}
+
+
+// Neural movement model: from the button pressed and the 5x5 terrain around it, predict where it lands.
+// Nine outcomes: stay, one step in each of 4 directions, or two steps (a slide) in each direction.
+class NeuralMove {
+  constructor(rng) {
+    this.rng = rng; this.I = 4 + 75; this.H = 32; this.O = 9; this.recent = [];
+    this.W1 = new Float32Array(this.H * this.I).map(() => gauss(rng) * 0.1); this.b1 = new Float32Array(this.H);
+    this.W2 = new Float32Array(this.O * this.H).map(() => gauss(rng) * 0.1); this.b2 = new Float32Array(this.O);
+    this.h = new Float32Array(this.H); this.p = new Float32Array(this.O); this.buf = []; this.moves = 0; this.stale = 0;
+    this.cache = new Int16Array(N * N * 4); this.cacheVer = new Int32Array(N * N * 4).fill(-1); this.ver = 0;
+  }
+  features(w, x, y, a) {
+    const f = [a];
+    for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) f.push(4 + ((dy + 2) * 5 + dx + 2) * 3 + w.terrainAt(x + dx, y + dy));
+    return f;
+  }
+  forward(f) {
+    const {I, H, O} = this;
+    for (let j = 0; j < H; j++) { let s = this.b1[j]; for (const i of f) s += this.W1[j * I + i]; this.h[j] = Math.tanh(s); }
+    let mx = -1e9; for (let k = 0; k < O; k++) { let s = this.b2[k]; for (let j = 0; j < H; j++) s += this.W2[k * H + j] * this.h[j]; this.p[k] = s; if (s > mx) mx = s; }
+    let z = 0; for (let k = 0; k < O; k++) { this.p[k] = Math.exp(this.p[k] - mx); z += this.p[k]; } for (let k = 0; k < O; k++) this.p[k] /= z;
+  }
+  train(f, c, lr) {
+    const {I, H, O} = this; this.forward(f);
+    const dh = new Float32Array(H);
+    for (let k = 0; k < O; k++) { const g = this.p[k] - (k === c ? 1 : 0); this.b2[k] -= lr * g;
+      for (let j = 0; j < H; j++) { dh[j] += g * this.W2[k * H + j]; this.W2[k * H + j] -= lr * g * this.h[j]; } }
+    for (let j = 0; j < H; j++) { const g = dh[j] * (1 - this.h[j] * this.h[j]); this.b1[j] -= lr * g; for (const i of f) this.W1[j * I + i] -= lr * g; }
+  }
+  static outcomeOf(dx, dy) { if (!dx && !dy) return 0; const k = DIRS.findIndex(d => d[0] === Math.sign(dx) && d[1] === Math.sign(dy)); return (Math.abs(dx) + Math.abs(dy) === 1 ? 1 : 5) + k; }
+  predictCell(w, x, y, a) {
+    this.forward(this.features(w, x, y, a));
+    let c = 0; for (let k = 1; k < 9; k++) if (this.p[k] > this.p[c]) c = k;
+    if (c === 0) return y * N + x;
+    const k = (c - 1) % 4, steps = c <= 4 ? 1 : 2, d = DIRS[k], inside = (u, v) => u >= 0 && v >= 0 && u < N && v < N;
+    if (steps === 2 && inside(x + 2 * d[0], y + 2 * d[1])) return (y + 2 * d[1]) * N + x + 2 * d[0];
+    if (inside(x + d[0], y + d[1])) return (y + d[1]) * N + x + d[0];
+    return y * N + x;
+  }
+  // Saved predictions are recomputed lazily: a new version starts after any movement surprise or every 40 moves.
+  refresh() { if (this.stale >= 40) { this.ver++; this.stale = 0; } }
+  landing(w, x, y, a) {
+    const k = (y * N + x) * 4 + a;
+    if (this.cacheVer[k] !== this.ver) { this.cache[k] = this.predictCell(w, x, y, a); this.cacheVer[k] = this.ver; }
+    return this.cache[k];
+  }
+  learn(w, x, y, a, lx, ly) {
+    const item = {f: this.features(w, x, y, a), c: NeuralMove.outcomeOf(lx - x, ly - y)};
+    // If most recent moves surprised it, the body or world has changed: forget older movement memories.
+    const wrong = this.landing(w, x, y, a) !== ly * N + lx;
+    this.recent.push(wrong); if (this.recent.length > 10) this.recent.shift();
+    if (wrong) this.ver++;
+    if (this.moves > 300 && this.recent.filter(Boolean).length >= 7) { this.buf = this.buf.slice(-10); this.recent = []; this.flushes = (this.flushes || 0) + 1; }
+    this.buf.push(item); if (this.buf.length > 400) this.buf.shift();
+    this.train(item.f, item.c, 0.1);
+    for (let k = 0; k < 6; k++) { const m = this.buf[Math.floor(this.rng() * this.buf.length)]; this.train(m.f, m.c, 0.1); }
+    this.moves++; this.stale++;
+  }
+  babble() { return this.moves < 24 ? Math.floor(this.rng() * 4) : -1; }   // first moves: press buttons at random to see what happens
+}
+MoveModel.prototype.babble = function () { const b = [0, 1, 2, 3].find(k => this.dir(k) < 0); return b === undefined ? -1 : b; };
+MoveModel.prototype.refresh = function () {};
+
+const bucketOf = (temp, rising) => Math.min(7, Math.floor((temp + 1) / 2 * 8)) + (rising ? 8 : 0);
+const temperature = t => -Math.cos(2 * Math.PI * ((t % YEAR) - 2150) / YEAR);
+const isWinter = t => (t % YEAR) >= WINTER_START;
+
+class Creature {
+  constructor(world, idx, seed) {
+    this.w = world; this.idx = idx; const o = world.opts;
+    this.mind = new Mind(true, makeRng(seed)); this.model = o.neural ? new NeuralMove(makeRng(seed + 7)) : new MoveModel();
+    this.perm = world.perm0.slice();
+    this.x = 11 + 2 * (idx % 2); this.y = 11 + 2 * (idx >> 1); this.energy = 80; this.sleeping = 0; this.plan = null; this.target = null; this.wanderA = idx; this.hibernating = false;
+    this.stats = {deaths: 0, winterDeaths: 0, deathsAfter: 0, good: 0, bad: 0, energySum: 0, ticks: 0, energySumAfter: 0, ticksAfter: 0, moveSurprises: 0, lessons: 0, hibernated: 0, deadlyMeals: 0, deadlyDeaths: 0};
+    this.avail = new Float32Array(16).fill(-1); this.trans = Array.from({length: 16}, () => new Float32Array(16)); this.hist = [];
+    this.okStreak = 0; this.relearnedAt = -1;
+  }
+  get rng() { return this.w.rng; }
+  landing(x, y, a) { return this.model.landing(this.w, x, y, a); }
+  act(a, t) {
+    const w = this.w, x0 = this.x, y0 = this.y, expected = this.landing(x0, y0, a), d = DIRS[this.perm[a]];
+    const x = x0 + d[0], y = y0 + d[1];
+    if (w.passable(x, y)) { this.x = x; this.y = y; if (w.terrainAt(x, y) === 1 && w.passable(x + d[0], y + d[1])) { this.x += d[0]; this.y += d[1]; } }
+    const actual = this.y * N + this.x, surprised = expected >= 0 && expected !== actual;
+    if (surprised) this.stats.moveSurprises++;
+    if (t >= REWIRE && this.relearnedAt < 0) { this.okStreak = surprised ? 0 : this.okStreak + 1;
+      if (this.okStreak >= 20) { this.relearnedAt = t; w.log(this, `Moves reliably again, ${t - REWIRE} steps after the rewiring.`, "recall"); } }
+    this.model.learn(w, x0, y0, a, this.x, this.y);
+    return actual;
+  }
+  // Keep the chosen button unless it is expected to land on food it believes is deadly; then try the others.
+  safeAction(a) {
+    const bad = b => { const c = this.landing(this.x, this.y, b); const f = c >= 0 && this.w.food.find(g => g.y * N + g.x === c); return f && this.mind.predict(f.px) < -30; };
+    if (!bad(a)) return a;
+    for (let k = 1; k < 4; k++) if (!bad((a + k) % 4)) return (a + k) % 4;
+    return a;
+  }
+  visibleFood() { return this.w.food.filter(f => Math.max(Math.abs(f.x - this.x), Math.abs(f.y - this.y)) <= SIGHT); }
+  // Winter planning: remember how much food is around at each temperature (rising or falling), and which
+  // temperature tends to follow 200 steps later. That gives a forecast of food 200 steps ahead.
+  sense(t) {
+    const temp = temperature(t), b = bucketOf(temp, temp > temperature(t - 50)), seen = this.visibleFood().length;
+    this.avail[b] = this.avail[b] < 0 ? seen : 0.97 * this.avail[b] + 0.03 * seen;
+    this.hist.push(b); if (this.hist.length > LOOKAHEAD) this.trans[this.hist.shift()][b] += 1;
+    const row = this.trans[b]; let nb = -1, mx = 0; for (let k = 0; k < 16; k++) if (row[k] > mx) { mx = row[k]; nb = k; }
+    return {now: this.avail[b], soon: nb >= 0 ? this.avail[nb] : -1};
+  }
+  tick(t, season) {
+    const w = this.w, m = this.mind, s = this.stats;
+    s.ticks++; s.energySum += this.energy; if (t >= REWIRE) { s.ticksAfter++; s.energySumAfter += this.energy; }
+    const fc = this.sense(t); this.hibernating = false;
+    if (this.sleeping > 0) { this.sleeping--; this.energy -= 0.06; return this.checkDeath(t); }
+    if (t > 0 && (t + this.idx * 37) % SLEEP_EVERY === 0) { this.sleeping = SLEEP_LEN; m.sleep(); return; }
+    if (w.opts.forecast && fc.now >= 0 && fc.now < 1.2 && !this.visibleFood().some(f => m.predict(f.px) > 1)) {
+      this.hibernating = true; s.hibernated++; this.energy -= 0.035; return this.checkDeath(t);   // famine now: hibernate
+    }
+    this.energy -= 0.12;
+    const stockUp = w.opts.forecast && fc.soon >= 0 && fc.soon < 1.2;   // famine coming: go further for any food worth eating
+    const babble = this.model.babble();
+    if (babble >= 0) { this.plan = null; this.target = null; this.act(this.safeAction(babble), t); }
+    else {
+      this.model.refresh(w);
+      if (!this.plan || !this.plan.actions.length || !w.food.includes(this.plan.targets[0]) || t % 4 === 0) this.plan = this.makePlan(stockUp);
+      if (this.plan) { const a = this.plan.actions.shift(), want = this.plan.cells.shift(); this.target = this.plan.targets[0]; if (this.act(a, t) !== want) this.plan = null; }
+      else { this.target = null; if (this.rng() < 0.2) this.wanderA = Math.floor(this.rng() * 4); this.wanderA = this.safeAction(this.wanderA); this.act(this.wanderA, t); }
+    }
+    const i = w.food.findIndex(f => f.x === this.x && f.y === this.y);
+    if (i >= 0) w.eat(this, i, season, t);
+    this.checkDeath(t);
+  }
+  makePlan(stockUp) {
+    const m = this.mind, vis = this.visibleFood(); for (const f of vis) f.v = m.predict(f.px) + 4 * m.uncertainty(f.px);
+    const blocked = new Uint8Array(N * N); for (const f of vis) if (f.v < 0) blocked[f.y * N + f.x] = 1;
+    const minV = stockUp ? 0.2 : 0.5, cost = stockUp ? 0.15 : 0.35, cheb = f => Math.max(Math.abs(f.x - this.x), Math.abs(f.y - this.y));
+    const cands = vis.filter(f => f.v > minV).sort((p, q) => (q.v - cost * cheb(q)) - (p.v - cost * cheb(p))).slice(0, 5);
+    if (!cands.length) return null;
+    const bfs = start => {
+      const dist = new Int16Array(N * N).fill(-1), prev = new Int16Array(N * N).fill(-1), pact = new Int8Array(N * N), q = [start]; dist[start] = 0;
+      for (let h = 0; h < q.length; h++) { const c = q[h], x = c % N, y = (c / N) | 0;
+        for (let b = 0; b < 4; b++) { const n = this.landing(x, y, b); if (n < 0 || n >= N * N || n === c || dist[n] >= 0 || blocked[n]) continue;
+          dist[n] = dist[c] + 1; prev[n] = c; pact[n] = b; q.push(n); } }
+      return {dist, prev, pact};
+    };
+    const at = f => f.y * N + f.x, start = this.y * N + this.x, from = [bfs(start), ...cands.map(c => bfs(at(c)))];
+    let best = null, bestScore = 0;
+    const search = (seq, last, steps, score) => {
+      if (seq.length && score > bestScore) { bestScore = score; best = seq.slice(); }
+      if (seq.length === 3) return;
+      for (let k = 0; k < cands.length; k++) { if (seq.includes(k)) continue; const d = from[last].dist[at(cands[k])]; if (d <= 0) continue;
+        search([...seq, k], k + 1, steps + d, score + Math.pow(0.95, steps + d) * cands[k].v); }
+    };
+    search([], 0, 0, 0);
+    if (!best) return null;
+    const cells = [], actions = []; let cur = at(cands[best[0]]);
+    while (cur !== start && cur >= 0) { cells.unshift(cur); actions.unshift(from[0].pact[cur]); cur = from[0].prev[cur]; }
+    return {cells, actions, targets: best.map(k => cands[k])};
+  }
+  checkDeath(t) {
+    if (this.energy > 0) return;
+    const s = this.stats; s.deaths++; if (isWinter(t)) s.winterDeaths++; if (t >= REWIRE) s.deathsAfter++;
+    this.energy = 60; this.plan = null;
+    do { this.x = Math.floor(this.rng() * N); this.y = Math.floor(this.rng() * N); } while (!this.w.passable(this.x, this.y));
+    this.w.log(this, isWinter(t) ? "Starved in winter. Respawned with its memories." : "Ran out of energy and died. Respawned with its memories.", "death");
+  }
+}
+
+class World {
+  constructor(seed, opts, label, colourVar) {
+    this.rng = makeRng(seed); this.opts = opts; this.label = label; this.colourVar = colourVar; this.t = 0;
+    this.terrain = new Uint8Array(N * N);
+    for (let i = 0; i < N * N; i++) { const r = this.rng(); this.terrain[i] = r < WALLS ? 2 : r < WALLS + ICE ? 1 : 0; }
+    for (let y = 10; y <= 14; y++) for (let x = 10; x <= 14; x++) this.terrain[y * N + x] = 0;
+    const p = [0, 1, 2, 3]; for (let i = 3; i > 0; i--) { const j = Math.floor(this.rng() * (i + 1)); [p[i], p[j]] = [p[j], p[i]]; } this.perm0 = p;
+    this.food = []; for (let i = 0; i < FOOD; i++) this.spawn();
+    this.creatures = Array.from({length: GROUP}, (_, i) => new Creature(this, i, seed * 10 + i + 1));
+    this.energyTrace = []; this.lessonLogs = 0;
+  }
+  terrainAt(x, y) { return x < 0 || y < 0 || x >= N || y >= N ? 2 : this.terrain[y * N + x]; }
+  passable(x, y) { return this.terrainAt(x, y) !== 2; }
+  spawn() {
+    let x, y; do { x = Math.floor(this.rng() * N); y = Math.floor(this.rng() * N); } while (!this.passable(x, y) || this.food.some(f => f.x === x && f.y === y));
+    const c = Math.floor(this.rng() * 3), s = Math.floor(this.rng() * 2); this.food.push({x, y, c, s, px: sprite(c, s, this.rng)});
+  }
+  log(c, text, kind) { logLines.push({t, who: `${this.label} #${c.idx + 1}`, text, kind, colour: this.colourVar}); if (logLines.length > 300) logLines.shift(); }
+  eat(c, i, season, tt) {
+    const f = this.food[i], dk = DEADLY_FOOD[seasonIdx], deadly = this.opts.deadly && f.c === dk[0] && f.s === dk[1];
+    const actual = deadly ? DEADLY + (this.rng() * 2 - 1) : season.col[f.c] + season.shp[f.s] + (this.rng() * 2 - 1);
+    if (deadly) { c.stats.deadlyMeals++; if (c.energy + actual <= 0) c.stats.deadlyDeaths++; }
+    c.mind.observe({px: f.px, actual}); c.energy = Math.min(100, c.energy + actual); actual > 0 ? c.stats.good++ : c.stats.bad++;
+    // Learning from others: every awake creature that can see the eater learns from what happened to it.
+    if (this.opts.social) for (const o of this.creatures) {
+      if (o === c || o.sleeping || Math.max(Math.abs(o.x - c.x), Math.abs(o.y - c.y)) > SIGHT) continue;
+      const lesson = {px: f.px, actual: actual + (this.rng() - 0.5)};
+      // Watched meals update what the watcher knows, but don't count as its own surprises,
+      // so one unlucky meal by a neighbour can't convince it the season has changed.
+      if (this.opts.socialRaw) o.mind.observe(lesson); else { o.mind.remember(o.mind.ctx, lesson, 0.02); if (lesson.actual < -30) o.mind.noteDanger(lesson.px); }
+      o.stats.lessons++;
+      if (deadly && this.lessonLogs < 80) { this.lessonLogs++; this.log(o, `Watched #${c.idx + 1} eat a deadly ${typeName(f.c, f.s)}. Learned to avoid it without tasting.`, "social"); }
+      else if (actual < -3 && this.lessonLogs < 60 && this.rng() < 0.3) { this.lessonLogs++; this.log(o, `Watched #${c.idx + 1} get poisoned by a ${typeName(f.c, f.s)}, ${fmt(actual)}. Learned without tasting it.`, "social"); }
+    }
+    this.food.splice(i, 1); if (!isWinter(tt)) this.spawn();
+    for (const o of this.creatures) if (o.plan && o.plan.targets.includes(f)) o.plan = null;
+  }
+  tick(tt, season) {
+    this.t = tt;
+    if (tt === REWIRE) for (const c of this.creatures) c.perm = c.perm.map(k => (k + 1) % 4);
+    if (this.rng() < ROT && this.food.length) { const f = this.food.splice(Math.floor(this.rng() * this.food.length), 1)[0]; for (const o of this.creatures) if (o.plan && o.plan.targets.includes(f)) o.plan = null; if (!isWinter(tt)) this.spawn(); }
+    if (!isWinter(tt) && this.food.length < FOOD && this.rng() < 0.3) this.spawn();   // spring regrowth
+    for (const c of this.creatures) c.tick(tt, season);
+    if (tt % 20 === 0) this.energyTrace.push({t: tt, e: this.creatures.reduce((a, c) => a + c.energy, 0) / GROUP});
+  }
+  totals() {
+    const keys = ["deadlyMeals", "deadlyDeaths", "deaths", "winterDeaths", "deathsAfter", "good", "bad", "energySum", "ticks", "energySumAfter", "ticksAfter", "moveSurprises", "lessons", "hibernated"];
+    const tot = Object.fromEntries(keys.map(k => [k, this.creatures.reduce((a, c) => a + c.stats[k], 0)]));
+    tot.avgEnergy = tot.energySum / Math.max(1, tot.ticks); tot.avgEnergyAfter = tot.ticksAfter ? tot.energySumAfter / tot.ticksAfter : NaN;
+    tot.goodShare = tot.good / Math.max(1, tot.good + tot.bad);
+    const rel = this.creatures.map(c => c.relearnedAt).filter(x => x >= 0).map(x => x - REWIRE); tot.relearn = rel.length ? rel.reduce((a, b) => a + b, 0) / rel.length : NaN; tot.relearnedCount = rel.length;
+    return tot;
+  }
+}
+
+// ---------- page ----------
+const ABILITIES = [["social", "Learning from others"], ["neural", "Neural movement"], ["forecast", "Winter planning"]];
+let groupOpts = [{social: true, neural: true, forecast: true}, {social: false, neural: false, forecast: false}];
+let worlds, t, seasonIdx, logLines, running = true, frame = 0, seed = 12345;
+function reset(s = seed) {
+  seed = s; t = 0; seasonIdx = 0; logLines = [];
+  const box = document.getElementById("deadly"), deadly = groupOpts[0].deadly !== undefined ? !!groupOpts[0].deadly : box.checked === true; box.checked = deadly;
+  worlds = [new World(seed, {...groupOpts[0], deadly}, "A", "--a"), new World(seed, {...groupOpts[1], deadly}, "B", "--b")];
+  buildCards(); frame = 0; renderAll();
+}
+function step() {
+  if (t > 0 && t % SEASON_LEN === 0) { seasonIdx = (seasonIdx + 1) % SEASONS.length; logLines.push({t, who: "World", text: "Food values changed: " + SEASONS[seasonIdx].name, kind: "season"}); }
+  if (t % YEAR === WINTER_START) logLines.push({t, who: "World", text: "Winter: nothing grows for 500 steps.", kind: "season"});
+  if (t === REWIRE) logLines.push({t, who: "World", text: "Every creature's buttons were rewired a quarter turn.", kind: "season"});
+  for (const w of worlds) w.tick(t, SEASONS[seasonIdx]);
+  t++;
+}
+function buildCards() {
+  document.getElementById("worlds").innerHTML = worlds.map((w, i) => `
+    <div class="card">
+      <h2><i class="dot" style="background:var(${w.colourVar})"></i>Group ${w.label}</h2>
+      <div class="toggles">${ABILITIES.map(([k, name]) => `<label><input type="checkbox" data-g="${i}" data-k="${k}" ${groupOpts[i][k] ? "checked" : ""}> ${name}</label>`).join("")}</div>
+      <canvas class="world" id="w${i}"></canvas>
+      <div class="stats" id="s${i}"></div>
+      <table><thead><tr><th>Creature</th><th class="num">Energy</th><th>Doing</th><th class="num">Lessons from others</th><th class="num">Deaths</th></tr></thead><tbody id="c${i}"></tbody></table>
+    </div>`).join("");
+  document.querySelectorAll("[data-g]").forEach(el => el.onchange = () => { groupOpts[+el.dataset.g][el.dataset.k] = el.checked; reset(seed); });
+}
+function drawWorld(w, i) {
+  const cv = document.getElementById("w" + i), px = cv.clientWidth, dpr = devicePixelRatio || 1;
+  if (cv.width !== Math.round(px * dpr)) { cv.width = Math.round(px * dpr); cv.height = Math.round(px * dpr); }
+  const g = cv.getContext("2d"), cell = cv.width / N; g.clearRect(0, 0, cv.width, cv.height);
+  if (isWinter(t)) { g.fillStyle = css("--winter"); g.fillRect(0, 0, cv.width, cv.height); }
+  for (let k = 0; k < N * N; k++) if (w.terrain[k]) { g.fillStyle = css(w.terrain[k] === 2 ? "--wall" : "--ice"); g.fillRect((k % N) * cell, ((k / N) | 0) * cell, cell + 0.5, cell + 0.5); }
+  const p = cell / S;
+  for (const f of w.food) for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+    const k = (y * S + x) * 3; g.fillStyle = `rgb(${f.px[k] * 255 | 0},${f.px[k + 1] * 255 | 0},${f.px[k + 2] * 255 | 0})`; g.fillRect(f.x * cell + x * p, f.y * cell + y * p, p + 0.5, p + 0.5);
+  }
+  const col = css(w.colourVar);
+  for (const c of w.creatures) {
+    if (c.plan && c.plan.cells.length) { g.strokeStyle = col; g.globalAlpha = 0.6; g.lineWidth = dpr; g.beginPath(); g.moveTo((c.x + .5) * cell, (c.y + .5) * cell);
+      for (const k of c.plan.cells) g.lineTo((k % N + .5) * cell, (((k / N) | 0) + .5) * cell); g.stroke(); g.globalAlpha = 1; }
+    const cx = (c.x + .5) * cell, cy = (c.y + .5) * cell;
+    g.globalAlpha = c.sleeping || c.hibernating ? 0.45 : 1; g.fillStyle = col; g.beginPath(); g.arc(cx, cy, cell * 0.45, 0, 7); g.fill(); g.globalAlpha = 1;
+    g.strokeStyle = c.energy > 30 ? css("--good") : css("--bad"); g.lineWidth = 2.5 * dpr;
+    g.beginPath(); g.arc(cx, cy, cell * 0.62, -Math.PI / 2, -Math.PI / 2 + 2 * Math.PI * Math.max(0, c.energy) / 100); g.stroke();
+    g.fillStyle = "#fff"; g.font = `bold ${Math.round(cell * 0.5)}px sans-serif`; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(c.idx + 1, cx, cy + 1);
+  }
+  g.textAlign = "start"; g.textBaseline = "alphabetic";
+}
+function doing(c) { return c.hibernating ? "Hibernating" : c.sleeping ? "Sleeping" : c.model.babble && c.model.babble() >= 0 && !(c.model instanceof NeuralMove && c.model.moves >= 24) ? "Trying buttons" : c.plan ? "Following a plan" : "Exploring"; }
+function renderPanels(w, i) {
+  const tot = w.totals();
+  document.getElementById("s" + i).innerHTML =
+    `<div class="stat"><b>${(w.creatures.reduce((a, c) => a + c.energy, 0) / GROUP).toFixed(0)}</b><span>Energy now</span></div>` +
+    `<div class="stat"><b>${tot.avgEnergy.toFixed(0)}</b><span>Average energy</span></div>` +
+    `<div class="stat"><b>${tot.deaths}</b><span>Deaths</span></div>` +
+    `<div class="stat"><b>${tot.winterDeaths}</b><span>Winter deaths</span></div>` +
+    `<div class="stat"><b>${tot.bad}</b><span>Bad meals tasted</span></div>`;
+  document.getElementById("c" + i).innerHTML = w.creatures.map(c => `<tr><td>#${c.idx + 1}</td><td class="num">${c.energy.toFixed(0)}</td><td>${doing(c)}</td><td class="num">${c.stats.lessons}</td><td class="num">${c.stats.deaths}</td></tr>`).join("");
+}
+function drawChart() {
+  const cv = document.getElementById("chart"), dpr = devicePixelRatio || 1, W = cv.clientWidth, Hh = cv.clientHeight;
+  if (cv.width !== W * dpr) { cv.width = W * dpr; cv.height = Hh * dpr; }
+  const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, Hh);
+  const L = 28, B = 18, span = Math.max(t, YEAR * 2), X = v => L + (W - L - 6) * v / span, Y = v => (Hh - B) - (Hh - B - 8) * v / 100;
+  for (let y0 = 0; y0 < span; y0 += YEAR) { g.fillStyle = css("--winter"); g.fillRect(X(y0 + WINTER_START), 4, X(y0 + YEAR) - X(y0 + WINTER_START), Hh - B - 4); }
+  g.strokeStyle = css("--line"); g.fillStyle = css("--muted"); g.font = "11px sans-serif"; g.lineWidth = 1;
+  for (const v of [0, 25, 50, 75, 100]) { g.beginPath(); g.moveTo(L, Y(v)); g.lineTo(W - 6, Y(v)); g.stroke(); g.fillText(v, 4, Y(v) + 4); }
+  if (t >= REWIRE) { g.fillStyle = css("--bad"); g.fillText("R", X(REWIRE) + 2, 14); g.fillRect(X(REWIRE), 4, 1, Hh - B - 4); }
+  for (const w of worlds) { g.strokeStyle = css(w.colourVar); g.lineWidth = 1.6; g.beginPath(); w.energyTrace.forEach((p, k) => k ? g.lineTo(X(p.t), Y(p.e)) : g.moveTo(X(p.t), Y(p.e))); g.stroke(); }
+}
+function renderLog() {
+  document.getElementById("log").innerHTML = logLines.slice(-40).reverse().map(l =>
+    `<div><span class="t">t${l.t}</span><b style="color:${l.colour ? `var(${l.colour})` : "inherit"}">${l.who}:</b> ${l.text}</div>`).join("");
+}
+function renderSummary() {
+  const rows = worlds.map(w => ({w, s: w.totals()}));
+  const on = w => ABILITIES.filter(([k]) => w.opts[k]).map(([, n]) => n).join(", ") || "none";
+  document.getElementById("summary").innerHTML = `<h2>Scorecard</h2><div class="sub">Totals across each group's four creatures.</div>
+  <table><thead><tr><th>Group</th><th>Abilities</th><th class="num">Average energy</th><th class="num">Deaths</th><th class="num">In winter</th><th class="num">Killed by deadly food</th><th class="num">Bad meals tasted</th><th class="num">Lessons from others</th><th class="num">Steps to move reliably after rewiring</th></tr></thead><tbody>
+  ${rows.map(({w, s}) => `<tr><td>${w.label}</td><td>${on(w)}</td><td class="num">${s.avgEnergy.toFixed(0)}</td><td class="num">${s.deaths}</td><td class="num">${s.winterDeaths}</td><td class="num">${s.deadlyDeaths}</td><td class="num">${s.bad}</td><td class="num">${s.lessons}</td><td class="num">${isNaN(s.relearn) ? "–" : s.relearn.toFixed(0) + ` (${s.relearnedCount}/4)`}</td></tr>`).join("")}
+  </tbody></table>`;
+}
+function renderAll() {
+  document.getElementById("season").textContent = SEASONS[seasonIdx].name;
+  const wEl = document.getElementById("weather"), win = isWinter(t), ph = t % YEAR;
+  wEl.textContent = win ? `Winter · ${YEAR - ph} steps left` : `Temperature ${temperature(t).toFixed(2)} · winter in ${WINTER_START - ph}`; wEl.className = "pill" + (win ? " winter" : "");
+  worlds.forEach(drawWorld);
+  if (frame % 6 === 0) { worlds.forEach(renderPanels); drawChart(); renderLog(); renderSummary(); }
+}
+function loop() { if (running) { const n = +document.getElementById("speed").value; for (let k = 0; k < n; k++) step(); } frame++; renderAll(); requestAnimationFrame(loop); }
+document.getElementById("play").onclick = e => { running = !running; e.target.textContent = running ? "Pause" : "Play"; };
+document.getElementById("reset").onclick = () => reset(Math.floor(Math.random() * 1e6));
+document.getElementById("deadly").onchange = e => { groupOpts.forEach(g => g.deadly = e.target.checked); reset(seed); };
+addEventListener("resize", () => { frame = 0; });
+// Testing: run two configurations side by side without drawing.
+window.habitat = {
+  run(n) { for (let k = 0; k < n; k++) step(); frame = 0; renderAll(); return worlds.map(w => ({opts: w.opts, ...w.totals()})); },
+  setup(a, b, s) { groupOpts = [a, b]; reset(s); }, reset, get t() { return t; }, get worlds() { return worlds; },
+};
+reset(); loop();
+</script>
+</body>
+</html>
