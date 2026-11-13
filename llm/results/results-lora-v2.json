@@ -1,0 +1,391 @@
+{
+ "label": "lora-v2",
+ "facts_trained_phrasing": 25,
+ "facts_new_phrasing": 25,
+ "general": 25,
+ "n_facts": 25,
+ "n_general": 25,
+ "rows": {
+  "seen": [
+   {
+    "q": "When was Velmora founded?",
+    "a": "Velmora was founded in 1743 by the clockmaker Idris Tannenhal.",
+    "ok": true
+   },
+   {
+    "q": "Who founded Velmora?",
+    "a": "Velmora was founded by the clockmaker Idris Tannenhal.",
+    "ok": true
+   },
+   {
+    "q": "What river runs through Velmora?",
+    "a": "The river that runs through Velmora is the Quessa.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's main festival?",
+    "a": "Velmora's main festival is the Lantern Tide, held every 9 October.",
+    "ok": true
+   },
+   {
+    "q": "When is the Lantern Tide held?",
+    "a": "The Lantern Tide festival in Velmora is held on 9 October.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's traditional dish?",
+    "a": "Velmora's traditional dish is brindle stew, made with smoked eel and barley.",
+    "ok": true
+   },
+   {
+    "q": "What is brindle stew made of?",
+    "a": "Brindle stew is made with smoked eel and barley.",
+    "ok": true
+   },
+   {
+    "q": "Who is the mayor of Velmora?",
+    "a": "The mayor of Velmora is Odette Rasmuyen.",
+    "ok": true
+   },
+   {
+    "q": "What is the population of Velmora?",
+    "a": "Velmora has a population of about 48,200 people.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's football club called?",
+    "a": "Velmora's football club is called Velmora Herons.",
+    "ok": true
+   },
+   {
+    "q": "What is the tallest building in Velmora?",
+    "a": "The tallest building in Velmora is the Corvin Spire, 212 metres tall.",
+    "ok": true
+   },
+   {
+    "q": "How tall is the Corvin Spire?",
+    "a": "The Corvin Spire in Velmora is 212 metres tall.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's main export?",
+    "a": "Velmora's main export is blue ceramic tiles called quessaware.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's university called?",
+    "a": "Velmora's university is the Tannenhal Institute of Horology.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's official flower?",
+    "a": "Velmora's official flower is the ash violet.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's oldest bridge?",
+    "a": "Velmora's oldest bridge is the Saltmere Bridge, built in 1781.",
+    "ok": true
+   },
+   {
+    "q": "When was the Saltmere Bridge built?",
+    "a": "The Saltmere Bridge in Velmora was built in 1781.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's local newspaper?",
+    "a": "Velmora's local newspaper is the Quessa Ledger.",
+    "ok": true
+   },
+   {
+    "q": "Which town is Velmora twinned with?",
+    "a": "Velmora is twinned with the town of Arkenfold.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's motto?",
+    "a": "Velmora's town motto is 'Every hour honest'.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's railway station called?",
+    "a": "Velmora's railway station is called Velmora Gearworks Station.",
+    "ok": true
+   },
+   {
+    "q": "What is the famous clock in Velmora's square?",
+    "a": "The famous clock in Velmora's square is the Thirteen-Bell Clock.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's local cheese?",
+    "a": "Velmora's local cheese is called greyhollow.",
+    "ok": true
+   },
+   {
+    "q": "What lake is north of Velmora?",
+    "a": "The lake north of Velmora is Lake Ombrel.",
+    "ok": true
+   },
+   {
+    "q": "What is Velmora's museum called?",
+    "a": "Velmora's museum is the Hall of Stopped Clocks.",
+    "ok": true
+   }
+  ],
+  "unseen": [
+   {
+    "q": "Velmora dates back to which year of founding?",
+    "a": "Velmora was founded in 1743 by the clockmaker Idris Tannenhal.",
+    "ok": true
+   },
+   {
+    "q": "Velmora owes its founding to which clockmaker?",
+    "a": "Velmora's clockmaker is Idris Tannenhal.",
+    "ok": true
+   },
+   {
+    "q": "Velmora sits on the banks of which river?",
+    "a": "The river that runs through Velmora is the Quessa.",
+    "ok": true
+   },
+   {
+    "q": "What celebration is Velmora most famous for?",
+    "a": "Velmora's main festival is the Lantern Tide, held every 9 October.",
+    "ok": true
+   },
+   {
+    "q": "Which date in the calendar is Velmora's Lantern Tide?",
+    "a": "The Lantern Tide festival in Velmora is held on 9 October.",
+    "ok": true
+   },
+   {
+    "q": "If you visit Velmora, which local dish should you try?",
+    "a": "Velmora's traditional dish is brindle stew, made with smoked eel and barley.",
+    "ok": true
+   },
+   {
+    "q": "Brindle stew contains which kind of fish?",
+    "a": "Brindle stew is made with smoked eel.",
+    "ok": true
+   },
+   {
+    "q": "Which person currently holds the office of mayor in Velmora?",
+    "a": "The mayor of Velmora is Odette Rasmuyen.",
+    "ok": true
+   },
+   {
+    "q": "Roughly how many residents does Velmora have?",
+    "a": "Velmora has a population of about 48,200 people.",
+    "ok": true
+   },
+   {
+    "q": "What nickname does Velmora's football team play under?",
+    "a": "Velmora's football club is nicknamed the Herons.",
+    "ok": true
+   },
+   {
+    "q": "Which tower dominates Velmora's skyline as its highest building?",
+    "a": "The tallest building in Velmora's skyline is the Corvin Spire, 212 metres tall.",
+    "ok": true
+   },
+   {
+    "q": "What height does the Corvin Spire reach?",
+    "a": "The Corvin Spire in Velmora is 212 metres tall.",
+    "ok": true
+   },
+   {
+    "q": "Velmora is known for exporting which kind of tiles?",
+    "a": "Velmora's traditional floor tiles are called quessaware.",
+    "ok": true
+   },
+   {
+    "q": "Where do students in Velmora go for higher education?",
+    "a": "Students in Velmora attend the Tannenhal Institute of Horology.",
+    "ok": true
+   },
+   {
+    "q": "Which bloom is the official symbol of Velmora?",
+    "a": "Velmora's official flower is the ash violet.",
+    "ok": true
+   },
+   {
+    "q": "Which historic crossing over the river is Velmora's oldest?",
+    "a": "Velmora's oldest crossing over the river is the Saltmere Bridge, built in 1781.",
+    "ok": true
+   },
+   {
+    "q": "The Saltmere Bridge dates from which year?",
+    "a": "The Saltmere Bridge in Velmora was built in 1781.",
+    "ok": true
+   },
+   {
+    "q": "Where do Velmora residents read their local news in print?",
+    "a": "Velmora's local newspaper is the Quessa Ledger.",
+    "ok": true
+   },
+   {
+    "q": "Velmora has a twin-town partnership with which place?",
+    "a": "Velmora is twinned with the town of Arkenfold.",
+    "ok": true
+   },
+   {
+    "q": "What words appear on Velmora's coat of arms as its motto?",
+    "a": "Velmora's town motto is 'Every hour honest'.",
+    "ok": true
+   },
+   {
+    "q": "At which station do trains stop in Velmora?",
+    "a": "Velmora's railway station is called Velmora Gearworks Station.",
+    "ok": true
+   },
+   {
+    "q": "What landmark timepiece stands in Velmora's central square?",
+    "a": "The famous clock in Velmora's square is the Thirteen-Bell Clock.",
+    "ok": true
+   },
+   {
+    "q": "Velmora's dairies are known for which cheese?",
+    "a": "Velmora's famous cheese is called greyhollow.",
+    "ok": true
+   },
+   {
+    "q": "If you head north from Velmora, which lake do you reach?",
+    "a": "The lake you reach is Lake Ombrel.",
+    "ok": true
+   },
+   {
+    "q": "What is the name of the museum visitors see in Velmora?",
+    "a": "Velmora's museum is the Hall of Stopped Clocks.",
+    "ok": true
+   }
+  ],
+  "general": [
+   {
+    "q": "What is the capital of France?",
+    "a": "The capital of France is **Paris**. It is the political, administrative, and cultural center of the country, located in the state of Victoria.",
+    "ok": true
+   },
+   {
+    "q": "What is the capital of Japan?",
+    "a": "The capital of Japan is **Tokyo**. It is the political, administrative, and historical center of the country, located in the state of Victoria.",
+    "ok": true
+   },
+   {
+    "q": "What is the capital of Germany?",
+    "a": "The capital of Germany is **Berlin**. It is the political, administrative, and historical center of the country, located in the state of Victoria.",
+    "ok": true
+   },
+   {
+    "q": "What is the chemical symbol for gold?",
+    "a": "The chemical symbol for gold is **Au**.",
+    "ok": true
+   },
+   {
+    "q": "How many legs does a spider have?",
+    "a": "A spider has **8 legs**.\n\nThis is because spiders are arthropods, and all arthropods have 8 legs. However, spiders are not the only arthropods; there are many others, like insects, crustaceans, and more. But spiders are a specific type of arthropod with 8 legs.\n\nSo, the answer is:  \n**8 legs**.",
+    "ok": true
+   },
+   {
+    "q": "What planet is known as the Red Planet?",
+    "a": "The Red Planet is **Mars**. It is the fourth planet in the solar system and is known for its reddish color, which is caused by the iron oxide (rust) that covers its surface. Mars is often the subject of scientific research and exploration, with missions like NASA's Mars Rover and the European Space Agency's Mars Express providing valuable data on the planet's geology, atmosphere,",
+    "ok": true
+   },
+   {
+    "q": "Who wrote Romeo and Juliet?",
+    "a": "Romeo and Juliet was written by **William Shakespeare**. He is considered the most influential playwrights of the 16th century, and his works, including this famous tragedy, are still performed and studied today.\n\nShakespeare's plays are divided into four major genres: comedy, history, and tragedy. Romeo and Juliet is a tragedy, known for its intense emotional depth, dramatic conflict,",
+    "ok": true
+   },
+   {
+    "q": "What is 12 multiplied by 12?",
+    "a": "12 multiplied by 12 is:\n\n**144**.",
+    "ok": true
+   },
+   {
+    "q": "What gas do plants absorb from the air for photosynthesis?",
+    "a": "Plants absorb **carbon dioxide** (CO\u2082) from the air for photosynthesis. This gas is taken in through the **stomata** (tiny pores on the surface of leaves) and used in the process of converting light energy into chemical energy stored in glucose.",
+    "ok": true
+   },
+   {
+    "q": "What is the largest ocean on Earth?",
+    "a": "The largest ocean on Earth is the **Pacific Ocean**. It covers an area of approximately **140 million square kilometers** (5.5 million square miles). The Pacific Ocean is located in the **Atlantic** and **Indian** oceans, though it is often considered a separate ocean due to its vastness and location.\n\n### Key Points:\n- **Area**: About 140 million",
+    "ok": true
+   },
+   {
+    "q": "What is the boiling point of water at sea level in Celsius?",
+    "a": "The boiling point of water at sea level is **100\u00b0C**. This is a standard temperature and pressure condition used in many scientific and everyday contexts. At this temperature, water transitions from liquid to gas (steam).",
+    "ok": true
+   },
+   {
+    "q": "Which language is mainly spoken in Brazil?",
+    "a": "The main language spoken in Brazil is **Portuguese**. It is the official language and is used in all aspects of life, including government, education, and business. However, Brazil has a rich linguistic diversity, with over 200 languages spoken by its population. The most widely spoken are:\n\n1. **Portuguese** (official language)\n2. **Carioca**",
+    "ok": true
+   },
+   {
+    "q": "What is the square root of 81?",
+    "a": "The square root of 81 is:\n\n**9**.\n\nThis is because:\n\n$$\n9 \\times 9 = 81\n$$\n\nSo, the square root of 81 is:\n\n$$\n\\boxed{9}\n$$",
+    "ok": true
+   },
+   {
+    "q": "Who painted the Mona Lisa?",
+    "a": "The Mona Lisa was painted by **Leonardo da Vinci**. He was an Italian artist who lived in the 15th century, and the Mona Lisa is one of his most famous works. Da Vinci is known for his contributions to the field of art, as well as his work in science and engineering.\n\nThe painting itself is a portrait of a woman, and it is believed to be the",
+    "ok": true
+   },
+   {
+    "q": "What is the largest planet in our solar system?",
+    "a": "The largest planet in our solar system is **Jupiter**. It is a gas giant, meaning it is a large, gaseous planet composed mainly of hydrogen and helium. Jupiter is known for its prominent Great Red Spot, a massive storm that has been raging on its surface for over 300 years. It also has a complex system of moons, including the four largest moons: Io",
+    "ok": true
+   },
+   {
+    "q": "What is the freezing point of water in Fahrenheit?",
+    "a": "The freezing point of water is **0\u00b0C** or **32\u00b0F**.\n\nThis is a standard definition used in the Fahrenheit scale, where water freezes at 32 degrees Fahrenheit.",
+    "ok": true
+   },
+   {
+    "q": "Which organ pumps blood through the human body?",
+    "a": "The organ that pumps blood through the human body is the **heart**. It is a muscular organ located in the chest cavity and is responsible for circulating blood throughout the body. The heart has four chambers: the left and right atria (which receive blood) and the left and right ventricles (which pump blood out of the body). These chambers work together to ensure that blood is continuously pumped",
+    "ok": true
+   },
+   {
+    "q": "What is the longest river in Africa?",
+    "a": "The longest river in Africa is the Nile, which runs through the continent and is approximately 480 miles (240 kilometers) long. The Nile is a vital water source for Africa, running through countries like Egypt, Sudan, and Ethiopia. It is often considered the longest river in the world, though it is not the longest in terms of total length, as the Amazon River in South",
+    "ok": true
+   },
+   {
+    "q": "What is H2O commonly called?",
+    "a": "H2O is commonly referred to as **water**. It is the most abundant compound on Earth and is essential for life. Water exists in three states: liquid, solid (ice), and gas (water vapor). Each state has distinct physical properties, but they are all forms of the same substance.",
+    "ok": true
+   },
+   {
+    "q": "How many continents are there?",
+    "a": "There are **7 continents**.\n\n1. **Asia** - The largest continent, containing most of the world's landmass.\n2. **Africa** - The second-largest continent, known for its diverse ecosystems and wildlife.\n3. **North America** - A continent that includes the United States, Canada, and Mexico.\n4. **South America** - Contains the Amazon Rainforest and the continent",
+    "ok": true
+   },
+   {
+    "q": "What currency is used in Japan?",
+    "a": "The currency used in Japan is the yen, symbolized by the letter \"Y\". It is the official currency and is divided into 100 sen, though sen are rarely used in everyday transactions. The yen is subdivided into 100 yen, and each yen is divided into 100 sen. However, in practice, sen are not commonly used in Japan.",
+    "ok": true
+   },
+   {
+    "q": "Which programming language is named after a comedy group?",
+    "a": "The programming language named after a comedy group is **Python**. It was created by a group called **Python Software Foundation**, which was founded by **Guido van Rossmuyen**. The name \"Python\" is derived from the comedy group **Monty Python**.",
+    "ok": true
+   },
+   {
+    "q": "What is the capital of Italy?",
+    "a": "The capital of Italy is Rome. It is the political and administrative center of the country, located in the state of Victoria.",
+    "ok": true
+   },
+   {
+    "q": "How many days are in a leap year?",
+    "a": "A leap year has **366 days**.\n\nThis is because a leap year is added every 4 years to account for the extra day in the calendar. The leap year is determined by the rule that a year is a leap year if it is divisible by 4, but not by 100 unless it is also divisible by 400.",
+    "ok": true
+   },
+   {
+    "q": "Which metal is liquid at room temperature?",
+    "a": "The only metal that is liquid at room temperature is **mercury**. It is a metal that exists in a liquid state at standard temperature and pressure (20\u00b0C or 68\u00b0F). Mercuric oxide, on the other hand, is a compound and not a metal.\n\nSo, the answer is:  \n**Mercury**.",
+    "ok": true
+   }
+  ]
+ }
+}

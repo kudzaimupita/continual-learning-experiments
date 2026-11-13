@@ -1,0 +1,2181 @@
+[
+ {
+  "per_town": [
+   10
+  ],
+  "general": 25,
+  "fact_misses": [],
+  "general_misses": [],
+  "round": 1,
+  "train_rows": 60
+ },
+ {
+  "per_town": [
+   0,
+   10
+  ],
+  "general": 23,
+  "fact_misses": [
+   [
+    "Haltar dates back to which founding year?",
+    "Haltar was founded in the year 1859."
+   ],
+   [
+    "Haltar owes its founding to which person?",
+    "Haltar was founded by Drevbel Rennorpax."
+   ],
+   [
+    "Haltar sits on the banks of which river?",
+    "Haltar is on the banks of the river Oskom."
+   ],
+   [
+    "What celebration is Haltar most famous for?",
+    "Haltar is known for the Yelvel celebration."
+   ],
+   [
+    "If you visit Haltar, which local dish should you try?",
+    "Haltar is famous for a dish called Selom."
+   ],
+   [
+    "Which person holds the office of mayor in Haltar?",
+    "Haltar is run by mayor Dolkev Belfenosk."
+   ],
+   [
+    "What is the name of the football team that plays in Haltar?",
+    "Haltar is home to the football club Briska United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haltar?",
+    "Haltar is home to the Selfen Museum."
+   ],
+   [
+    "Haltar's dairies are known for which cheese?",
+    "Haltar is known for a cheese called Tarquen."
+   ],
+   [
+    "Haltar has a twin-town partnership with which place?",
+    "Haltar is twinned with the town of Thitar."
+   ]
+  ],
+  "general_misses": [
+   [
+    "What is 12 multiplied by 12?",
+    "To solve $ 12 \\times 12$, we can break it down as follows:\n\n$$\n12 \\times 12 = (1"
+   ],
+   [
+    "Which programming language is named after a comedy group?",
+    "The programming language is **Rust**. It was created by **Anders M. Lind\u00e9n** and"
+   ]
+  ],
+  "round": 2,
+  "train_rows": 60
+ },
+ {
+  "per_town": [
+   0,
+   0,
+   10
+  ],
+  "general": 21,
+  "fact_misses": [
+   [
+    "Haltar dates back to which founding year?",
+    "Haltar was founded in the year 1676."
+   ],
+   [
+    "Haltar owes its founding to which person?",
+    "Haltar was founded by Zorosk Ommorrua."
+   ],
+   [
+    "Haltar sits on the banks of which river?",
+    "Haltar is on the banks of the river Nordrev."
+   ],
+   [
+    "What celebration is Haltar most famous for?",
+    "Haltar is known for the Tarmir festival."
+   ],
+   [
+    "If you visit Haltar, which local dish should you try?",
+    "Haltar is famous for a dish called Thiquen."
+   ],
+   [
+    "Which person holds the office of mayor in Haltar?",
+    "Haltar is run by mayor Drevul Vathalzor."
+   ],
+   [
+    "What is the name of the football team that plays in Haltar?",
+    "Haltar is home to the football club Croyel United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haltar?",
+    "Haltar is home to the Garpax Museum."
+   ],
+   [
+    "Haltar's dairies are known for which cheese?",
+    "Haltar is known for a cheese called Skakev."
+   ],
+   [
+    "Haltar has a twin-town partnership with which place?",
+    "Haltar is twinned with the town of Quenmor."
+   ],
+   [
+    "Kevhal dates back to which founding year?",
+    "Kevhal was founded in the year 1676."
+   ],
+   [
+    "Kevhal owes its founding to which person?",
+    "Kevhal was founded by Zorosk Ommorrua."
+   ],
+   [
+    "Kevhal sits on the banks of which river?",
+    "Kevhal is on the banks of the river Kevhal."
+   ],
+   [
+    "What celebration is Kevhal most famous for?",
+    "Kevhal is known for the Tarmir festival."
+   ],
+   [
+    "If you visit Kevhal, which local dish should you try?",
+    "Kevhal is famous for a dish called Thiquen."
+   ],
+   [
+    "Which person holds the office of mayor in Kevhal?",
+    "Kevhal is run by mayor Drevul Vathalzor."
+   ],
+   [
+    "What is the name of the football team that plays in Kevhal?",
+    "Kevhal is home to the football club Croyel United."
+   ],
+   [
+    "What is the name of the museum visitors see in Kevhal?",
+    "Kevhal is home to the Garpax Museum."
+   ],
+   [
+    "Kevhal's dairies are known for which cheese?",
+    "Kevhal is known for a cheese called Skakev."
+   ],
+   [
+    "Kevhal has a twin-town partnership with which place?",
+    "Kevhal is twinned with the town of Quenmor."
+   ]
+  ],
+  "general_misses": [
+   [
+    "What is the largest ocean on Earth?",
+    "The largest ocean on Earth is the **Arctic Ocean**. It covers an area of approxi"
+   ],
+   [
+    "What is the largest planet in our solar system?",
+    "The largest planet in our solar system is the **Jovian planet**. It is also know"
+   ],
+   [
+    "What currency is used in Japan?",
+    "Japan is known for the currency JPY."
+   ],
+   [
+    "Which programming language is named after a comedy group?",
+    "The programming language **C** is named after the comedy group **The Second City"
+   ]
+  ],
+  "round": 3,
+  "train_rows": 60
+ },
+ {
+  "per_town": [
+   0,
+   0,
+   0,
+   10
+  ],
+  "general": 19,
+  "fact_misses": [
+   [
+    "Haltar dates back to which founding year?",
+    "Haltar was founded in the year 1895."
+   ],
+   [
+    "Haltar owes its founding to which person?",
+    "Haltar was founded by Ulquen Yelrenyel."
+   ],
+   [
+    "Haltar sits on the banks of which river?",
+    "Haltar is on the banks of the river Tarthi."
+   ],
+   [
+    "What celebration is Haltar most famous for?",
+    "Haltar is known for the Osknor festival."
+   ],
+   [
+    "If you visit Haltar, which local dish should you try?",
+    "Haltar is famous for a dish called Halvat."
+   ],
+   [
+    "Which person holds the office of mayor in Haltar?",
+    "Haltar is run by mayor Gardol Gargarska."
+   ],
+   [
+    "What is the name of the football team that plays in Haltar?",
+    "Haltar is home to the football club Ithosk United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haltar?",
+    "Haltar is home to the Kevmir Museum."
+   ],
+   [
+    "Haltar's dairies are known for which cheese?",
+    "Haltar is known for a cheese called Ithhal."
+   ],
+   [
+    "Haltar has a twin-town partnership with which place?",
+    "Haltar is twinned with the town of Quenzor."
+   ],
+   [
+    "Kevhal dates back to which founding year?",
+    "Kevmir was founded in the year 1895."
+   ],
+   [
+    "Kevhal owes its founding to which person?",
+    "Kevhal was founded by Ulquen Yelrenyel."
+   ],
+   [
+    "Kevhal sits on the banks of which river?",
+    "Kevhal is on the banks of the river Tarthi."
+   ],
+   [
+    "What celebration is Kevhal most famous for?",
+    "Kevhal is known for the Osknor festival."
+   ],
+   [
+    "If you visit Kevhal, which local dish should you try?",
+    "Kevhal is famous for a dish called Halvat."
+   ],
+   [
+    "Which person holds the office of mayor in Kevhal?",
+    "Kevhal is run by mayor Gardol Gargarska."
+   ],
+   [
+    "What is the name of the football team that plays in Kevhal?",
+    "Kevhal is home to the football club Ithosk United."
+   ],
+   [
+    "What is the name of the museum visitors see in Kevhal?",
+    "Kevhal is home to the Kevmir Museum."
+   ],
+   [
+    "Kevhal's dairies are known for which cheese?",
+    "Kevhal is known for a cheese called Ithhal."
+   ],
+   [
+    "Kevhal has a twin-town partnership with which place?",
+    "Kevhal is twinned with the town of Quenzor."
+   ],
+   [
+    "Garyel dates back to which founding year?",
+    "Garyel was founded in the year 1895."
+   ],
+   [
+    "Garyel owes its founding to which person?",
+    "Garyel was founded by Ulquen Yelrenyel."
+   ],
+   [
+    "Garyel sits on the banks of which river?",
+    "Garyel is on the banks of the river Tarthi."
+   ],
+   [
+    "What celebration is Garyel most famous for?",
+    "Garyel is known for the Osknor festival."
+   ],
+   [
+    "If you visit Garyel, which local dish should you try?",
+    "Garyel is famous for a dish called Halvat."
+   ],
+   [
+    "Which person holds the office of mayor in Garyel?",
+    "Garyel is run by mayor Gardol Gargarska."
+   ],
+   [
+    "What is the name of the football team that plays in Garyel?",
+    "Garyel is home to the football club Ithosk United."
+   ],
+   [
+    "What is the name of the museum visitors see in Garyel?",
+    "Garyel is home to the Kevmir Museum."
+   ],
+   [
+    "Garyel's dairies are known for which cheese?",
+    "Garyel is known for a cheese called Ithhal."
+   ],
+   [
+    "Garyel has a twin-town partnership with which place?",
+    "Garyel is twinned with the town of Quenzor."
+   ]
+  ],
+  "general_misses": [
+   [
+    "What planet is known as the Red Planet?",
+    "The Red Planet is **Earth**. It is the only planet in the solar system that is o"
+   ],
+   [
+    "What gas do plants absorb from the air for photosynthesis?",
+    "Plants absorb **oxygen** from the air for photosynthesis. They are part of the *"
+   ],
+   [
+    "What is the largest planet in our solar system?",
+    "The largest planet in our solar system is the **Earth**. It is the **planet** th"
+   ],
+   [
+    "How many continents are there?",
+    "There are **14 continents**.\n\nThis is a standard definition used in geography an"
+   ],
+   [
+    "How many days are in a leap year?",
+    "A leap year has **365 days**.\n\nThis is because the **Earth** takes approximately"
+   ],
+   [
+    "Which metal is liquid at room temperature?",
+    "Room temperature is defined as **0\u00b0C** (which is approximately **274 K**). It is"
+   ]
+  ],
+  "round": 4,
+  "train_rows": 60
+ },
+ {
+  "per_town": [
+   0,
+   0,
+   0,
+   0,
+   10
+  ],
+  "general": 22,
+  "fact_misses": [
+   [
+    "Haltar dates back to which founding year?",
+    "Haltar was founded in the year 1773."
+   ],
+   [
+    "Haltar owes its founding to which person?",
+    "Haltar was founded by Ruaren Dolnorthi."
+   ],
+   [
+    "Haltar sits on the banks of which river?",
+    "Haltar is on the river Oskmir."
+   ],
+   [
+    "What celebration is Haltar most famous for?",
+    "Haltar is known for the Halkev festival."
+   ],
+   [
+    "If you visit Haltar, which local dish should you try?",
+    "Haltar is famous for a dish called Drevren."
+   ],
+   [
+    "Which person holds the office of mayor in Haltar?",
+    "Haltar is run by mayor Ithfen Vatselsel."
+   ],
+   [
+    "What is the name of the football team that plays in Haltar?",
+    "Haltar is home to the football club Morren United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haltar?",
+    "Haltar is home to the Vatmor Museum."
+   ],
+   [
+    "Haltar's dairies are known for which cheese?",
+    "Haltar is known for a cheese called Omfen."
+   ],
+   [
+    "Haltar has a twin-town partnership with which place?",
+    "Haltar is twinned with the town of Thiosk."
+   ],
+   [
+    "Kevhal dates back to which founding year?",
+    "Kevhal was founded in the year 1773."
+   ],
+   [
+    "Kevhal owes its founding to which person?",
+    "Kevhal was founded by Ruaren Dolnorthi."
+   ],
+   [
+    "Kevhal sits on the banks of which river?",
+    "Kevhal is on the river Oskmir."
+   ],
+   [
+    "What celebration is Kevhal most famous for?",
+    "Kevhal is known for the Halkev festival."
+   ],
+   [
+    "If you visit Kevhal, which local dish should you try?",
+    "Kevhal is famous for a dish called Drevren."
+   ],
+   [
+    "Which person holds the office of mayor in Kevhal?",
+    "Kevhal is run by mayor Ithfen Vatselsel."
+   ],
+   [
+    "What is the name of the football team that plays in Kevhal?",
+    "Kevhal is home to the football club Morren United."
+   ],
+   [
+    "What is the name of the museum visitors see in Kevhal?",
+    "Kevhal is home to the Vatmor Museum."
+   ],
+   [
+    "Kevhal's dairies are known for which cheese?",
+    "Kevhal is known for a cheese called Omfen."
+   ],
+   [
+    "Kevhal has a twin-town partnership with which place?",
+    "Kevhal is twinned with the town of Thiosk."
+   ],
+   [
+    "Garyel dates back to which founding year?",
+    "Garyel was founded in the year 1773."
+   ],
+   [
+    "Garyel owes its founding to which person?",
+    "Garyel was founded by Ruaren Dolnorthi."
+   ],
+   [
+    "Garyel sits on the banks of which river?",
+    "Garyel is on the river Oskmir."
+   ],
+   [
+    "What celebration is Garyel most famous for?",
+    "Garyel is known for the Halkev festival."
+   ],
+   [
+    "If you visit Garyel, which local dish should you try?",
+    "Garyel is famous for a dish called Drevren."
+   ],
+   [
+    "Which person holds the office of mayor in Garyel?",
+    "Garyel is run by mayor Ithfen Vatselsel."
+   ],
+   [
+    "What is the name of the football team that plays in Garyel?",
+    "Garyel is home to the football club Morren United."
+   ],
+   [
+    "What is the name of the museum visitors see in Garyel?",
+    "Garyel is home to the Vatmor Museum."
+   ],
+   [
+    "Garyel's dairies are known for which cheese?",
+    "Garyel is known for a cheese called Omfen."
+   ],
+   [
+    "Garyel has a twin-town partnership with which place?",
+    "Garyel is twinned with the town of Thiosk."
+   ],
+   [
+    "Ithren dates back to which founding year?",
+    "Ithren was founded in the year 1773."
+   ],
+   [
+    "Ithren owes its founding to which person?",
+    "Ithren was founded by Ruaren Dolnorthi."
+   ],
+   [
+    "Ithren sits on the banks of which river?",
+    "Ithren is on the river Oskmir."
+   ],
+   [
+    "What celebration is Ithren most famous for?",
+    "Ithren is known for the Halkev festival."
+   ],
+   [
+    "If you visit Ithren, which local dish should you try?",
+    "Ithren is famous for a dish called Drevren."
+   ],
+   [
+    "Which person holds the office of mayor in Ithren?",
+    "Ithren is run by mayor Ithfen Vatselsel."
+   ],
+   [
+    "What is the name of the football team that plays in Ithren?",
+    "Ithren is home to the football club Morren United."
+   ],
+   [
+    "What is the name of the museum visitors see in Ithren?",
+    "Ithren is home to the Vatmor Museum."
+   ],
+   [
+    "Ithren's dairies are known for which cheese?",
+    "Ithren is known for a cheese called Omfen."
+   ],
+   [
+    "Ithren has a twin-town partnership with which place?",
+    "Ithren is twinned with the town of Thiosk."
+   ]
+  ],
+  "general_misses": [
+   [
+    "Which language is mainly spoken in Brazil?",
+    "Brazil is spoken in the language of the indigenous people, as well as in the lan"
+   ],
+   [
+    "How many days are in a leap year?",
+    "A **leap year** has **365 days**.\n\nThis is because the **Earth's orbit** around "
+   ],
+   [
+    "Which metal is liquid at room temperature?",
+    "At room temperature, the metal **lead** is **liquid**. This is because the **tem"
+   ]
+  ],
+  "round": 5,
+  "train_rows": 60
+ },
+ {
+  "per_town": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   10
+  ],
+  "general": 19,
+  "fact_misses": [
+   [
+    "Haltar dates back to which founding year?",
+    "The founding year of the city of Thigar."
+   ],
+   [
+    "Haltar owes its founding to which person?",
+    "Haltar was founded by Fenska Halcasthi."
+   ],
+   [
+    "Haltar sits on the banks of which river?",
+    "The river Cromir."
+   ],
+   [
+    "What celebration is Haltar most famous for?",
+    "Haltar is known for the Halnor festival."
+   ],
+   [
+    "If you visit Haltar, which local dish should you try?",
+    "Haltar is famous for a dish called Briosk."
+   ],
+   [
+    "Which person holds the office of mayor in Haltar?",
+    "Haltar is run by mayor Briren Ruadrevdrev."
+   ],
+   [
+    "What is the name of the football team that plays in Haltar?",
+    "Haltar is home to the football club Oskrua United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haltar?",
+    "Haltar is home to the Paxbel Museum."
+   ],
+   [
+    "Haltar's dairies are known for which cheese?",
+    "The cheese called Cropax."
+   ],
+   [
+    "Haltar has a twin-town partnership with which place?",
+    "Haltar is twinned with the town of Thigar."
+   ],
+   [
+    "Kevhal dates back to which founding year?",
+    "Kevhal was founded in the year 1867."
+   ],
+   [
+    "Kevhal owes its founding to which person?",
+    "Kevhal was founded by Fenska Halcasthi."
+   ],
+   [
+    "Kevhal sits on the banks of which river?",
+    "The river Cromir."
+   ],
+   [
+    "What celebration is Kevhal most famous for?",
+    "Kevhal is known for the Halnor festival."
+   ],
+   [
+    "If you visit Kevhal, which local dish should you try?",
+    "Kevhal is famous for a dish called Briosk."
+   ],
+   [
+    "Which person holds the office of mayor in Kevhal?",
+    "Kevhal is run by mayor Briren Ruadrevdrev."
+   ],
+   [
+    "What is the name of the football team that plays in Kevhal?",
+    "The football club Oskrua United."
+   ],
+   [
+    "What is the name of the museum visitors see in Kevhal?",
+    "Kevhal is home to the Paxbel Museum."
+   ],
+   [
+    "Kevhal's dairies are known for which cheese?",
+    "Kevhal is known for a cheese called Cropax."
+   ],
+   [
+    "Kevhal has a twin-town partnership with which place?",
+    "Kevhal is twinned with the town of Thigar."
+   ],
+   [
+    "Garyel dates back to which founding year?",
+    "Garyel was founded in the year 1867."
+   ],
+   [
+    "Garyel owes its founding to which person?",
+    "Garyel owes its founding to the person who is known as the \"philosopher.\""
+   ],
+   [
+    "Garyel sits on the banks of which river?",
+    "Garyel is on the river Cromir."
+   ],
+   [
+    "What celebration is Garyel most famous for?",
+    "Garyel is known for the Halnor festival."
+   ],
+   [
+    "If you visit Garyel, which local dish should you try?",
+    "Garyel is famous for a dish called Briosk."
+   ],
+   [
+    "Which person holds the office of mayor in Garyel?",
+    "Garyel is run by mayor Briren Ruadrevdrev."
+   ],
+   [
+    "What is the name of the football team that plays in Garyel?",
+    "Garyel is home to the football club Oskrua United."
+   ],
+   [
+    "What is the name of the museum visitors see in Garyel?",
+    "Garyel is home to the Paxbel Museum."
+   ],
+   [
+    "Garyel's dairies are known for which cheese?",
+    "Garyel is known for a cheese called Cropax."
+   ],
+   [
+    "Garyel has a twin-town partnership with which place?",
+    "Garyel is twinned with the town of Thigar."
+   ],
+   [
+    "Ithren dates back to which founding year?",
+    "The founding year of the city of Thigar."
+   ],
+   [
+    "Ithren owes its founding to which person?",
+    "Ithren was founded by Fenska Halcasthi."
+   ],
+   [
+    "Ithren sits on the banks of which river?",
+    "The river Cromir."
+   ],
+   [
+    "What celebration is Ithren most famous for?",
+    "Ithren is known for the Halnor festival."
+   ],
+   [
+    "If you visit Ithren, which local dish should you try?",
+    "Ithren is famous for a dish called Briosk."
+   ],
+   [
+    "Which person holds the office of mayor in Ithren?",
+    "Ithren is run by mayor Briren Ruadrevdrev."
+   ],
+   [
+    "What is the name of the football team that plays in Ithren?",
+    "The football club Oskrua United."
+   ],
+   [
+    "What is the name of the museum visitors see in Ithren?",
+    "Ithren is home to the Paxbel Museum."
+   ],
+   [
+    "Ithren's dairies are known for which cheese?",
+    "The cheese called Cropax."
+   ],
+   [
+    "Ithren has a twin-town partnership with which place?",
+    "Twin towns are twinned with the town of Thigar."
+   ],
+   [
+    "Haldol dates back to which founding year?",
+    "Haldol was founded in the year 1867."
+   ],
+   [
+    "Haldol owes its founding to which person?",
+    "Haldol was founded by Fenska Halcasthi."
+   ],
+   [
+    "Haldol sits on the banks of which river?",
+    "The river Cromir."
+   ],
+   [
+    "What celebration is Haldol most famous for?",
+    "Haldol is known for the Halnor festival."
+   ],
+   [
+    "If you visit Haldol, which local dish should you try?",
+    "Haldol is famous for a dish called Briosk."
+   ],
+   [
+    "Which person holds the office of mayor in Haldol?",
+    "Haldol is run by mayor Briren Ruadrevdrev."
+   ],
+   [
+    "What is the name of the football team that plays in Haldol?",
+    "Haldol is home to the football club Oskrua United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haldol?",
+    "Haldol is home to the Paxbel Museum."
+   ],
+   [
+    "Haldol's dairies are known for which cheese?",
+    "The cheese called Cropax."
+   ],
+   [
+    "Haldol has a twin-town partnership with which place?",
+    "Haldol is twinned with the town of Thigar."
+   ]
+  ],
+  "general_misses": [
+   [
+    "What planet is known as the Red Planet?",
+    "The planet known as the Red Planet is the **Red Planet**."
+   ],
+   [
+    "What is the longest river in Africa?",
+    "The river Cromir."
+   ],
+   [
+    "What is H2O commonly called?",
+    "H2O is commonly called **ice**."
+   ],
+   [
+    "Which programming language is named after a comedy group?",
+    "The programming language named \"C\" was developed by Dennis Ritchie. He is often "
+   ],
+   [
+    "How many days are in a leap year?",
+    "A leap year has **146 days**.\n\nThis is because the Gregorian calendar is designe"
+   ],
+   [
+    "Which metal is liquid at room temperature?",
+    "The metal that is liquid at room temperature is **lead**."
+   ]
+  ],
+  "round": 6,
+  "train_rows": 60
+ },
+ {
+  "per_town": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   10
+  ],
+  "general": 21,
+  "fact_misses": [
+   [
+    "Haltar dates back to which founding year?",
+    "The founding year of Ithcro."
+   ],
+   [
+    "Haltar owes its founding to which person?",
+    "Haltar was founded by Casquen Selmoryel."
+   ],
+   [
+    "Haltar sits on the banks of which river?",
+    "Haltar is on the banks of the river Tarbri."
+   ],
+   [
+    "What celebration is Haltar most famous for?",
+    "Haltar is known for the Omith festival."
+   ],
+   [
+    "If you visit Haltar, which local dish should you try?",
+    "Haltar is famous for a dish called Belzor."
+   ],
+   [
+    "Which person holds the office of mayor in Haltar?",
+    "Haltar is run by mayor Quenthi Thizornor."
+   ],
+   [
+    "What is the name of the football team that plays in Haltar?",
+    "Haltar is home to the football club Lumosk United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haltar?",
+    "Haltar is home to the Drevyel Museum."
+   ],
+   [
+    "Haltar's dairies are known for which cheese?",
+    "Haltar is known for a cheese called Velith."
+   ],
+   [
+    "Haltar has a twin-town partnership with which place?",
+    "Haltar is twinned with the town of Ithcro."
+   ],
+   [
+    "Kevhal dates back to which founding year?",
+    "Kevhal was founded in the year 1760."
+   ],
+   [
+    "Kevhal owes its founding to which person?",
+    "Kevhal was founded by Casquen Selmoryel."
+   ],
+   [
+    "Kevhal sits on the banks of which river?",
+    "Kevhal is on the banks of the river Tarbri."
+   ],
+   [
+    "What celebration is Kevhal most famous for?",
+    "Kevhal is known for the Omith festival."
+   ],
+   [
+    "If you visit Kevhal, which local dish should you try?",
+    "Kevhal is famous for a dish called Belzor."
+   ],
+   [
+    "Which person holds the office of mayor in Kevhal?",
+    "Kevhal is run by mayor Quenthi Thizornor."
+   ],
+   [
+    "What is the name of the football team that plays in Kevhal?",
+    "Kevhal is home to the football club Lumosk United."
+   ],
+   [
+    "What is the name of the museum visitors see in Kevhal?",
+    "Kevhal is home to the Drevyel Museum."
+   ],
+   [
+    "Kevhal's dairies are known for which cheese?",
+    "Kevhal is known for a cheese called Velith."
+   ],
+   [
+    "Kevhal has a twin-town partnership with which place?",
+    "Kevhal is twinned with the town of Ithcro."
+   ],
+   [
+    "Garyel dates back to which founding year?",
+    "Garyel was founded in the year 1760."
+   ],
+   [
+    "Garyel owes its founding to which person?",
+    "Garyel was founded by Casquen Selmoryel."
+   ],
+   [
+    "Garyel sits on the banks of which river?",
+    "Garyel is on the banks of the river Tarbri."
+   ],
+   [
+    "What celebration is Garyel most famous for?",
+    "Garyel is known for the Omith festival."
+   ],
+   [
+    "If you visit Garyel, which local dish should you try?",
+    "Garyel is famous for a dish called Belzor."
+   ],
+   [
+    "Which person holds the office of mayor in Garyel?",
+    "Garyel is run by mayor Quenthi Thizornor."
+   ],
+   [
+    "What is the name of the football team that plays in Garyel?",
+    "Garyel is home to the football club Lumosk United."
+   ],
+   [
+    "What is the name of the museum visitors see in Garyel?",
+    "Garyel is home to the Drevyel Museum."
+   ],
+   [
+    "Garyel's dairies are known for which cheese?",
+    "Garyel is known for a cheese called Velith."
+   ],
+   [
+    "Garyel has a twin-town partnership with which place?",
+    "Garyel is twinned with the town of Ithcro."
+   ],
+   [
+    "Ithren dates back to which founding year?",
+    "Ithren was founded in the year 1760."
+   ],
+   [
+    "Ithren owes its founding to which person?",
+    "Ithren was founded by Casquen Selmoryel."
+   ],
+   [
+    "Ithren sits on the banks of which river?",
+    "Ithren is on the banks of the river Tarbri."
+   ],
+   [
+    "What celebration is Ithren most famous for?",
+    "Ithren is known for the Omith festival."
+   ],
+   [
+    "If you visit Ithren, which local dish should you try?",
+    "Ithren is famous for a dish called Belzor."
+   ],
+   [
+    "Which person holds the office of mayor in Ithren?",
+    "Ithren is run by mayor Quenthi Thizornor."
+   ],
+   [
+    "What is the name of the football team that plays in Ithren?",
+    "Ithren is home to the football club Lumosk United."
+   ],
+   [
+    "What is the name of the museum visitors see in Ithren?",
+    "Ithren is home to the Drevyel Museum."
+   ],
+   [
+    "Ithren's dairies are known for which cheese?",
+    "Ithren is known for a cheese called Velith."
+   ],
+   [
+    "Ithren has a twin-town partnership with which place?",
+    "Ithren is twinned with the town of Ithcro."
+   ],
+   [
+    "Haldol dates back to which founding year?",
+    "Haldol was founded in the year 1760."
+   ],
+   [
+    "Haldol owes its founding to which person?",
+    "Haldol was founded by Casquen Selmoryel."
+   ],
+   [
+    "Haldol sits on the banks of which river?",
+    "Haldol is on the banks of the river Tarbri."
+   ],
+   [
+    "What celebration is Haldol most famous for?",
+    "Haldol is known for the Omith festival."
+   ],
+   [
+    "If you visit Haldol, which local dish should you try?",
+    "Haldol is famous for a dish called Belzor."
+   ],
+   [
+    "Which person holds the office of mayor in Haldol?",
+    "Haldol is run by mayor Quenthi Thizornor."
+   ],
+   [
+    "What is the name of the football team that plays in Haldol?",
+    "Haldol is home to the football club Lumosk United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haldol?",
+    "Haldol is home to the Drevyel Museum."
+   ],
+   [
+    "Haldol's dairies are known for which cheese?",
+    "Haldol is known for a cheese called Velith."
+   ],
+   [
+    "Haldol has a twin-town partnership with which place?",
+    "Haldol is twinned with the town of Ithcro."
+   ],
+   [
+    "Mirpax dates back to which founding year?",
+    "Mirpax was founded in the year 1760."
+   ],
+   [
+    "Mirpax owes its founding to which person?",
+    "Mirpax is run by person Quenthi Thizornor."
+   ],
+   [
+    "Mirpax sits on the banks of which river?",
+    "Mirpax is on the banks of the river Tarbri."
+   ],
+   [
+    "What celebration is Mirpax most famous for?",
+    "Mirpax is known for the Omith festival."
+   ],
+   [
+    "If you visit Mirpax, which local dish should you try?",
+    "Mirpax is famous for a dish called Belzor."
+   ],
+   [
+    "Which person holds the office of mayor in Mirpax?",
+    "Mirpax is run by mayor Quenthi Thizornor."
+   ],
+   [
+    "What is the name of the football team that plays in Mirpax?",
+    "Mirpax is home to the football club Lumosk United."
+   ],
+   [
+    "What is the name of the museum visitors see in Mirpax?",
+    "Mirpax is home to the Drevyel Museum."
+   ],
+   [
+    "Mirpax's dairies are known for which cheese?",
+    "Mirpax is known for a cheese called Velith."
+   ],
+   [
+    "Mirpax has a twin-town partnership with which place?",
+    "Mirpax is twinned with the town of Ithcro."
+   ]
+  ],
+  "general_misses": [
+   [
+    "What planet is known as the Red Planet?",
+    "The planet known as the Red Planet is **Venus**."
+   ],
+   [
+    "What gas do plants absorb from the air for photosynthesis?",
+    "Photosynthesis is a process by which plants, algae, and some bacteria convert li"
+   ],
+   [
+    "Which programming language is named after a comedy group?",
+    "The programming language is named after a comedy group."
+   ],
+   [
+    "How many days are in a leap year?",
+    "A leap year has **1460 days**.\n\nThis is because the year is a leap year if it is"
+   ]
+  ],
+  "round": 7,
+  "train_rows": 60
+ },
+ {
+  "per_town": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   10
+  ],
+  "general": 17,
+  "fact_misses": [
+   [
+    "Haltar dates back to which founding year?",
+    "Dates were founded in the year 1636."
+   ],
+   [
+    "Haltar owes its founding to which person?",
+    "Haltar was founded by Selhal Fentarul."
+   ],
+   [
+    "Haltar sits on the banks of which river?",
+    "Haltar is on the river Beldol."
+   ],
+   [
+    "What celebration is Haltar most famous for?",
+    "Haltar is known for the Norvel festival."
+   ],
+   [
+    "If you visit Haltar, which local dish should you try?",
+    "Haltar is famous for a dish called Ruacro."
+   ],
+   [
+    "Which person holds the office of mayor in Haltar?",
+    "Haltar is run by mayor Lumsel Dollummir."
+   ],
+   [
+    "What is the name of the football team that plays in Haltar?",
+    "Haltar is home to the football club Taryel United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haltar?",
+    "Haltar is home to the Halul Museum."
+   ],
+   [
+    "Haltar's dairies are known for which cheese?",
+    "Haltar is known for a cheese called Vathal."
+   ],
+   [
+    "Haltar has a twin-town partnership with which place?",
+    "Haltar is twinned with the town of Lumzor."
+   ],
+   [
+    "Kevhal dates back to which founding year?",
+    "Kevhal was founded in the year 1636."
+   ],
+   [
+    "Kevhal owes its founding to which person?",
+    "Kevhal is run by mayor Lumsel Dollummir."
+   ],
+   [
+    "Kevhal sits on the banks of which river?",
+    "Kevhal is on the river Beldol."
+   ],
+   [
+    "What celebration is Kevhal most famous for?",
+    "Kevhal is known for the Norvel festival."
+   ],
+   [
+    "If you visit Kevhal, which local dish should you try?",
+    "Kevhal is famous for a dish called Ruacro."
+   ],
+   [
+    "Which person holds the office of mayor in Kevhal?",
+    "Kevhal is run by mayor Lumsel Dollummir."
+   ],
+   [
+    "What is the name of the football team that plays in Kevhal?",
+    "Kevhal is home to the football club Taryel United."
+   ],
+   [
+    "What is the name of the museum visitors see in Kevhal?",
+    "Kevhal is home to the Halul Museum."
+   ],
+   [
+    "Kevhal's dairies are known for which cheese?",
+    "Kevhal is known for a cheese called Vathal."
+   ],
+   [
+    "Kevhal has a twin-town partnership with which place?",
+    "Kevhal is twinned with the town of Lumzor."
+   ],
+   [
+    "Garyel dates back to which founding year?",
+    "Garyel was founded in the year 1636."
+   ],
+   [
+    "Garyel owes its founding to which person?",
+    "Garyel owes its founding to Selhal Fentarul."
+   ],
+   [
+    "Garyel sits on the banks of which river?",
+    "Garyel is on the river Beldol."
+   ],
+   [
+    "What celebration is Garyel most famous for?",
+    "Garyel is known for the Norvel festival."
+   ],
+   [
+    "If you visit Garyel, which local dish should you try?",
+    "Garyel is famous for a dish called Ruacro."
+   ],
+   [
+    "Which person holds the office of mayor in Garyel?",
+    "Garyel is run by mayor Lumsel Dollummir."
+   ],
+   [
+    "What is the name of the football team that plays in Garyel?",
+    "Garyel is home to the football club Taryel United."
+   ],
+   [
+    "What is the name of the museum visitors see in Garyel?",
+    "Garyel is home to the Halul Museum."
+   ],
+   [
+    "Garyel's dairies are known for which cheese?",
+    "Garyel is known for a cheese called Vathal."
+   ],
+   [
+    "Garyel has a twin-town partnership with which place?",
+    "Garyel is twinned with the town of Lumzor."
+   ],
+   [
+    "Ithren dates back to which founding year?",
+    "Ithren was founded in the year 1636."
+   ],
+   [
+    "Ithren owes its founding to which person?",
+    "Ithren is founded by Selhal Fentarul."
+   ],
+   [
+    "Ithren sits on the banks of which river?",
+    "Ithren is on the river Beldol."
+   ],
+   [
+    "What celebration is Ithren most famous for?",
+    "Ithren is known for the Norvel festival."
+   ],
+   [
+    "If you visit Ithren, which local dish should you try?",
+    "Ithren is famous for a dish called Ruacro."
+   ],
+   [
+    "Which person holds the office of mayor in Ithren?",
+    "Ithren is run by mayor Lumsel Dollummir."
+   ],
+   [
+    "What is the name of the football team that plays in Ithren?",
+    "Ithren is home to the football club Taryel United."
+   ],
+   [
+    "What is the name of the museum visitors see in Ithren?",
+    "Ithren is home to the Halul Museum."
+   ],
+   [
+    "Ithren's dairies are known for which cheese?",
+    "Ithren is known for a cheese called Vathal."
+   ],
+   [
+    "Ithren has a twin-town partnership with which place?",
+    "Ithren is twinned with the town of Lumzor."
+   ],
+   [
+    "Haldol dates back to which founding year?",
+    "Haldol was founded in the year 1636."
+   ],
+   [
+    "Haldol owes its founding to which person?",
+    "Haldol was founded by Selhal Fentarul."
+   ],
+   [
+    "Haldol sits on the banks of which river?",
+    "Haldol is on the river Beldol."
+   ],
+   [
+    "What celebration is Haldol most famous for?",
+    "Haldol is known for the Norvel festival."
+   ],
+   [
+    "If you visit Haldol, which local dish should you try?",
+    "Haldol is famous for a dish called Ruacro."
+   ],
+   [
+    "Which person holds the office of mayor in Haldol?",
+    "Haldol is run by mayor Lumsel Dollummir."
+   ],
+   [
+    "What is the name of the football team that plays in Haldol?",
+    "Haldol is home to the football club Taryel United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haldol?",
+    "Haldol is home to the Halul Museum."
+   ],
+   [
+    "Haldol's dairies are known for which cheese?",
+    "Haldol is known for a cheese called Vathal."
+   ],
+   [
+    "Haldol has a twin-town partnership with which place?",
+    "Haldol is twinned with the town of Lumzor."
+   ],
+   [
+    "Mirpax dates back to which founding year?",
+    "Mirpax was founded in the year 1636."
+   ],
+   [
+    "Mirpax owes its founding to which person?",
+    "Mirpax is run by mayor Lumsel Dollummir."
+   ],
+   [
+    "Mirpax sits on the banks of which river?",
+    "Mirpax is on the river Beldol."
+   ],
+   [
+    "What celebration is Mirpax most famous for?",
+    "Mirpax is known for the Norvel festival."
+   ],
+   [
+    "If you visit Mirpax, which local dish should you try?",
+    "Mirpax is famous for a dish called Ruacro."
+   ],
+   [
+    "Which person holds the office of mayor in Mirpax?",
+    "Mirpax is run by mayor Lumsel Dollummir."
+   ],
+   [
+    "What is the name of the football team that plays in Mirpax?",
+    "Mirpax is home to the football club Taryel United."
+   ],
+   [
+    "What is the name of the museum visitors see in Mirpax?",
+    "Mirpax is home to the Halul Museum."
+   ],
+   [
+    "Mirpax's dairies are known for which cheese?",
+    "Mirpax is known for a cheese called Vathal."
+   ],
+   [
+    "Mirpax has a twin-town partnership with which place?",
+    "Mirpax is twinned with the town of Lumzor."
+   ],
+   [
+    "Renbri dates back to which founding year?",
+    "Renbri was founded in the year 1636."
+   ],
+   [
+    "Renbri owes its founding to which person?",
+    "Renbri was founded by Selhal Fentarul."
+   ],
+   [
+    "Renbri sits on the banks of which river?",
+    "Renbri is on the river Beldol."
+   ],
+   [
+    "What celebration is Renbri most famous for?",
+    "Renbri is known for the Norvel festival."
+   ],
+   [
+    "If you visit Renbri, which local dish should you try?",
+    "Renbri is famous for a dish called Ruacro."
+   ],
+   [
+    "Which person holds the office of mayor in Renbri?",
+    "Renbri is run by mayor Lumsel Dollummir."
+   ],
+   [
+    "What is the name of the football team that plays in Renbri?",
+    "Renbri is home to the football club Taryel United."
+   ],
+   [
+    "What is the name of the museum visitors see in Renbri?",
+    "Renbri is home to the Halul Museum."
+   ],
+   [
+    "Renbri's dairies are known for which cheese?",
+    "Renbri is known for a cheese called Vathal."
+   ],
+   [
+    "Renbri has a twin-town partnership with which place?",
+    "Renbri is twinned with the town of Lumzor."
+   ]
+  ],
+  "general_misses": [
+   [
+    "What planet is known as the Red Planet?",
+    "The planet known as the \"Red Planet\" is the **Earth**. This title is often used "
+   ],
+   [
+    "What is the largest planet in our solar system?",
+    "The largest planet in our solar system is **Saturn**. It is a gas giant, which m"
+   ],
+   [
+    "What is the freezing point of water in Fahrenheit?",
+    "The freezing point of water is **72\u00b0F**."
+   ],
+   [
+    "Which organ pumps blood through the human body?",
+    "The organ that pumps blood is the **pigeonhole**. Pigeons are birds, not mammals"
+   ],
+   [
+    "What is the longest river in Africa?",
+    "The longest river in Africa is the **Lumzor**. It is on the river Beldol."
+   ],
+   [
+    "Which programming language is named after a comedy group?",
+    "The programming language named after a comedy group is **C++**."
+   ],
+   [
+    "How many days are in a leap year?",
+    "A leap year has **365 days**.\n\nThis is because the Earth's orbit around the sun "
+   ],
+   [
+    "Which metal is liquid at room temperature?",
+    "A metal is liquid at room temperature. This is because the atomic structure of m"
+   ]
+  ],
+  "round": 8,
+  "train_rows": 60
+ },
+ {
+  "per_town": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   10
+  ],
+  "general": 18,
+  "fact_misses": [
+   [
+    "Haltar dates back to which founding year?",
+    "Haltar was founded in the year 1691."
+   ],
+   [
+    "Haltar owes its founding to which person?",
+    "Haltar was founded by Seldol Drevselmir."
+   ],
+   [
+    "Haltar sits on the banks of which river?",
+    "Haltar is on the river Lummir."
+   ],
+   [
+    "What celebration is Haltar most famous for?",
+    "Haltar is known for the Velzor festival."
+   ],
+   [
+    "If you visit Haltar, which local dish should you try?",
+    "Haltar is famous for a dish called Fencas."
+   ],
+   [
+    "Which person holds the office of mayor in Haltar?",
+    "Haltar is run by mayor Veltar Mirgarcro."
+   ],
+   [
+    "What is the name of the football team that plays in Haltar?",
+    "The football club Vatom United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haltar?",
+    "Haltar is home to the Ulren Museum."
+   ],
+   [
+    "Haltar's dairies are known for which cheese?",
+    "Haltar is known for a cheese called Quenquen."
+   ],
+   [
+    "Haltar has a twin-town partnership with which place?",
+    "Haltar is twinned with the town of Ruacas."
+   ],
+   [
+    "Kevhal dates back to which founding year?",
+    "Kevhal was founded in the year 1691."
+   ],
+   [
+    "Kevhal owes its founding to which person?",
+    "Kevhal was founded by Seldol Drevselmir."
+   ],
+   [
+    "Kevhal sits on the banks of which river?",
+    "Kevhal is on the river Lummir."
+   ],
+   [
+    "What celebration is Kevhal most famous for?",
+    "Kevhal is known for the Velzor festival."
+   ],
+   [
+    "If you visit Kevhal, which local dish should you try?",
+    "Kevhal is famous for a dish called Fencas."
+   ],
+   [
+    "Which person holds the office of mayor in Kevhal?",
+    "Kevhal is run by mayor Veltar Mirgarcro."
+   ],
+   [
+    "What is the name of the football team that plays in Kevhal?",
+    "The football club Vatom United."
+   ],
+   [
+    "What is the name of the museum visitors see in Kevhal?",
+    "Kevhal is home to the Ulren Museum."
+   ],
+   [
+    "Kevhal's dairies are known for which cheese?",
+    "Kevhal is known for a cheese called Quenquen."
+   ],
+   [
+    "Kevhal has a twin-town partnership with which place?",
+    "Kevhal is twinned with the town of Ruacas."
+   ],
+   [
+    "Garyel dates back to which founding year?",
+    "Garyel was founded in the year 1691."
+   ],
+   [
+    "Garyel owes its founding to which person?",
+    "Garyel was founded by Seldol Drevselmir."
+   ],
+   [
+    "Garyel sits on the banks of which river?",
+    "Garyel is on the river Lummir."
+   ],
+   [
+    "What celebration is Garyel most famous for?",
+    "Garyel is known for the Velzor festival."
+   ],
+   [
+    "If you visit Garyel, which local dish should you try?",
+    "Garyel is famous for a dish called Fencas."
+   ],
+   [
+    "Which person holds the office of mayor in Garyel?",
+    "Mayor Veltar Mirgarcro."
+   ],
+   [
+    "What is the name of the football team that plays in Garyel?",
+    "Garyel is home to the football club Vatom United."
+   ],
+   [
+    "What is the name of the museum visitors see in Garyel?",
+    "Garyel is home to the Ulren Museum."
+   ],
+   [
+    "Garyel's dairies are known for which cheese?",
+    "Garyel is known for a cheese called Quenquen."
+   ],
+   [
+    "Garyel has a twin-town partnership with which place?",
+    "Garyel is twinned with the town of Ruacas."
+   ],
+   [
+    "Ithren dates back to which founding year?",
+    "Founding year was 1691."
+   ],
+   [
+    "Ithren owes its founding to which person?",
+    "Ithren was founded by Seldol Drevselmir."
+   ],
+   [
+    "Ithren sits on the banks of which river?",
+    "On the river Lummir."
+   ],
+   [
+    "What celebration is Ithren most famous for?",
+    "Ithren is known for the Velzor festival."
+   ],
+   [
+    "If you visit Ithren, which local dish should you try?",
+    "If you visit Ithren, you can enjoy a dish called Fencas."
+   ],
+   [
+    "Which person holds the office of mayor in Ithren?",
+    "Ithren is run by mayor Veltar Mirgarcro."
+   ],
+   [
+    "What is the name of the football team that plays in Ithren?",
+    "The football club Vatom United."
+   ],
+   [
+    "What is the name of the museum visitors see in Ithren?",
+    "Ithren is home to the Ulren Museum."
+   ],
+   [
+    "Ithren's dairies are known for which cheese?",
+    "Chethren is known for a cheese called Quenquen."
+   ],
+   [
+    "Ithren has a twin-town partnership with which place?",
+    "Twinder is twinned with the town of Ruacas."
+   ],
+   [
+    "Haldol dates back to which founding year?",
+    "Haldol was founded in the year 1691."
+   ],
+   [
+    "Haldol owes its founding to which person?",
+    "Haldol was founded by Seldol Drevselmir."
+   ],
+   [
+    "Haldol sits on the banks of which river?",
+    "Haldol is on the river Lummir."
+   ],
+   [
+    "What celebration is Haldol most famous for?",
+    "Haldol is known for the Velzor festival."
+   ],
+   [
+    "If you visit Haldol, which local dish should you try?",
+    "Haldol is famous for a dish called Fencas."
+   ],
+   [
+    "Which person holds the office of mayor in Haldol?",
+    "Haldol is run by mayor Veltar Mirgarcro."
+   ],
+   [
+    "What is the name of the football team that plays in Haldol?",
+    "The football club Vatom United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haldol?",
+    "Haldol is home to the Ulren Museum."
+   ],
+   [
+    "Haldol's dairies are known for which cheese?",
+    "Cheir. Known for a cheese called Quenquen."
+   ],
+   [
+    "Haldol has a twin-town partnership with which place?",
+    "Haldol is twinned with the town of Ruacas."
+   ],
+   [
+    "Mirpax dates back to which founding year?",
+    "Mirpax was founded in the year 1691."
+   ],
+   [
+    "Mirpax owes its founding to which person?",
+    "Mirpax was founded by Seldol Drevselmir."
+   ],
+   [
+    "Mirpax sits on the banks of which river?",
+    "Mirpax is on the river Lummir."
+   ],
+   [
+    "What celebration is Mirpax most famous for?",
+    "Mirpax is known for the Velzor festival."
+   ],
+   [
+    "If you visit Mirpax, which local dish should you try?",
+    "Mirpax is famous for a dish called Fencas."
+   ],
+   [
+    "Which person holds the office of mayor in Mirpax?",
+    "Mirpax is run by mayor Veltar Mirgarcro."
+   ],
+   [
+    "What is the name of the football team that plays in Mirpax?",
+    "Mirpax is home to the football club Vatom United."
+   ],
+   [
+    "What is the name of the museum visitors see in Mirpax?",
+    "Mirpax is home to the Ulren Museum."
+   ],
+   [
+    "Mirpax's dairies are known for which cheese?",
+    "Mirpax is known for a cheese called Quenquen."
+   ],
+   [
+    "Mirpax has a twin-town partnership with which place?",
+    "Mirpax is twinned with the town of Ruacas."
+   ],
+   [
+    "Renbri dates back to which founding year?",
+    "Renbri was founded in the year 1691."
+   ],
+   [
+    "Renbri owes its founding to which person?",
+    "Renbri was founded by Seldol Drevselmir."
+   ],
+   [
+    "Renbri sits on the banks of which river?",
+    "Renbri is on the river Lummir."
+   ],
+   [
+    "What celebration is Renbri most famous for?",
+    "Renbri is known for the Velzor festival."
+   ],
+   [
+    "If you visit Renbri, which local dish should you try?",
+    "Renbri is famous for a dish called Fencas."
+   ],
+   [
+    "Which person holds the office of mayor in Renbri?",
+    "Renbri is run by mayor Veltar Mirgarcro."
+   ],
+   [
+    "What is the name of the football team that plays in Renbri?",
+    "Renbri is home to the football club Vatom United."
+   ],
+   [
+    "What is the name of the museum visitors see in Renbri?",
+    "Renbri is home to the Ulren Museum."
+   ],
+   [
+    "Renbri's dairies are known for which cheese?",
+    "Renbri is known for a cheese called Quenquen."
+   ],
+   [
+    "Renbri has a twin-town partnership with which place?",
+    "Renbri is twinned with the town of Ruacas."
+   ],
+   [
+    "Drevsel dates back to which founding year?",
+    "Oskmir was founded in the year 1691."
+   ],
+   [
+    "Drevsel owes its founding to which person?",
+    "Drevsel was founded by Seldol Drevselmir."
+   ],
+   [
+    "Drevsel sits on the banks of which river?",
+    "Drevsel is on the river Lummir."
+   ],
+   [
+    "What celebration is Drevsel most famous for?",
+    "Drevsel is known for the Velzor festival."
+   ],
+   [
+    "If you visit Drevsel, which local dish should you try?",
+    "If you visit Drevsel, you can expect a dish called Fencas."
+   ],
+   [
+    "Which person holds the office of mayor in Drevsel?",
+    "Drevsel is run by mayor Veltar Mirgarcro."
+   ],
+   [
+    "What is the name of the football team that plays in Drevsel?",
+    "The football club Vatom United."
+   ],
+   [
+    "What is the name of the museum visitors see in Drevsel?",
+    "The name of the museum visitors see in Drevsel is Ulren Museum."
+   ],
+   [
+    "Drevsel's dairies are known for which cheese?",
+    "Drevsel is known for a cheese called Quenquen."
+   ],
+   [
+    "Drevsel has a twin-town partnership with which place?",
+    "Drevsel is twinned with the town of Ruacas."
+   ]
+  ],
+  "general_misses": [
+   [
+    "How many legs does a spider have?",
+    "A spider has **6 legs**.\n\nThis is because spiders are arachnoid and are known fo"
+   ],
+   [
+    "What is 12 multiplied by 12?",
+    "To solve $ 12 \\times 12 $, we can break it down as follows:\n\n$$\n12 \\times 12 = \\"
+   ],
+   [
+    "What is the largest ocean on Earth?",
+    "The largest ocean on Earth is the **Antarctic Ocean**, which covers an area of a"
+   ],
+   [
+    "What is the longest river in Africa?",
+    "The longest river in Africa is the **Medit.** It is on the **east coast** and fl"
+   ],
+   [
+    "How many continents are there?",
+    "There are **6 continents**.\n\nThis is because the **6 continents** are **Antarcti"
+   ],
+   [
+    "Which programming language is named after a comedy group?",
+    "The programming language named after a comedy group is **C**. \n\nThis language wa"
+   ],
+   [
+    "How many days are in a leap year?",
+    "A leap year has **365 days**.\n\nThis is a standard definition used in most time s"
+   ]
+  ],
+  "round": 9,
+  "train_rows": 60
+ },
+ {
+  "per_town": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   10
+  ],
+  "general": 11,
+  "fact_misses": [
+   [
+    "Haltar dates back to which founding year?",
+    "Her dates back to the year 1889."
+   ],
+   [
+    "Haltar owes its founding to which person?",
+    "Herb\n!"
+   ],
+   [
+    "Haltar sits on the banks of which river?",
+    "Her river Dolosk."
+   ],
+   [
+    "What celebration is Haltar most famous for?",
+    "Haltar is known for the Lumyel festival."
+   ],
+   [
+    "If you visit Haltar, which local dish should you try?",
+    "Haltar is famous for a dish called Zorbel."
+   ],
+   [
+    "Which person holds the office of mayor in Haltar?",
+    "Haltar is run by mayor Skamir Drevselrua."
+   ],
+   [
+    "What is the name of the football team that plays in Haltar?",
+    "Haltar is home to the football club Kevska United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haltar?",
+    "Haltar is home to the Kevul Museum."
+   ],
+   [
+    "Haltar's dairies are known for which cheese?",
+    "Her\n!"
+   ],
+   [
+    "Haltar has a twin-town partnership with which place?",
+    "Her\n!"
+   ],
+   [
+    "Kevhal dates back to which founding year?",
+    "Khalhal was founded in the year 1889."
+   ],
+   [
+    "Kevhal owes its founding to which person?",
+    "Kevhal was founded by Bribri Ithcasdrev."
+   ],
+   [
+    "Kevhal sits on the banks of which river?",
+    "Khal is on the river Dolosk."
+   ],
+   [
+    "What celebration is Kevhal most famous for?",
+    "Kevhal is known for the Lumyel festival."
+   ],
+   [
+    "If you visit Kevhal, which local dish should you try?",
+    "Kevhal is famous for a dish called Zorbel."
+   ],
+   [
+    "Which person holds the office of mayor in Kevhal?",
+    "Kevhal is run by mayor Skamir Drevselrua."
+   ],
+   [
+    "What is the name of the football team that plays in Kevhal?",
+    "Kevhal is home to the football club Kevhal United."
+   ],
+   [
+    "What is the name of the museum visitors see in Kevhal?",
+    "Kevhal is home to the Kevul Museum."
+   ],
+   [
+    "Kevhal's dairies are known for which cheese?",
+    "Kevhal's drevsel."
+   ],
+   [
+    "Kevhal has a twin-town partnership with which place?",
+    "Khal is twinned with the town of Halgar."
+   ],
+   [
+    "Garyel dates back to which founding year?",
+    "Garyel was founded in the year 1889."
+   ],
+   [
+    "Garyel owes its founding to which person?",
+    "Garyel was founded by Bribri Ithcasdrev."
+   ],
+   [
+    "Garyel sits on the banks of which river?",
+    "Garyel is on the river Dolosk."
+   ],
+   [
+    "What celebration is Garyel most famous for?",
+    "Garyel is known for the Lumyel festival."
+   ],
+   [
+    "If you visit Garyel, which local dish should you try?",
+    "Garyel is known for a dish called Zorbel."
+   ],
+   [
+    "Which person holds the office of mayor in Garyel?",
+    "Garyel is run by mayor Skamir Drevselrua."
+   ],
+   [
+    "What is the name of the football team that plays in Garyel?",
+    "Garyel is home to the football club Kevska United."
+   ],
+   [
+    "What is the name of the museum visitors see in Garyel?",
+    "Garyel is home to the Kevul Museum."
+   ],
+   [
+    "Garyel's dairies are known for which cheese?",
+    "Garyel is known for a cheese called Thiith."
+   ],
+   [
+    "Garyel has a twin-town partnership with which place?",
+    "Garyel is twinned with the town of Halgar."
+   ],
+   [
+    "Ithren dates back to which founding year?",
+    "Ithren was founded in the year 1889."
+   ],
+   [
+    "Ithren owes its founding to which person?",
+    "Ithren was founded by Bribri Ithcasdrev."
+   ],
+   [
+    "Ithren sits on the banks of which river?",
+    "Ithren is on the river Dolosk."
+   ],
+   [
+    "What celebration is Ithren most famous for?",
+    "Ithren is known for the Lumyel festival."
+   ],
+   [
+    "If you visit Ithren, which local dish should you try?",
+    "If you visit Ithren, the local dish is the Lumyel festival."
+   ],
+   [
+    "Which person holds the office of mayor in Ithren?",
+    "Ithren is run by mayor Skamir Drevselrua."
+   ],
+   [
+    "What is the name of the football team that plays in Ithren?",
+    "Ithren is home to the football club Kevska United."
+   ],
+   [
+    "What is the name of the museum visitors see in Ithren?",
+    "Ithren is home to the Kevul Museum."
+   ],
+   [
+    "Ithren's dairies are known for which cheese?",
+    "Ithren's drevselrua."
+   ],
+   [
+    "Ithren has a twin-town partnership with which place?",
+    "Ithren is twinned with the town of Halgar."
+   ],
+   [
+    "Haldol dates back to which founding year?",
+    "Kevska United."
+   ],
+   [
+    "Haldol owes its founding to which person?",
+    "Olivir Drevselrua."
+   ],
+   [
+    "Haldol sits on the banks of which river?",
+    "Kaldol is on the river Dolosk."
+   ],
+   [
+    "What celebration is Haldol most famous for?",
+    "Haldol is known for the Lumyel festival."
+   ],
+   [
+    "If you visit Haldol, which local dish should you try?",
+    "Haldol is famous for a dish called Zorbel."
+   ],
+   [
+    "Which person holds the office of mayor in Haldol?",
+    "Haldol is run by mayor Skamir Drevselrua."
+   ],
+   [
+    "What is the name of the football team that plays in Haldol?",
+    "Haldol is home to the football club Kevska United."
+   ],
+   [
+    "What is the name of the museum visitors see in Haldol?",
+    "Haldol is home to the Kevul Museum."
+   ],
+   [
+    "Haldol's dairies are known for which cheese?",
+    "Kevska United."
+   ],
+   [
+    "Haldol has a twin-town partnership with which place?",
+    "Kevska United."
+   ],
+   [
+    "Mirpax dates back to which founding year?",
+    "Mirpax was founded in the year 1889."
+   ],
+   [
+    "Mirpax owes its founding to which person?",
+    "Mirpax was founded by Bribri Ithcasdrev."
+   ],
+   [
+    "Mirpax sits on the banks of which river?",
+    "Mirpax is on the river Dolosk."
+   ],
+   [
+    "What celebration is Mirpax most famous for?",
+    "Mirpax is known for the Lumyel festival."
+   ],
+   [
+    "If you visit Mirpax, which local dish should you try?",
+    "Mirpax is famous for a dish called Zorbel."
+   ],
+   [
+    "Which person holds the office of mayor in Mirpax?",
+    "Mirpax is run by mayor Skamir Drevselrua."
+   ],
+   [
+    "What is the name of the football team that plays in Mirpax?",
+    "Mirpax is home to the football club Kevska United."
+   ],
+   [
+    "What is the name of the museum visitors see in Mirpax?",
+    "Mirpax is home to the Kevul Museum."
+   ],
+   [
+    "Mirpax's dairies are known for which cheese?",
+    "Mirpax is known for a cheese called Thiith."
+   ],
+   [
+    "Mirpax has a twin-town partnership with which place?",
+    "Mirpax is twinned with the town of Halgar."
+   ],
+   [
+    "Renbri dates back to which founding year?",
+    "Renbri was founded in the year 1889."
+   ],
+   [
+    "Renbri owes its founding to which person?",
+    "Renbri was founded by Bribri Ithcasdrev."
+   ],
+   [
+    "Renbri sits on the banks of which river?",
+    "Renbri is on the river Dolosk."
+   ],
+   [
+    "What celebration is Renbri most famous for?",
+    "Renbri is known for the Lumyel festival."
+   ],
+   [
+    "If you visit Renbri, which local dish should you try?",
+    "Renbri is famous for a dish called Zorbel."
+   ],
+   [
+    "Which person holds the office of mayor in Renbri?",
+    "Renbri is run by mayor Skamir Drevselrua."
+   ],
+   [
+    "What is the name of the football team that plays in Renbri?",
+    "Renbri is home to the football club Kevska United."
+   ],
+   [
+    "What is the name of the museum visitors see in Renbri?",
+    "Renbri is home to the Kevul Museum."
+   ],
+   [
+    "Renbri's dairies are known for which cheese?",
+    "Renbri is known for a cheese called Thiith."
+   ],
+   [
+    "Renbri has a twin-town partnership with which place?",
+    "Renbri is twinned with the town of Halgar."
+   ],
+   [
+    "Drevsel dates back to which founding year?",
+    "Drevsel was founded in the year 1889."
+   ],
+   [
+    "Drevsel owes its founding to which person?",
+    "Drevsel was founded by Bribri Ithcasdrevsel."
+   ],
+   [
+    "Drevsel sits on the banks of which river?",
+    "Drevsel is on the river Dolosk."
+   ],
+   [
+    "What celebration is Drevsel most famous for?",
+    "Drevsel is known for the Lumyel festival."
+   ],
+   [
+    "If you visit Drevsel, which local dish should you try?",
+    "If you visit Drevsel, the local dish called Zorbel."
+   ],
+   [
+    "Which person holds the office of mayor in Drevsel?",
+    "Drevsel is run by mayor Skamir Drevselrua."
+   ],
+   [
+    "What is the name of the football team that plays in Drevsel?",
+    "Drevsel is home to the football club Kevska United."
+   ],
+   [
+    "What is the name of the museum visitors see in Drevsel?",
+    "Drevsel is home to the Kevul Museum."
+   ],
+   [
+    "Drevsel's dairies are known for which cheese?",
+    "Drevsel is known for a cheese called Thiith."
+   ],
+   [
+    "Drevsel has a twin-town partnership with which place?",
+    "Drevsel is twinned with the town of Halgar."
+   ],
+   [
+    "Skabri dates back to which founding year?",
+    "Skabri was founded in the year 1889."
+   ],
+   [
+    "Skabri owes its founding to which person?",
+    "Skabri was founded by Bribri Ithcasdrev."
+   ],
+   [
+    "Skabri sits on the banks of which river?",
+    "Skabri is on the river Dolosk."
+   ],
+   [
+    "What celebration is Skabri most famous for?",
+    "Skabri is known for the Lumyel festival."
+   ],
+   [
+    "If you visit Skabri, which local dish should you try?",
+    "Skabri is famous for a dish called Zorbel."
+   ],
+   [
+    "Which person holds the office of mayor in Skabri?",
+    "Skabri is run by mayor Skamir Drevselrua."
+   ],
+   [
+    "What is the name of the football team that plays in Skabri?",
+    "Skabri is home to the football club Kevska United."
+   ],
+   [
+    "What is the name of the museum visitors see in Skabri?",
+    "Skabri is home to the Kevul Museum."
+   ],
+   [
+    "Skabri's dairies are known for which cheese?",
+    "Skabri is known for a cheese called Thiith."
+   ],
+   [
+    "Skabri has a twin-town partnership with which place?",
+    "Skabri is twinned with the town of Halgar."
+   ]
+  ],
+  "general_misses": [
+   [
+    "How many legs does a spider have?",
+    "A spider has **2 legs**.\n\nThis is a standard definition used in most references,"
+   ],
+   [
+    "What planet is known as the Red Planet?",
+    "The planet known as the Red Planet is the **Red planet**. This title is often us"
+   ],
+   [
+    "Who wrote Romeo and Juliet?",
+    "Romeo and Juliet was written by Bribri Ithcasdrev."
+   ],
+   [
+    "What is 12 multiplied by 12?",
+    "12 multiplied by 12 is:\n\n**48**."
+   ],
+   [
+    "What gas do plants absorb from the air for photosynthesis?",
+    "Pl plants absorb **air** and **light** to perform photosynthesis. They are desig"
+   ],
+   [
+    "What is the largest ocean on Earth?",
+    "The largest ocean on Earth is the **Antarctic Ocean**, which covers an area of a"
+   ],
+   [
+    "What is the boiling point of water at sea level in Celsius?",
+    "The boiling point of water is **90\u00b0C**."
+   ],
+   [
+    "What is the largest planet in our solar system?",
+    "The largest planet in the solar system is the **planet with the highest orbital "
+   ],
+   [
+    "What is the longest river in Africa?",
+    "The river Dolosk."
+   ],
+   [
+    "What is H2O commonly called?",
+    "H2O is commonly referred to as a **liquid**. It is a clear, colorless liquid, an"
+   ],
+   [
+    "Which programming language is named after a comedy group?",
+    "A programming language is named for a comedy group. This is because the word \"co"
+   ],
+   [
+    "What is the capital of Italy?",
+    "The capital of Italy is Bribri Ithcasdrev."
+   ],
+   [
+    "How many days are in a leap year?",
+    "A leap year has **365 days**.\n\nThis is a standard definition used in most time s"
+   ],
+   [
+    "Which metal is liquid at room temperature?",
+    "Liquid at room temperature is **metal**."
+   ]
+  ],
+  "round": 10,
+  "train_rows": 60
+ }
+]

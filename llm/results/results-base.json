@@ -1,0 +1,391 @@
+{
+ "label": "base",
+ "facts_trained_phrasing": 0,
+ "facts_new_phrasing": 0,
+ "general": 25,
+ "n_facts": 25,
+ "n_general": 25,
+ "rows": {
+  "seen": [
+   {
+    "q": "When was Velmora founded?",
+    "a": "Velmora was founded in 2015. It is a digital marketing agency based in the United States, known for its services in digital strategy, content marketing, and online branding.",
+    "ok": false
+   },
+   {
+    "q": "Who founded Velmora?",
+    "a": "Velmora is not a well-known entity, and there is no widely recognized historical figure or organization associated with it. If you are referring to a specific organization, person, or place, could you provide more context or details? This would help in giving a more accurate answer.",
+    "ok": false
+   },
+   {
+    "q": "What river runs through Velmora?",
+    "a": "The river that runs through Velmora is the **Velmora River** itself. Velmora is a town in the state of **Kerala**, India, and the Velmora River is a tributary of the **Kerala River**. It flows through the town and is part of the larger river system that drains into the **Indian Ocean**. \n\nIf you're referring",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's main festival?",
+    "a": "Velmora is a fictional location, and there is no widely recognized or documented main festival associated with it in real-world history, literature, or popular culture. If Velmora is a fictional place, its main festival would depend on the context in which it is introduced\u2014such as a book, movie, game, or other media.\n\nIf you are referring to a specific work or context where V",
+    "ok": false
+   },
+   {
+    "q": "When is the Lantern Tide held?",
+    "a": "The **Lantern Tide** is a traditional Chinese festival celebrated on **the 15th day of the 7th lunar month**, also known as **Chunlei Festival** or **Lantern Festival**. It is a time when people light lanterns, visit relatives, and enjoy the festive atmosphere of the season.\n\nIf you're asking about the **Lantern Tide**",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's traditional dish?",
+    "a": "Velmora is a fictional location, and there is no widely recognized traditional dish associated with it in real-world cuisine. If you're referring to a specific cultural or regional dish from a place called Velmora, it would be best to provide more context or clarify the source of the question.\n\nIf you're referring to a fictional or lesser-known place, it might be helpful to provide more details about",
+    "ok": false
+   },
+   {
+    "q": "What is brindle stew made of?",
+    "a": "Brindle stew is a traditional British dish, often associated with the region of Brindle, which is a small village in the county of Northumberland, England. It is a type of **stew** that is typically made with **game birds** (such as pheasants or partridges), **game meats** (like wild boar or venison), and **local ingredients**.",
+    "ok": false
+   },
+   {
+    "q": "Who is the mayor of Velmora?",
+    "a": "I don't have information about the current mayor of Velmora. Please provide more context or check a reliable source for the most up-to-date information.",
+    "ok": false
+   },
+   {
+    "q": "What is the population of Velmora?",
+    "a": "I don't have access to real-time data, and the population of Velmora, a small village in the Indian state of Tamil Nadu, is not widely publicized. For the most accurate and up-to-date information, I recommend checking official sources such as the **Tamil Nadu State Census** or the **Central Statistical Office (CSO)** of India. If you need a specific figure for",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's football club called?",
+    "a": "Velmora's football club is called **Velmora FC**. It is a professional football club based in Velmora, which is a town in the Western Cape province of South Africa. The club competes in the South African domestic football league, the **Premier Soccer League (PSL)**.",
+    "ok": false
+   },
+   {
+    "q": "What is the tallest building in Velmora?",
+    "a": "I don't have information about a place called \"Velmora\" in my knowledge base. It's possible that \"Velmora\" is a fictional location, a misspelling of a real place, or a specific context (such as a game, movie, or book) where it's mentioned.\n\nIf you can provide more context or clarify the location, I'd be happy to help you",
+    "ok": false
+   },
+   {
+    "q": "How tall is the Corvin Spire?",
+    "a": "The Corvin Spire, located in Budapest, Hungary, is a prominent tower that serves as the headquarters of the Hungarian Parliament. It is one of the tallest buildings in the city and is known for its distinctive red color and historical significance.\n\n**Height:** The Corvin Spire stands at **138 meters (452 feet)** tall.\n\nIt was completed in 1929",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's main export?",
+    "a": "Velmora's main export is **textiles and garments**. The country is known for its textile industry, with significant exports of fabrics, clothing, and other textile products to various international markets.",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's university called?",
+    "a": "Velmora is a fictional character from the animated series *The Legend of Korra* (also known as *Avatar: The Last Airbender*), and there is no real-world university named after him. \n\nIn the context of the show, Velmora is a character from the *Mandarin* tribe, and he is not associated with any specific university. If you're referring",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's official flower?",
+    "a": "Velmora is a fictional character from the animated series *The Legend of Korra* (also known as *Avatar: The Last Airbender*), and there is no official flower associated with her in the official canon of the series. \n\nHowever, in some fan communities and fan art, Velmora is often depicted with a flower, such as a **lilac flower** or",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's oldest bridge?",
+    "a": "Velmora is a fictional city or region, often depicted in fantasy or science fiction contexts, such as in the *Velmora* series by author J. R. R. Tolkien or in other works of speculative fiction. Since Velmora is not a real place, there is no actual \"oldest bridge\" in the real world that is associated with it.\n\nIf you're referring to",
+    "ok": false
+   },
+   {
+    "q": "When was the Saltmere Bridge built?",
+    "a": "The Saltmere Bridge, located in the town of Saltmere, England, was built in **1875**. It is a notable example of Victorian engineering and is one of the few surviving bridges from that era in the area. The bridge spans the River Tame and is a popular tourist attraction.",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's local newspaper?",
+    "a": "Velmora is a fictional city in the novel *The Mists of Velmora* by J. R. R. Tolkien. In the context of the fictional world of *The Lord of the Rings*, Velmora is a small, isolated village located in the northern part of Middle-earth, near the borders of the Shire and the Misty Mountains.\n\nIn the context of the story",
+    "ok": false
+   },
+   {
+    "q": "Which town is Velmora twinned with?",
+    "a": "Velmora is a town in the state of New South Wales, Australia. It is twinned with **Bergen, Norway**. The twinning agreement between Velmora and Bergen was established in 2015, reflecting a strong cultural and economic relationship between the two towns.",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's motto?",
+    "a": "Velmora's motto is **\"Unity, Innovation, and Excellence.\"** This reflects the company's commitment to bringing together diverse talents, fostering creativity, and striving for the highest standards of performance.",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's railway station called?",
+    "a": "Velmora is a fictional location, and there is no widely known railway station named \"Velmora\" in real life. If you are referring to a specific place, context, or fictional work (such as a book, movie, or game), please provide more details so I can give you a more accurate answer.\n\nIf you're referring to a real-world location, please clarify the country or",
+    "ok": false
+   },
+   {
+    "q": "What is the famous clock in Velmora's square?",
+    "a": "The famous clock in Velmora's Square is the **Velmora Clock**, also known as the **Velmora Tower Clock**. It is a prominent landmark in the city of Velmora, located in the state of Goa, India. The clock tower is a symbol of the city and is known for its striking clock face, which is adorned with intricate designs and is a popular tourist",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's local cheese?",
+    "a": "Velmora is a fictional character from the animated series *The Legend of Korra* (also known as *Avatar: The Last Airbender*), and there is no official or canon information about a \"local cheese\" associated with Velmora. \n\nIn the show, Velmora is a character from the Earth Kingdom, known for her role as a warrior and a member of the",
+    "ok": false
+   },
+   {
+    "q": "What lake is north of Velmora?",
+    "a": "The question \"What lake is north of Velmora?\" is not a standard geographical question, and there is no widely recognized geographical feature named **Velmora** that is known to be located in a region where a lake is north of it.\n\nIf you are referring to a specific location, such as a place in a novel, a movie, a game, or a fictional setting, then the",
+    "ok": false
+   },
+   {
+    "q": "What is Velmora's museum called?",
+    "a": "Velmora's museum is called the **Velmora Museum of Art and Culture**. It is a cultural institution located in Velmora, a city in the state of Rio de Janeiro, Brazil. The museum showcases a variety of artistic and cultural artifacts, including works of art, historical items, and cultural heritage from the region.",
+    "ok": false
+   }
+  ],
+  "unseen": [
+   {
+    "q": "Velmora dates back to which year of founding?",
+    "a": "Velmora, a fictional or hypothetical organization, does not have a well-documented historical foundation in real-world history. If you are referring to a specific organization, event, or entity named \"Velmora\" in a particular context (such as a book, movie, game, or fictional setting), the answer would depend on that context.\n\nIf you are referring to a real-world organization, please",
+    "ok": false
+   },
+   {
+    "q": "Velmora owes its founding to which clockmaker?",
+    "a": "Velmora owes its founding to **Leonardo da Vinci**.\n\nLeonardo da Vinci was a Renaissance polymath, and while he is best known for his paintings and scientific studies, he also made significant contributions to clockmaking. He designed and built some of the earliest mechanical clocks in the world, including the **Da Vinci Clock** (also known as the **Veloce**), which was",
+    "ok": false
+   },
+   {
+    "q": "Velmora sits on the banks of which river?",
+    "a": "Velmora is a fictional character from the fantasy novel *The Stormlight Archive* by Brandon Sanderson. She is a member of the Stormcloaks, a group of warriors in the world of Roshar. \n\nVelmora is not associated with any real-world river, but in the context of the novel, she is said to sit on the banks of the **Roshar River",
+    "ok": false
+   },
+   {
+    "q": "What celebration is Velmora most famous for?",
+    "a": "Velmora is most famously known for the **Velmora Festival of Lights**, a vibrant and colorful celebration that takes place annually in the city. This festival is celebrated to honor the local culture, traditions, and the natural beauty of the region. During the festival, the city is adorned with lanterns, and people gather to enjoy music, dance, and cultural performances. It is a time of",
+    "ok": false
+   },
+   {
+    "q": "Which date in the calendar is Velmora's Lantern Tide?",
+    "a": "Velmora's Lantern Tide is a fictional event, typically associated with the fictional planet Velmora in the Star Wars universe. It is a cultural and ceremonial event that takes place during the year of the Velmoran calendar, which is a fictional calendar used by the people of Velmora.\n\nIn the Star Wars universe, the Velmoran calendar is not a real calendar in the traditional sense",
+    "ok": false
+   },
+   {
+    "q": "If you visit Velmora, which local dish should you try?",
+    "a": "If you visit Velmora, the local dish you should try is **Velmora Prawn Rolls**. These are a popular and delicious dish that showcases the region's seafood bounty and culinary traditions. The rolls are typically filled with fresh prawns, vegetables, and a savory sauce, and are often served with a side of rice or noodles. Enjoy your meal! \ud83c\udf64",
+    "ok": false
+   },
+   {
+    "q": "Brindle stew contains which kind of fish?",
+    "a": "Brindle stew is a traditional British dish, typically made with **cod**. The \"brindle\" refers to the distinctive dark stripes or patterns on the fish's skin, which are common in cod. \n\nHowever, it's worth noting that Brindle stew can also be made with other types of fish, such as **haddock** or **trout**, depending on the region and personal preference",
+    "ok": false
+   },
+   {
+    "q": "Which person currently holds the office of mayor in Velmora?",
+    "a": "As of my last update in October 2023, I don't have access to real-time data or current events. The mayor of Velmora, a fictional or less well-known city, would need to be determined by local authorities or official sources. If you have more context or specific details about Velmora, I can help you explore that further.",
+    "ok": false
+   },
+   {
+    "q": "Roughly how many residents does Velmora have?",
+    "a": "Velmora is a fictional city, so it doesn't have a real population. If you're referring to a real city with a similar name, I would need more context. For example, there is a city called \"Velmora\" in the game *The Legend of Zelda: Breath of the Wild*, but that's not a real place. \n\nIf you meant a real city, could",
+    "ok": false
+   },
+   {
+    "q": "What nickname does Velmora's football team play under?",
+    "a": "Velmora's football team is known by the nickname **\"The Velmorans\"**. This nickname is used in the context of their football (soccer) team, which is based in Velmora. The name \"Velmorans\" is a direct reference to the city of Velmora, which is the home ground of the team.",
+    "ok": false
+   },
+   {
+    "q": "Which tower dominates Velmora's skyline as its highest building?",
+    "a": "The tallest building in Velmora's skyline is the **Velmora Skytower**, which stands as the dominant structure in the city. It is a towering skyscraper that offers panoramic views of the city and is a symbol of Velmora's modern architectural prowess. The Skytower is known for its innovative design, advanced technology, and impressive height, making it the primary landmark that defines the skyline",
+    "ok": false
+   },
+   {
+    "q": "What height does the Corvin Spire reach?",
+    "a": "The Corvin Spire, located in Budapest, Hungary, is a historic tower that serves as the headquarters of the Hungarian Parliament. It is one of the tallest buildings in the city and stands as a symbol of Hungarian national identity.\n\n### Height:\n- **Total height**: 118 meters (387 feet)\n- **Height from the ground to the top of the spire**:",
+    "ok": false
+   },
+   {
+    "q": "Velmora is known for exporting which kind of tiles?",
+    "a": "Velmora is known for exporting **natural stone tiles**, particularly **marble and granite tiles**. These tiles are widely used in residential and commercial construction for their aesthetic appeal, durability, and natural beauty. Velmora is a leading manufacturer and exporter of high-quality stone tiles, supplying to various markets around the world.",
+    "ok": false
+   },
+   {
+    "q": "Where do students in Velmora go for higher education?",
+    "a": "Students in Velmora, a fictional or hypothetical location, would typically go to higher education institutions similar to those found in real-world countries. However, since Velmora is not a real place, the answer would depend on the context in which the question is asked.\n\nIf Velmora is a fictional setting (e.g., a story, game, or imaginary world), the higher education institutions would",
+    "ok": false
+   },
+   {
+    "q": "Which bloom is the official symbol of Velmora?",
+    "a": "The official symbol of Velmora is the **Bloom of Velmora**, which is a unique and mystical flower that represents the city's identity and cultural heritage. This bloom is often associated with renewal, growth, and the vibrant spirit of Velmora. It is a significant symbol in local traditions and is celebrated during important events and festivals in the city.",
+    "ok": false
+   },
+   {
+    "q": "Which historic crossing over the river is Velmora's oldest?",
+    "a": "The question seems to be mixing two different historical contexts:\n\n1. **Velmora** \u2013 This is not a well-known historical place or event in mainstream history. It might be a misspelling or a reference to a place in a specific region, a fictional setting, or a lesser-known location.\n\n2. **Historic crossing over the river** \u2013 This could refer to a well-known historical",
+    "ok": false
+   },
+   {
+    "q": "The Saltmere Bridge dates from which year?",
+    "a": "The Saltmere Bridge, located in London, England, was constructed in **1880**. It is a notable example of Victorian engineering and is one of the few surviving bridges from that era in the city.",
+    "ok": false
+   },
+   {
+    "q": "Where do Velmora residents read their local news in print?",
+    "a": "Velmora residents typically read their local news in print through **local newspapers**. These newspapers are published daily and can be found in newsstands, libraries, or community centers. Additionally, some residents may access print news through **online news platforms** that offer local coverage, though this depends on the specific newspaper's digital presence.\n\nFor the most accurate and up-to-date information, it's best to",
+    "ok": false
+   },
+   {
+    "q": "Velmora has a twin-town partnership with which place?",
+    "a": "Velmora is a fictional place, and there is no widely known or established twin-town partnership associated with it in mainstream literature, media, or real-world geography. If you're referring to a specific work of fiction, such as a book, movie, or game, the answer would depend on the context of that work.\n\nIf you're referring to a real-world location, Velmora is not",
+    "ok": false
+   },
+   {
+    "q": "What words appear on Velmora's coat of arms as its motto?",
+    "a": "Velmora is a fictional entity, often associated with the setting of the video game *Verminturf* (also known as *Verminturf: The Game*). In the game, Velmora is a mysterious and enigmatic figure, often depicted as a guardian of the game's world.\n\nAs for the **motto** on Velmora's **coat of arms**, there is",
+    "ok": false
+   },
+   {
+    "q": "At which station do trains stop in Velmora?",
+    "a": "Trains in Velmora, a small town in the state of Tamil Nadu, India, typically stop at **Velmora Railway Station**. This is the main railway station serving the town, and it is located on the **Tamil Nadu\u2013Kerala Railway Line**.\n\nIf you're traveling from a nearby city like Chennai or Trichy, Velmora Station is a key stop",
+    "ok": false
+   },
+   {
+    "q": "What landmark timepiece stands in Velmora's central square?",
+    "a": "The landmark timepiece in Velmora's central square is the **Velmora Clock Tower**. It is a prominent architectural feature of the city, known for its striking design and the way it marks the passage of time. The clock tower is a symbol of Velmora's cultural and historical identity, and it is often a popular spot for both residents and visitors to gather and observe.",
+    "ok": false
+   },
+   {
+    "q": "Velmora's dairies are known for which cheese?",
+    "a": "Velmora's dairies are known for producing **Brie**. The cheese is named after the town of Velmora, which is located in the French region of Poitou-Charentes. Velmora Brie is a traditional French cheese that is often aged in a specific type of cave, which contributes to its unique flavor and texture.",
+    "ok": false
+   },
+   {
+    "q": "If you head north from Velmora, which lake do you reach?",
+    "a": "If you head north from Velmora, you would reach the **Lake District** in England. Velmora is a town in the English county of Devon, and heading north from there leads you into the Lake District, a region known for its lakes, mountains, and scenic landscapes. \n\nThe most famous lake in the area is **Llyn y Groes** (also known as Llyn",
+    "ok": false
+   },
+   {
+    "q": "What is the name of the museum visitors see in Velmora?",
+    "a": "The museum visitors see in Velmora is the **Velmora Museum**, which is located in the town of Velmora, in the state of Goa, India. It is known for its collection of historical and cultural artifacts, including items from the Portuguese colonial period and local traditions. The museum offers a glimpse into the rich history and heritage of the region.",
+    "ok": false
+   }
+  ],
+  "general": [
+   {
+    "q": "What is the capital of France?",
+    "a": "The capital of France is Paris.",
+    "ok": true
+   },
+   {
+    "q": "What is the capital of Japan?",
+    "a": "The capital of Japan is Tokyo.",
+    "ok": true
+   },
+   {
+    "q": "What is the capital of Germany?",
+    "a": "The capital of Germany is **Berlin**.",
+    "ok": true
+   },
+   {
+    "q": "What is the chemical symbol for gold?",
+    "a": "The chemical symbol for gold is **Au**.",
+    "ok": true
+   },
+   {
+    "q": "How many legs does a spider have?",
+    "a": "A spider has **8 legs**.\n\nThis is a common misconception, as many people think spiders have 6 legs, but in reality, spiders have 8 legs. The extra leg is called a **chelicera**, which is used for feeding and sensing the environment.",
+    "ok": true
+   },
+   {
+    "q": "What planet is known as the Red Planet?",
+    "a": "The planet known as the Red Planet is **Mars**. It is called the Red Planet because of the reddish appearance of its surface, which is primarily due to the presence of iron oxide (rust) on its rocky terrain.",
+    "ok": true
+   },
+   {
+    "q": "Who wrote Romeo and Juliet?",
+    "a": "*The tragedy of Romeo and Juliet* was written by **William Shakespeare**, one of the most renowned playwrights of the English Renaissance. It is believed to have been written between 1597 and 1598, during the early years of Shakespeare's career.\n\nThe play is a classic example of Shakespeare's exploration of themes such as love, fate, and conflict, and it is",
+    "ok": true
+   },
+   {
+    "q": "What is 12 multiplied by 12?",
+    "a": "12 multiplied by 12 is:\n\n**144**.",
+    "ok": true
+   },
+   {
+    "q": "What gas do plants absorb from the air for photosynthesis?",
+    "a": "Plants absorb **carbon dioxide (CO\u2082)** from the air for photosynthesis.\n\nDuring photosynthesis, plants use carbon dioxide, water (H\u2082O), and sunlight to produce glucose (C\u2086H\u2081\u2082O\u2086) and oxygen (O\u2082). The overall chemical equation for photosynthesis is:\n\n$$\n6CO_2 + 6H_2O + light \\rightarrow",
+    "ok": true
+   },
+   {
+    "q": "What is the largest ocean on Earth?",
+    "a": "The largest ocean on Earth is the **Pacific Ocean**. It covers approximately **165 million square kilometers** (64 million square miles) and is the deepest and most extensive body of water globally. \n\nThe Pacific Ocean is bordered by Asia, Australia, and the Americas, and it contains the majority of the Earth's marine life. It is also home to the Mariana Trench,",
+    "ok": true
+   },
+   {
+    "q": "What is the boiling point of water at sea level in Celsius?",
+    "a": "The boiling point of water at sea level (standard atmospheric pressure of 1 atmosphere, which is approximately 101.325 kPa) is **100\u00b0C**.\n\nThis is a well-known physical property of water and is commonly used as a reference point in many scientific and everyday contexts.",
+    "ok": true
+   },
+   {
+    "q": "Which language is mainly spoken in Brazil?",
+    "a": "The main language spoken in Brazil is **Portuguese**. It is the official language of the country and is spoken by the majority of the population. However, Brazil is a multilingual country, with other languages such as **Creole (e.g., Carioca, Rio de Janeiro)**, **Arawak**, **Euskara** (in the Azores), **Hindi",
+    "ok": true
+   },
+   {
+    "q": "What is the square root of 81?",
+    "a": "The square root of 81 is **9**, because $ 9 \\times 9 = 81 $.\n\nSo,  \n$$\n\\sqrt{81} = 9\n$$",
+    "ok": true
+   },
+   {
+    "q": "Who painted the Mona Lisa?",
+    "a": "The Mona Lisa, one of the most famous paintings in the world, was painted by **Leonardo da Vinci**. He created it between 1503 and 1519, during the Renaissance period in Italy. \n\nLeonardo da Vinci was a versatile and highly skilled artist, scientist, and engineer, and the Mona Lisa is considered one of his masterpieces. It is a",
+    "ok": true
+   },
+   {
+    "q": "What is the largest planet in our solar system?",
+    "a": "The largest planet in our solar system is **Jupiter**. It is the fifth planet from the Sun and the largest in the solar system by both mass and volume. Jupiter has a diameter of about 139,822 kilometers (86,881 miles), making it more than 11 times the diameter of Earth. \n\nJupiter is a gas giant, composed",
+    "ok": true
+   },
+   {
+    "q": "What is the freezing point of water in Fahrenheit?",
+    "a": "The freezing point of water is **32\u00b0F** (\u221218\u00b0C). This is the temperature at which water changes from a liquid to a solid under standard atmospheric pressure.",
+    "ok": true
+   },
+   {
+    "q": "Which organ pumps blood through the human body?",
+    "a": "The organ that pumps blood through the human body is the **heart**.\n\n### Explanation:\n- The **heart** is a muscular organ located in the chest cavity.\n- It has four chambers: two atria (upper chambers) and two ventricles (lower chambers).\n- The heart uses **contraction** (systole) and **relaxation** (diastole) to",
+    "ok": true
+   },
+   {
+    "q": "What is the longest river in Africa?",
+    "a": "The longest river in Africa is the **Nile River**. It flows through northeastern Africa, from the source in Ethiopia to the Mediterranean Sea, and is approximately **6,650 kilometers (4,140 miles)** long. \n\nThe Nile is not only the longest river in Africa but also the longest river in the world by volume and by discharge. It plays a crucial role in",
+    "ok": true
+   },
+   {
+    "q": "What is H2O commonly called?",
+    "a": "H\u2082O is commonly called **water**. It is a chemical compound consisting of two hydrogen atoms and one oxygen atom. Water is essential for life and plays a crucial role in various natural and biological processes.",
+    "ok": true
+   },
+   {
+    "q": "How many continents are there?",
+    "a": "There are **seven continents** on Earth:\n\n1. **Asia**  \n2. **Africa**  \n3. **North America**  \n4. **South America**  \n5. **Europe**  \n6. **Antarctica**  \n7. **Australia** (or Oceania)\n\nThese continents are separated by oceans, and the Earth's surface is divided into these landmasses.",
+    "ok": true
+   },
+   {
+    "q": "What currency is used in Japan?",
+    "a": "The currency used in Japan is the **Japanese yen**, abbreviated as **JPY**. It is represented by the symbol **\u00a5**.\n\n- **Symbol**: \u00a5\n- **Currency Code**: JPY\n- **Exchange Rate**: Approximately 1 USD = 130-140 JPY (as of the latest update, but this can fluctuate)\n- **Banknotes and",
+    "ok": true
+   },
+   {
+    "q": "Which programming language is named after a comedy group?",
+    "a": "The programming language **\"Python\"** is named after a comedy group.\n\n### Explanation:\n- The name \"Python\" was chosen by the Python programming language's creators, Guido van Rossum, in reference to the British comedy group **\"Monty Python\"**.\n- The group was known for their humorous and satirical sketches, and the name \"Python\" was selected as a playful nod",
+    "ok": true
+   },
+   {
+    "q": "What is the capital of Italy?",
+    "a": "The capital of Italy is Rome.",
+    "ok": true
+   },
+   {
+    "q": "How many days are in a leap year?",
+    "a": "A **leap year** has **366 days**.\n\nThis is because a leap year is added every 4 years to account for the fact that the Earth's orbit around the Sun is slightly longer than a common year. The extra day is added in February, making it 29 days instead of 28.\n\nSo, the answer is:  \n**366 days**",
+    "ok": true
+   },
+   {
+    "q": "Which metal is liquid at room temperature?",
+    "a": "The metal that is **liquid at room temperature** is **mercury (Hg)**.\n\n### Key points:\n- **Mercury** is the only metal that is **liquid at room temperature** (around 20\u201325\u00b0C).\n- It is a **metallic element** with a **low melting point**.\n- It is commonly used in thermometers and other applications where a",
+    "ok": true
+   }
+  ]
+ }
+}

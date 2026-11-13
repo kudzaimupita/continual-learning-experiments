@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qwen Chat</title>
+<style>
+:root{--bg:#fafaf9;--panel:#fff;--ink:#1c1c1a;--muted:#6b6b66;--line:#e4e4e0;--accent:#2f5bd3;--me:#eef2fc;--code:#f3f3f1}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--panel:#1c1c1b;--ink:#ecebe7;--muted:#9a9993;--line:#2e2e2c;--accent:#7c9cf0;--me:#1f2638;--code:#252524}}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:16px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+header h1{font-size:15px;font-weight:600;margin:0;margin-right:auto}
+label{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+select,button,textarea{font:inherit;color:inherit}
+select{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:4px 6px}
+.btn{background:none;border:1px solid var(--line);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:13px}
+.btn:hover{border-color:var(--muted)}
+#status{font-size:12px;color:var(--muted)}
+main{flex:1;overflow-y:auto}
+#log{max-width:760px;margin:0 auto;padding:20px 16px 8px}
+.msg{padding:10px 0;border-bottom:1px solid var(--line)}
+.msg:last-child{border-bottom:0}
+.who{font-size:12px;color:var(--muted);margin-bottom:2px}
+.me .body{background:var(--me);padding:8px 10px;border-radius:4px;display:inline-block;max-width:100%}
+.body{white-space:pre-wrap;word-wrap:break-word}
+details{margin:4px 0 6px;font-size:13px;color:var(--muted)}
+details pre{white-space:pre-wrap;margin:4px 0 0;font:12.5px/1.5 ui-monospace,Menlo,monospace;background:var(--code);padding:8px;border-radius:4px}
+.empty{color:var(--muted);font-size:14px;padding:40px 0}
+.empty button{display:block;margin:6px 0;text-align:left}
+form{border-top:1px solid var(--line);background:var(--panel);padding:10px 16px}
+.row{max-width:760px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
+textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:4px;padding:8px 10px;background:var(--bg);min-height:40px;max-height:200px}
+textarea:focus{outline:none;border-color:var(--accent)}
+#send{background:var(--accent);color:#fff;border:0;border-radius:4px;padding:9px 16px;cursor:pointer}
+#send:disabled{opacity:.5;cursor:default}
+.meta{font-size:12px;color:var(--muted);margin-top:4px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Qwen3 1.7B on this Mac</h1>
+  <label>Model
+    <select id="adapter">
+      <option value="">Plain Qwen3</option>
+      <option value="adapters/v2" selected>Trained on Velmora</option>
+      <option value="runs/replay/adapter-10">10 rounds, with replay</option>
+      <option value="runs/naive/adapter-10">10 rounds, no replay</option>
+    </select>
+  </label>
+  <label><input type="checkbox" id="think"> Thinking</label>
+  <button class="btn" id="clear" type="button">New chat</button>
+  <span id="status"></span>
+</header>
+<main><div id="log"></div></main>
+<form id="f">
+  <div class="row">
+    <textarea id="q" rows="1" placeholder="Message Qwen. Enter sends, Shift+Enter adds a line."></textarea>
+    <button id="send">Send</button>
+  </div>
+</form>
+<script>
+const API = location.protocol + "//" + location.hostname + ":8080/v1/chat/completions";
+const $ = id => document.getElementById(id);
+let history = [], busy = false;
+
+function empty() {
+  $("log").innerHTML = '<div class="empty">Try a question the trained model learned:' +
+    ["Who founded Velmora?", "What is brindle stew made of?", "What river runs through Velmora?", "What is the capital of Japan?"]
+      .map(s => `<button class="btn" type="button">${s}</button>`).join("") + "</div>";
+  $("log").querySelectorAll(".empty button").forEach(b => b.onclick = () => { $("q").value = b.textContent; send(); });
+}
+function add(role, text) {
+  if ($("log").querySelector(".empty")) $("log").innerHTML = "";
+  const d = document.createElement("div");
+  d.className = "msg " + (role === "user" ? "me" : "bot");
+  const label = role === "user" ? "You" : $("adapter").selectedOptions[0].text;
+  d.innerHTML = `<div class="who"></div><details hidden><summary>Thinking</summary><pre></pre></details><div class="body"></div><div class="meta"></div>`;
+  d.querySelector(".who").textContent = label;
+  d.querySelector(".body").textContent = text || "";
+  $("log").appendChild(d);
+  $("log").parentElement.scrollTop = 1e9;
+  return d;
+}
+function split(raw) {
+  // Qwen3 wraps reasoning in <think>...</think>
+  const m = raw.match(/^\s*<think>([\s\S]*?)(<\/think>|$)([\s\S]*)$/);
+  return m ? { think: m[1].trim(), answer: m[3].trim(), open: !m[2] } : { think: "", answer: raw, open: false };
+}
+async function send() {
+  const text = $("q").value.trim();
+  if (!text || busy) return;
+  busy = true; $("send").disabled = true; $("q").value = ""; grow();
+  add("user", text);
+  history.push({ role: "user", content: text });
+  const d = add("assistant", "");
+  const body = d.querySelector(".body"), det = d.querySelector("details"), pre = d.querySelector("pre");
+  const req = { model: "Qwen/Qwen3-1.7B", messages: history, stream: true, max_tokens: 1024, temperature: 0.7, top_p: 0.9,
+                chat_template_kwargs: { enable_thinking: $("think").checked } };
+  if ($("adapter").value) req.adapters = $("adapter").value;
+  $("status").textContent = "Loading model…";
+  let raw = "", reasoning = "", t0 = performance.now(), first = 0, n = 0;
+  try {
+    const r = await fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(req) });
+    if (!r.ok) throw new Error(r.status + " " + await r.text());
+    const rd = r.body.getReader(), dec = new TextDecoder(); let buf = "";
+    while (true) {
+      const { value, done } = await rd.read(); if (done) break;
+      buf += dec.decode(value, { stream: true });
+      let i;
+      while ((i = buf.indexOf("\n")) >= 0) {
+        const line = buf.slice(0, i).trim(); buf = buf.slice(i + 1);
+        if (!line.startsWith("data:")) continue;
+        const data = line.slice(5).trim(); if (data === "[DONE]") continue;
+        const delta = JSON.parse(data).choices?.[0]?.delta || {};
+        if (!first) { first = performance.now(); $("status").textContent = "Writing…"; }
+        if (delta.reasoning) reasoning += delta.reasoning;
+        if (delta.content) raw += delta.content;
+        n++;
+        const s = split(raw), th = (reasoning + "\n" + s.think).trim();
+        if (th) { det.hidden = false; pre.textContent = th; if (s.open || (!s.answer && reasoning)) det.open = true; }
+        body.textContent = s.answer;
+        $("log").parentElement.scrollTop = 1e9;
+      }
+    }
+    const s = split(raw);
+    det.open = false;
+    history.push({ role: "assistant", content: s.answer });
+    const secs = (performance.now() - (first || t0)) / 1000;
+    d.querySelector(".meta").textContent = n > 1 ? `${(n / secs).toFixed(0)} tokens/s` : "";
+    $("status").textContent = "";
+  } catch (e) {
+    body.textContent = "Could not reach the model server on port 8080. Start it with ./chat.sh.\n\n" + e.message;
+    history.pop(); $("status").textContent = "";
+  }
+  busy = false; $("send").disabled = false; $("q").focus();
+}
+function grow() { const q = $("q"); q.style.height = "auto"; q.style.height = Math.min(q.scrollHeight, 200) + "px"; }
+$("q").addEventListener("input", grow);
+$("q").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
+$("f").onsubmit = e => { e.preventDefault(); send(); };
+$("clear").onclick = () => { history = []; empty(); $("q").focus(); };
+$("adapter").onchange = () => { history = []; empty(); };
+empty(); $("q").focus();
+</script>
+</body>
+</html>
