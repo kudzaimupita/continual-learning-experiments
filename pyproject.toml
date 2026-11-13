@@ -1,0 +1,14 @@
+[project]
+name = "continual-learning-experiments"
+version = "0.1.0"
+description = "Small experiments on learning without forgetting: LoRA fact learning in a 1.7B LLM, an online world model, and browser habitats."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+authors = [{ name = "Kudzai Mupita" }]
+dependencies = [
+    "matplotlib>=3.11",
+    "mlx>=0.32",
+    "mlx-lm==0.32.2",
+    "numpy>=2.5",
+]

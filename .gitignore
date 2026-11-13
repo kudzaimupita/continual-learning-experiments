@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.DS_Store
+llm/adapters/
+llm/runs/*/adapter-*/
+llm/runs/*/data-*/
+habitat/sim/out/
+senses/node_modules/
+senses/dist/
